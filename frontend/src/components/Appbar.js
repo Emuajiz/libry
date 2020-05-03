@@ -8,7 +8,6 @@ import { Icon } from '@iconify/react';
 import bxBell from '@iconify/icons-bx/bx-bell';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton'
-import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme) => ({
   root: {

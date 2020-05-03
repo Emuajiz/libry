@@ -1,14 +1,14 @@
 import React from 'react';
-import { createMuiTheme, responsiveFontSizes, ThemeProvider, makeStyles } from '@material-ui/core/styles';
-import { Card, CardContent, CardMedia, Typography, Chip, GridList, GridListTile } from '@material-ui/core'
-import { Icon } from '@iconify/react';
+import { createMuiTheme, responsiveFontSizes, makeStyles } from '@material-ui/core/styles';
+import { Card, CardContent, CardMedia, Typography, Chip} from '@material-ui/core'
 
 let theme = createMuiTheme();
 theme = responsiveFontSizes(theme);
 
 const useStyles = makeStyles({
     root: {
-        maxWidth: 180,
+        minWidth: 120,
+        maxWidth: '100%',
         marginRight: theme.spacing(1),
         marginBottom: theme.spacing(1),
     },

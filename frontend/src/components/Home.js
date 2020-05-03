@@ -1,15 +1,14 @@
 import React from 'react';
 import { createMuiTheme, responsiveFontSizes, ThemeProvider, makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
+import { Typography, Divider, Button, Box } from '@material-ui/core';
 import CategoriesTab from './CategoriesTab'
 import Booklist from './BookList'
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        margin: theme.spacing(2),
+        paddingBottom: '11vh',
     },
-    Title: {
+    spaceTop: {
         marginTop: theme.spacing(2),
     },
 }));
@@ -23,11 +22,18 @@ export default function Content() {
     return (
         <div className={classes.root}>
             <ThemeProvider theme={theme}>
-                <Typography variant="h4" component='h1'>Selamat datang, Aldi</Typography>
-                <Divider />
+                <Box className={classes.spaceTop}>
+                    <Typography variant="h4" component='h1'>Selamat datang, Aldi</Typography>
+                </Box>
+                <Divider className={classes.spaceTop}/>
                 <CategoriesTab />
-                <Typography variant='h5' component='h2' className={classes.Title}>Buku pilihan untukmu</Typography>
+                <Typography variant='h5' component='h2' className={classes.spaceTop}>Buku terpopuler saat ini</Typography>
                 <Booklist />
+                <Typography variant='h5' component='h2' className={classes.spaceTop}>Buku pilihan untumu</Typography>
+                <Booklist />
+                <Button fullWidth variant='contained' size='medium' color='primary' className={classes.spaceTop}>
+                    Lainnya
+                </Button>
             </ThemeProvider>
         </div>
     );
