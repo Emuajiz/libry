@@ -19,16 +19,11 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Botnav() {
+export default function Botnav( {value, onChange}) {
   const classes = useStyles();
-  const [value, setValue] = React.useState('beranda');
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
 
   return (
-    <BottomNavigation value={value} onChange={handleChange} className={classes.root}>
+    <BottomNavigation value={value} onChange={(e, tab) => onChange(tab)} className={classes.root}>
       <BottomNavigationAction label="Beranda" value="beranda" icon={<Icon icon={bxHomeSmile} style={{ color: '#151515', fontSize: '28px' }} />} />
       <BottomNavigationAction label="Koleksiku" value="koleksiku" icon={<Icon icon={bookIcon} style={{ color: '#151515', fontSize: '24px' }} />} />
       <BottomNavigationAction label="Favorit" value="favorit" icon={<Icon icon={roundFavoriteBorder} style={{ color: '#151515', fontSize: '28px' }} />} />

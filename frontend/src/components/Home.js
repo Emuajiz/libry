@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
 let theme = createMuiTheme();
 theme = responsiveFontSizes(theme);
 
-export default function Content() {
+export default function Home() {
     const classes = useStyles();
 
     return (
