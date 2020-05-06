@@ -7,6 +7,7 @@ const useStyles = makeStyles((theme) => ({
     media: {
         height: '10rem',
         boxShadow: '5px 10px 32px rgba(21, 21, 21, 0.2)',
+        borderRadius: 4,
     },
     Booklist: {
         marginRight: theme.spacing(1),

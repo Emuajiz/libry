@@ -1,24 +1,14 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { GridList, GridListTile, CardContent, CardMedia, Typography, Chip } from '@material-ui/core'
+import { Grid, GridList, GridListTile, CardContent, CardMedia, Typography, Chip } from '@material-ui/core'
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        minWidth: 120,
-        maxWidth: '100%',
-        marginRight: theme.spacing(1),
-        marginBottom: theme.spacing(1),
-    },
-    title: {
-        fontSize: 173,
-    },
     media: {
-        height: 280,
-        boxhadow: '5px 10px 32px rgba(21, 21, 21, 0.2)',
-    },
-    pos: {
-        marginBottom: 12,
+        height: 300,
+        boxShadow: '5px 10px 32px rgba(21, 21, 21, 0.2)',
+        borderRadius: 4,
     },
     Booklist: {
         marginRight: theme.spacing(1),
@@ -29,59 +19,115 @@ const useStyles = makeStyles((theme) => ({
         overflow: 'hidden',
         marginTop: theme.spacing(3),
     },
+    content: {
+        paddingTop: theme.spacing(3),
+        padding: 0,
+    },
     gridlistChild: {
         flexWrap: 'nowrap',
     },
-    Title: {
-        marginBottom: theme.spacing(2),
+    progressBaca: {
+        marginTop: theme.spacing(1),
+        marginBottom: theme.spacing(1),
     },
 }));
 
 export default function BookGridBig() {
     const classes = useStyles();
     return (
-        <div className={classes.gridlist}>
+        <Grid container className={classes.gridlist} direction='column'>
             <GridList className={classes.gridlistChild} cellHeight={'auto'}>
                 <GridListTile className={classes.Booklist}>
                     <CardMedia className={classes.media}
                         image={require('../images/contohBuku.jpg')} />
-                    <CardContent>
-                        <Typography variant="h6" component="h3">
+                    <CardContent className={classes.content}>
+                        <Typography variant="h3" component="h2">
                             Judulnya apa ya?
                         </Typography>
                         <Typography variant="body1" gutterBottom component="h4" color='textSecondary'>
                             Penulis
                         </Typography>
+                        <Grid item direction='row' className={classes.progressBaca}>
+                            <LinearProgress variant='determinate' value={80} color='secondary' />
+                            <Typography variant="subtitle1" component='span'>80%</Typography>
+                        </Grid>
+                        <Typography variant='h4' component='h3' paragraph>3 hari tersisa</Typography>
                         <Chip variant="outlined" size="small" label="Kategori" />
                     </CardContent>
                 </GridListTile>
-                <GridListTile className={classes.Booklist} >
+                <GridListTile className={classes.Booklist}>
                     <CardMedia className={classes.media}
                         image={require('../images/contohBuku.jpg')} />
-                    <CardContent>
-                        <Typography variant="h6" component="h3">
+                    <CardContent className={classes.content}>
+                        <Typography variant="h3" component="h2">
                             Judulnya apa ya?
                         </Typography>
                         <Typography variant="body1" gutterBottom component="h4" color='textSecondary'>
                             Penulis
                         </Typography>
+                        <Grid item direction='row' className={classes.progressBaca}>
+                            <LinearProgress variant='determinate' value={80} color='secondary' />
+                            <Typography variant="subtitle1" component='span'>80%</Typography>
+                        </Grid>
+                        <Typography variant='h4' component='h3' paragraph>3 hari tersisa</Typography>
                         <Chip variant="outlined" size="small" label="Kategori" />
                     </CardContent>
                 </GridListTile>
-                <GridListTile className={classes.Booklist} >
+                <GridListTile className={classes.Booklist}>
                     <CardMedia className={classes.media}
                         image={require('../images/contohBuku.jpg')} />
-                    <CardContent>
-                        <Typography variant="h6" component="h3">
+                    <CardContent className={classes.content}>
+                        <Typography variant="h3" component="h2">
                             Judulnya apa ya?
                         </Typography>
                         <Typography variant="body1" gutterBottom component="h4" color='textSecondary'>
                             Penulis
                         </Typography>
+                        <Grid item direction='row' className={classes.progressBaca}>
+                            <LinearProgress variant='determinate' value={80} color='secondary' />
+                            <Typography variant="subtitle1" component='span'>80%</Typography>
+                        </Grid>
+                        <Typography variant='h4' component='h3' paragraph>3 hari tersisa</Typography>
+                        <Chip variant="outlined" size="small" label="Kategori" />
+                    </CardContent>
+                </GridListTile>
+                <GridListTile className={classes.Booklist}>
+                    <CardMedia className={classes.media}
+                        image={require('../images/contohBuku.jpg')} />
+                    <CardContent className={classes.content}>
+                        <Typography variant="h3" component="h2">
+                            Judulnya apa ya?
+                        </Typography>
+                        <Typography variant="body1" gutterBottom component="h4" color='textSecondary'>
+                            Penulis
+                        </Typography>
+                        <Grid item direction='row' className={classes.progressBaca}>
+                            <LinearProgress variant='determinate' value={80} color='secondary' />
+                            <Typography variant="subtitle1" component='span'>80%</Typography>
+                        </Grid>
+                        <Typography variant='h4' component='h3' paragraph>3 hari tersisa</Typography>
+                        <Chip variant="outlined" size="small" label="Kategori" />
+                    </CardContent>
+                </GridListTile>
+                <GridListTile className={classes.Booklist}>
+                    <CardMedia className={classes.media}
+                        image={require('../images/contohBuku.jpg')} />
+                    <CardContent className={classes.content}>
+                        <Typography variant="h3" component="h2">
+                            Judulnya apa ya?
+                        </Typography>
+                        <Typography variant="body1" gutterBottom component="h4" color='textSecondary'>
+                            Penulis
+                        </Typography>
+                        <Grid item direction='row' className={classes.progressBaca}>
+                            <LinearProgress variant='determinate' value={80} color='secondary' />
+                            <Typography variant="subtitle1" component='span'>80%</Typography>
+                        </Grid>
+                        <Typography variant='h4' component='h3' paragraph>3 hari tersisa</Typography>
                         <Chip variant="outlined" size="small" label="Kategori" />
                     </CardContent>
                 </GridListTile>
             </GridList>
-        </div>
+        </Grid>
     );
 }
