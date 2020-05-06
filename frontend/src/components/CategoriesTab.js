@@ -40,7 +40,7 @@ export default function CategoriesTab() {
             <ThemeProvider theme={theme}>
                 <Typography variant="h5">Telusur</Typography>
                 <div className={classes.gridlist}>
-                    <GridList className={classes.gridlistChild} cellHeight='auto'>
+                    <GridList className={classes.gridlistChild} cellHeight={65}>
                         <GridListTile rows='1'>
                             <Button variant='outlined' className={classes.categories}>
                                 <Icon icon={bxsTrophy} style={{ color: '#151515', fontSize: '5em' }} />

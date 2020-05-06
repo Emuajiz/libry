@@ -8,7 +8,8 @@ import bookIcon from '@iconify/icons-ps/book';
 import roundFavoriteBorder from '@iconify/icons-ic/round-favorite-border';
 import bxUserCircle from '@iconify/icons-bx/bx-user-circle';
 
-
+const primary = '#CC5A71';
+const secondary = '#C89B7B';
 
 const useStyles = makeStyles({
   root: {
@@ -24,10 +25,10 @@ export default function Botnav( {value, onChange}) {
 
   return (
     <BottomNavigation value={value} onChange={(e, tab) => onChange(tab)} className={classes.root}>
-      <BottomNavigationAction label="Beranda" value="beranda" icon={<Icon icon={bxHomeSmile} style={{ color: '#151515', fontSize: '28px' }} />} />
-      <BottomNavigationAction label="Koleksiku" value="koleksiku" icon={<Icon icon={bookIcon} style={{ color: '#151515', fontSize: '24px' }} />} />
-      <BottomNavigationAction label="Favorit" value="favorit" icon={<Icon icon={roundFavoriteBorder} style={{ color: '#151515', fontSize: '28px' }} />} />
-      <BottomNavigationAction label="Profil" value="profil" icon={<Icon icon={bxUserCircle} style={{ color: '#151515', fontSize: '28px' }} />} />
+      <BottomNavigationAction label="Beranda" value="beranda" icon={<Icon icon={bxHomeSmile} style={{ color: secondary, fontSize: '28px' }} />} />
+      <BottomNavigationAction label="Koleksiku" value="koleksiku" icon={<Icon icon={bookIcon} style={{ color: secondary, fontSize: '24px' }} />} />
+      <BottomNavigationAction label="Favorit" value="favorit" icon={<Icon icon={roundFavoriteBorder} style={{ color: secondary, fontSize: '28px' }} />} />
+      <BottomNavigationAction label="Profil" value="profil" icon={<Icon icon={bxUserCircle} style={{ color: secondary, fontSize: '28px' }} />} />
     </BottomNavigation>
   );
 }

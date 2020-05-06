@@ -2,6 +2,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import { Grid, CssBaseline, Container } from '@material-ui/core'
+import { createMuiTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles';
 import AppBar from './components/Appbar'
 import Botnav from './components/Botnav'
 import Home from './components/Home'
@@ -14,6 +15,14 @@ const containerStyles = {
   background: 'white',
 };
 
+let theme = createMuiTheme({
+  palette: {
+      primary: { main: '#CC5A71' },
+      secondary: { main: '#C89B7B' },
+  },
+});
+theme = responsiveFontSizes(theme);
+
 function App() {
   const [tab, setTab] = React.useState('beranda');
 
@@ -22,16 +31,16 @@ function App() {
       case 'beranda':
         return <Home />;
       case 'koleksiku':
-        return <Koleksiku/>;
+        return <Koleksiku />;
       case 'favorit':
-        return <Favorit/>;
+        return <Favorit />;
       case 'profil':
-        return <Profil/>;
+        return <Profil />;
     }
   }
 
   return (
-    <div className="App">
+    <ThemeProvider theme={theme}>
       <Grid container direction="column">
         <AppBar />
         <div style={containerStyles}>
@@ -40,9 +49,9 @@ function App() {
           </Container>
         </div>
         <Botnav value={tab} onChange={setTab} />
+        <CssBaseline />
       </Grid>
-      <CssBaseline />
-    </div>
+      </ThemeProvider>
   );
 }
 
