@@ -13,7 +13,7 @@ const secondary = '#C89B7B';
 const useStyles = makeStyles({
   root: {
     width: '100%',
-    height: '10vh',
+    height: '3.8rem',
     bottom: '0',
     position: 'fixed',
   },

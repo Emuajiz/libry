@@ -6,15 +6,13 @@ import SearchIcon from '@material-ui/icons/Search';
 import { Icon } from '@iconify/react';
 import bxBell from '@iconify/icons-bx/bx-bell';
 import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton'
+import IconButton from '@material-ui/core/IconButton';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    height: '8vh',
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
+    height: '3.375rem',
+    padding: 0,
   },
   search: {
     position: 'relative',
@@ -31,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   searchIcon: {
-    padding: theme.spacing(0, 2),
+    padding: theme.spacing(0),
     height: '100%',
     position: 'absolute',
     pointerEvents: 'none',
@@ -45,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+    paddingLeft: `calc(1em + ${theme.spacing(3)}px)`,
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('sm')]: {

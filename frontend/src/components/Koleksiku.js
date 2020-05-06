@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Button, Grid } from '@material-ui/core';
 import { Icon } from '@iconify/react';
 import bxArchiveIn from '@iconify/icons-bx/bx-archive-in';
-import Booklist from './BookList'
+import BookGridBig from './BookGridBig'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -31,7 +31,7 @@ export default function Koleksiku() {
                     Arsip Buku
                 </Button>
             </Grid>
-            <Booklist />
+            <BookGridBig />
         </div>
     );
 }

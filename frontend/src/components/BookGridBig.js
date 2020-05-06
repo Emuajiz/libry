@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Booklist() {
+export default function BookGridBig() {
     const classes = useStyles();
     return (
         <div className={classes.gridlist}>
