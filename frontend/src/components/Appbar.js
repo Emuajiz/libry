@@ -1,5 +1,4 @@
 import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import InputBase from '@material-ui/core/InputBase';
 import { fade, makeStyles } from '@material-ui/core/styles';
@@ -63,7 +62,6 @@ export default function Appbar() {
 
   return (
     <div className={classes.root}>
-      <AppBar color='inherit' position='realtive'>
         <Toolbar className={classes.root}>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
@@ -84,7 +82,6 @@ export default function Appbar() {
           </IconButton>
           <Avatar alt="Robert William" src={require('../images/christian-buehner-DItYlc26zVI-unsplash.jpg')} />
         </Toolbar>
-      </AppBar>
     </div>
   );
 }

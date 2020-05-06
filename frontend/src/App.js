@@ -3,7 +3,7 @@ import React from 'react';
 import logo from './logo.svg';
 import { Grid, CssBaseline, Container } from '@material-ui/core'
 import { createMuiTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles';
-import AppBar from './components/Appbar'
+
 import Botnav from './components/Botnav'
 import Home from './components/Home'
 import Koleksiku from './components/Koleksiku'
@@ -42,7 +42,6 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Grid container direction="column">
-        <AppBar />
         <div style={containerStyles}>
           <Container maxWidth='xs'>
             {renderView()}

@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Divider, Button, Box } from '@material-ui/core';
+import AppBar from './Appbar'
 import CategoriesTab from './CategoriesTab'
 import Booklist from './BookList'
 
@@ -19,6 +20,7 @@ export default function Home() {
 
     return (
         <div className={classes.root}>
+            <AppBar />
             <Box className={classes.spaceTop}>
                 <Typography variant="h4" component='h1'>Selamat datang, Aldi</Typography>
             </Box>
