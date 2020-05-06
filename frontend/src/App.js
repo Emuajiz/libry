@@ -17,8 +17,8 @@ const containerStyles = {
 
 let theme = createMuiTheme({
   palette: {
-      primary: { main: '#CC5A71' },
-      secondary: { main: '#C89B7B' },
+    secondary: { main: '#CC5A71' },
+      primary: { main: '#C89B7B' },
   },
 });
 theme = responsiveFontSizes(theme);

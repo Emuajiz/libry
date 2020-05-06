@@ -1,11 +1,9 @@
 import React from 'react';
-import { createMuiTheme, responsiveFontSizes, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { GridList, GridListTile, CardContent, CardMedia, Typography, Chip } from '@material-ui/core'
 
-let theme = createMuiTheme();
-theme = responsiveFontSizes(theme);
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     root: {
         minWidth: 120,
         maxWidth: '100%',
@@ -37,7 +35,7 @@ const useStyles = makeStyles({
     Title: {
         marginBottom: theme.spacing(2),
     },
-});
+}));
 
 export default function Booklist() {
     const classes = useStyles();

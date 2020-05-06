@@ -28,7 +28,7 @@ export default function Home() {
             <Booklist />
             <Typography variant='h5' component='h2' className={classes.spaceTop}>Buku pilihan untumu</Typography>
             <Booklist />
-            <Button fullWidth variant='contained' size='medium' color='primary' className={classes.spaceTop}>
+            <Button fullWidth variant='contained' size='medium' color='secondary' className={classes.spaceTop}>
                 Lainnya
             </Button>
         </div>

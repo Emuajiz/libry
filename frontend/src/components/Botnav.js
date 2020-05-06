@@ -8,7 +8,6 @@ import bookIcon from '@iconify/icons-ps/book';
 import roundFavoriteBorder from '@iconify/icons-ic/round-favorite-border';
 import bxUserCircle from '@iconify/icons-bx/bx-user-circle';
 
-const primary = '#CC5A71';
 const secondary = '#C89B7B';
 
 const useStyles = makeStyles({
