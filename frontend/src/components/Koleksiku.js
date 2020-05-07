@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { Typography, Button, Grid } from '@material-ui/core';
 import { Icon } from '@iconify/react';
 import bxArchiveIn from '@iconify/icons-bx/bx-archive-in';
@@ -17,6 +17,18 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+const BtnGradient = withStyles((theme) => ({
+    root: {
+        color: '#F2F2F2',
+        background: 'linear-gradient(90deg, #CC5A71 0%, #FF7EB3 100%)',
+        borderRadius: 8,
+        '&:hover': {
+            background: 'linear-gradient(90deg, #CC5A71 0%, #FF7EB3 100%)',
+        },
+        textTransform: 'none',
+    },
+}))(Button);
+
 export default function Koleksiku() {
     const classes = useStyles();
     return (
@@ -27,10 +39,10 @@ export default function Koleksiku() {
                     <Typography variant='subtitle2' component='span'>Ada 8 buku tersimpan</Typography>
                 </Grid>
                 <div style={{ flexGrow: 1 }} />
-                <Button variant="contained" disableElevation color='secondary'>
-                    <Icon icon={bxArchiveIn} style={{ color: '#f2f2f2', fontSize: '25px', marginRight: '6px', }} />
+                <BtnGradient variant="contained" disableElevation color='secondary'>
+                    <Icon icon={bxArchiveIn} style={{ color: '#f2f2f2', fontSize: '1.5625rem', marginRight: 6, }} />
                     Arsip Buku
-                </Button>
+                </BtnGradient>
             </Grid>
             <BookGridBig />
         </div>
