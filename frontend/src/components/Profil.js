@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import { Typography, Avatar, Grid, IconButton, Badge, Button, Box } from '@material-ui/core';
-import { Icon, InlineIcon } from '@iconify/react';
+import { Typography, Avatar, Grid, IconButton, Badge, Button } from '@material-ui/core';
+import { Icon } from '@iconify/react';
 import bxCamera from '@iconify/icons-bx/bx-camera';
 import userAvatarFilledAlt from '@iconify/icons-carbon/user-avatar-filled-alt';
 import bxChevronRight from '@iconify/icons-bx/bx-chevron-right';
