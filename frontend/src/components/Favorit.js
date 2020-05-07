@@ -10,7 +10,7 @@ import BookList from './BookList'
 const useStyles = makeStyles((theme) => ({
     root: {
         paddingTop: '1.5rem',
-        paddingBottom: '11vh',
+        paddingBottom: '5rem',
         height: `100vh`,
     },
     spaceTop: {

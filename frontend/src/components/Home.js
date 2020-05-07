@@ -10,7 +10,7 @@ import BookGrid from './BookGrid'
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        paddingBottom: '4.2rem',
+        paddingBottom: '5rem',
     },
     spaceTop: {
         marginTop: theme.spacing(1),
