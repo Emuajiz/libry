@@ -50,7 +50,7 @@ let theme = createMuiTheme({
 theme = responsiveFontSizes(theme);
 
 function App() {
-  const [tab, setTab] = React.useState('profil');
+  const [tab, setTab] = React.useState('beranda');
 
   function renderView() {
     switch (tab) {
