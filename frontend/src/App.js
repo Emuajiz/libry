@@ -1,16 +1,15 @@
 /* eslint-disable default-case */
 import React from 'react';
 import logo from './logo.svg';
-import { Grid, CssBaseline, Container, Button } from '@material-ui/core'
+import { Grid, CssBaseline, Container } from '@material-ui/core'
 import { createMuiTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import Botnav from './components/Botnav'
 import Home from './components/Home'
 import Koleksiku from './components/Koleksiku'
 import Favorit from './components/Favorit'
 import Profil from './components/Profil'
-import Coba from './components/coba'
 
 const containerStyles = {
   width: '100%',
