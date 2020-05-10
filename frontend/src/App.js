@@ -10,6 +10,7 @@ import Home from './components/Home'
 import Koleksiku from './components/Koleksiku'
 import Favorit from './components/Favorit'
 import Profil from './components/Profil'
+import overviewBuku from './components/overviewBuku'
 
 const containerStyles = {
   width: '100%',
@@ -40,10 +41,13 @@ let theme = createMuiTheme({
       fontWeight: 500,
     },
     subtitle1: {
-      fontSize: 12,
+      fontSize: '0.75rem',
     },
     body1: {
-      fontSize: '0.75rem',
+      fontSize: '0.875rem',
+      lineHeight: '175%',
+      textAlign: 'justify',
+      fontWeight: 400,
     },
   },
 });
@@ -51,13 +55,14 @@ let theme = createMuiTheme({
 theme = responsiveFontSizes(theme);
 
 function App() {
-  const [tab, setTab] = React.useState('beranda');
+  const [tab, setTab] = React.useState('');
+  const currentPath = window.location.pathname;
 
   return (
     <Router>
       <ThemeProvider theme={theme}>
-        <Grid container direction="column">
-          <Container maxWidth='xs' style={containerStyles}>
+        <Grid container direction="column" style={containerStyles}>
+          <Container maxWidth='xs'>
             {/* <Coba /> */}
             <Switch>
               {/* {renderView()} */}
@@ -65,9 +70,10 @@ function App() {
               <Route path='/koleksiku' exact component={Koleksiku} />
               <Route path='/favorit' exact component={Favorit} />
               <Route path='/profil' exact component={Profil} />
+              <Route path='/books' exact component={overviewBuku} />
             </Switch>
           </Container>
-          <Botnav value={tab} onChange={setTab} />
+          {!currentPath.includes('books') ? <Botnav value={tab} onChange={setTab} /> : null }
           <CssBaseline />
         </Grid>
       </ThemeProvider>
