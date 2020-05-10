@@ -1,6 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { BottomNavigation, BottomNavigationAction } from '@material-ui/core'
+import { BottomNavigation, BottomNavigationAction } from '@material-ui/core';
+
+import { Link, useHistory, BrowserRouter as Router } from 'react-router-dom';
 
 import { Icon } from '@iconify/react';
 import bxHomeSmile from '@iconify/icons-bx/bx-home-smile';
@@ -22,15 +24,42 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Botnav( {value, onChange}) {
+function Botnav() {
   const classes = useStyles();
+  const [value, setValue] = React.useState('');
+  const history = useHistory();
+
+  const handleChange = (event, newValue) => {
+    history.push(newValue);
+    setValue(newValue);
+  };
 
   return (
-    <BottomNavigation value={value} onChange={(e, tab) => onChange(tab)} className={classes.root}>
-      <BottomNavigationAction label="Beranda" value="beranda" icon={<Icon icon={bxHomeSmile} style={{ color: secondary, fontSize: '28px' }} />} />
-      <BottomNavigationAction label="Koleksiku" value="koleksiku" icon={<Icon icon={bookIcon} style={{ color: secondary, fontSize: '24px' }} />} />
-      <BottomNavigationAction label="Favorit" value="favorit" icon={<Icon icon={roundFavoriteBorder} style={{ color: secondary, fontSize: '28px' }} />} />
-      <BottomNavigationAction label="Profil" value="profil" icon={<Icon icon={bxUserCircle} style={{ color: secondary, fontSize: '28px' }} />} />
-    </BottomNavigation>
+    <Router>
+      <BottomNavigation
+        value={value}
+        onChange={handleChange}
+        className={classes.root}
+      >
+        <BottomNavigationAction
+          label="Beranda"
+          value=""
+          icon={<Icon icon={bxHomeSmile} style={{ color: secondary, fontSize: '28px' }} />}
+          component={Link}
+          to='/'
+        />
+        <BottomNavigationAction
+          label="Koleksiku"
+          value="koleksiku"
+          icon={<Icon icon={bookIcon} style={{ color: secondary, fontSize: '24px' }} />}
+          component={Link}
+          to='/koleksiku'
+        />
+        <BottomNavigationAction label="Favorit" value="favorit" icon={<Icon icon={roundFavoriteBorder} style={{ color: secondary, fontSize: '28px' }} />} />
+        <BottomNavigationAction label="Profil" value="profil" icon={<Icon icon={bxUserCircle} style={{ color: secondary, fontSize: '28px' }} />} />
+      </BottomNavigation>
+    </Router>
   );
 }
+
+export default Botnav;

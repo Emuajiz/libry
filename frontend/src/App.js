@@ -1,14 +1,16 @@
 /* eslint-disable default-case */
 import React from 'react';
 import logo from './logo.svg';
-import { Grid, CssBaseline, Container } from '@material-ui/core'
+import { Grid, CssBaseline, Container, Button } from '@material-ui/core'
 import { createMuiTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 import Botnav from './components/Botnav'
 import Home from './components/Home'
 import Koleksiku from './components/Koleksiku'
 import Favorit from './components/Favorit'
 import Profil from './components/Profil'
+import Coba from './components/coba'
 
 const containerStyles = {
   width: '100%',
@@ -22,11 +24,11 @@ let theme = createMuiTheme({
     primary: { main: '#C89B7B' },
   },
   typography: {
-    h1:{
+    h1: {
       fontSize: 32,
       fontWeight: 500,
     },
-    h2:{
+    h2: {
       fontSize: '1.6rem',
       fontWeight: 500,
     },
@@ -52,31 +54,25 @@ theme = responsiveFontSizes(theme);
 function App() {
   const [tab, setTab] = React.useState('beranda');
 
-  function renderView() {
-    switch (tab) {
-      case 'beranda':
-        return <Home />;
-      case 'koleksiku':
-        return <Koleksiku />;
-      case 'favorit':
-        return <Favorit />;
-      case 'profil':
-        return <Profil />;
-    }
-  }
-
   return (
-    <ThemeProvider theme={theme}>
-      <Grid container direction="column">
-        <div style={containerStyles}>
-          <Container maxWidth='xs'>
-            {renderView()}
+    <Router>
+      <ThemeProvider theme={theme}>
+        <Grid container direction="column">
+          <Container maxWidth='xs' style={containerStyles}>
+            {/* <Coba /> */}
+            <Switch>
+              {/* {renderView()} */}
+              <Route path='/' exact component={Home} />
+              <Route path='/koleksiku' exact component={Koleksiku} />
+              <Route path='/favorit' exact component={Favorit} />
+              <Route path='/profil' exact component={Profil} />
+            </Switch>
           </Container>
-        </div>
-        <Botnav value={tab} onChange={setTab} />
-        <CssBaseline />
-      </Grid>
-    </ThemeProvider>
+          <Botnav value={tab} onChange={setTab} />
+          <CssBaseline />
+        </Grid>
+      </ThemeProvider>
+    </Router>
   );
 }
 
