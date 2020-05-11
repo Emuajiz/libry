@@ -12,18 +12,20 @@ import bxChevronRight from '@iconify/icons-bx/bx-chevron-right';
 
 import Review from './Review';
 import { RatingAlt } from './Rating';
-import BookGrid from './BookGrid'
+import BookGrid from './BookGrid';
+import NavPeminjaman from './NavPeminjaman';
 
 const useStyles = makeStyles((theme) => ({
     root: {
         width: '100%',
         height: 132,
+        paddingBottom: 'calc(3.8rem + 18px)'
     },
     divider: {
         margin: theme.spacing(0, 2),
     },
     media: {
-        width: `calc(100% + ${theme.spacing(4)})`,
+        width: `calc(100% + ${theme.spacing})`,
         height: 365,
         marginLeft: theme.spacing(-2),
         marginRight: theme.spacing(-2),
@@ -31,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     card: {
         marginTop: -66,
         borderRadius: 10,
-        boxShadow: '5px 10px 32px rgba(21, 21, 21, 0.2)',
+        boxShadow: '5px 0px 32px rgba(21, 21, 21, 0.2)',
     },
     content: {
         margin: theme.spacing(1),
@@ -47,7 +49,8 @@ const useStyles = makeStyles((theme) => ({
     division: {
         width: `calc(100% + ${theme.spacing(4)})`,
         height: 12,
-        margin: theme.spacing(0, -4),
+        marginLeft: theme.spacing(-2),
+        marginRight: theme.spacing(-2),
         backgroundColor: '#f2f2f2',
     },
     btn: {
@@ -58,12 +61,16 @@ const useStyles = makeStyles((theme) => ({
         paddingLeft: 0,
         paddingRight: 0,
     },
+    botNav: {
+        width: `calc(100% + ${theme.spacing(4)})`,
+    },
 }));
 
 export default function Koleksiku() {
     const classes = useStyles();
     return (
-        <div>
+        <div className={classes.root}>
+            <NavPeminjaman className={classes.botNav} />
             <CardMedia image={require('../images/contohBuku.jpg')} className={classes.media} />
             <Card className={classes.card}>
                 <CardContent className={classes.content}>
@@ -151,7 +158,7 @@ export default function Koleksiku() {
                                 Sampaikan pendapat Anda
                             </Typography>
                         </Grid>
-                        <div style={{flexGrow: 1}} />
+                        <div style={{ flexGrow: 1 }} />
                     </Button>
                 </Grid>
             </Box>
@@ -177,7 +184,7 @@ export default function Koleksiku() {
                 <BookGrid />
             </Box>
             <div className={classes.division} />
-            <Box className={classes.text}>
+            <Box className={classes.text} style={{marginBottom: 'calc(3.7rem + 18px)'}}>
                 <Grid container direction='row'>
                     <Button
                         fullWidth

@@ -63,6 +63,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <Grid container direction="column" style={containerStyles}>
           <Container maxWidth='xs'>
+            <navPeminjaman/>
             {/* <Coba /> */}
             <Switch>
               {/* {renderView()} */}
