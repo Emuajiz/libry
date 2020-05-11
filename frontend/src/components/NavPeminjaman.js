@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
         bottom: '0',
         marginLeft: theme.spacing(-2),
         marginRight: theme.spacing(-2),
-        
+
         position: 'fixed',
         padding: theme.spacing(1, 2, 1, 2),
 
@@ -33,7 +33,7 @@ export default function NavPeminjaman() {
                 <Button variant='contained' color='secondary' size='small' className={classes.btn} style={{ marginRight: '0.5rem', width: '80%' }}>
                     Pinjam Buku
                 </Button>
-                <Button variant='outlined' color='secondary' size='small' className={classes.btn} style={{width: `calc(20% - 0.5rem)`}}>
+                <Button variant='outlined' color='secondary' size='small' className={classes.btn} style={{ width: `calc(20% - 0.5rem)` }}>
                     <Icon icon={bxsShareAlt} style={{ color: '#CC5A71', fontSize: '1.2rem' }} />
                 </Button>
             </Grid>

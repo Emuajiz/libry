@@ -184,7 +184,7 @@ export default function Koleksiku() {
                 <BookGrid />
             </Box>
             <div className={classes.division} />
-            <Box className={classes.text} style={{marginBottom: 'calc(3.7rem + 18px)'}}>
+            <Box className={classes.text} style={{ marginBottom: 'calc(3.7rem + 18px)' }}>
                 <Grid container direction='row'>
                     <Button
                         fullWidth
