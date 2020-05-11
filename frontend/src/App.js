@@ -1,16 +1,18 @@
 /* eslint-disable default-case */
 import React from 'react';
 import logo from './logo.svg';
-import { Grid, CssBaseline, Container } from '@material-ui/core'
+import { Grid, CssBaseline, Container } from '@material-ui/core';
 import { createMuiTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-import Botnav from './components/Botnav'
-import Home from './components/Home'
-import Koleksiku from './components/Koleksiku'
-import Favorit from './components/Favorit'
-import Profil from './components/Profil'
-import overviewBuku from './components/overviewBuku'
+import Botnav from './components/Botnav';
+import Home from './components/Home';
+import Koleksiku from './components/Koleksiku';
+import Favorit from './components/Favorit';
+import Profil from './components/Profil';
+import overviewBuku from './components/overviewBuku';
+import Login from './login';
+import Register from './register';
 
 const containerStyles = {
   width: '100%',
@@ -72,9 +74,13 @@ function App() {
               <Route path='/favorit' exact component={Favorit} />
               <Route path='/profil' exact component={Profil} />
               <Route path='/books' exact component={overviewBuku} />
+              <Route path='/signin' exact component={Login} />
+              <Route path='/signup' exact component={Register} />
             </Switch>
           </Container>
-          {!currentPath.includes('books') ? <Botnav value={tab} onChange={setTab} /> : null }
+          {!(currentPath.includes('books') || currentPath.includes('signin')
+            || currentPath.includes('signup')
+          ) ? <Botnav value={tab} onChange={setTab} /> : null }
           <CssBaseline />
         </Grid>
       </ThemeProvider>
