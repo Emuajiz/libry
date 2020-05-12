@@ -73,7 +73,7 @@ export default function Login() {
                     style={{ borderRadius: 8 }}
                 >
                     Sign In
-            </Button>
+                </Button>
             </Grid>
             <Grid item className={classes.items} style={{ textAlign: 'center' }}>
                 <Link variant='body1'>
