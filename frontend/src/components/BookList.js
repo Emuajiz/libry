@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, CardContent, CardMedia, Typography, Chip, Paper } from '@material-ui/core';
 import Rating from './Rating';
@@ -23,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'flex-end',
         paddingRight: theme.spacing(2),
         marginTop: '4rem',
-        
+
         background: '#FCFCFC',
         boxShadow: '5px 5px 12px rgba(21, 21, 21, 0.2)',
         borderRadius: 6,
@@ -53,10 +55,10 @@ const useStyles = makeStyles((theme) => ({
 
 export default function BookList() {
     const classes = useStyles();
-    return (
-        <Box className={classes.root} component='div'>
-        <Box component='div' className={classes.gridlist}>
-            <Paper className={classes.card} elevation={2}>
+    const booklist = [];
+    for (var i = 0; i < 5; i++) {
+        booklist.push(
+            <Paper className={classes.card} elevation={2} component={Link} to='/books' style={{textDecoration: 'none', color: 'inherit',}} >
                 <Box zIndex={1}>
                     <CardMedia image={require('../images/contohBuku.jpg')} className={classes.media} />
                 </Box>
@@ -71,67 +73,13 @@ export default function BookList() {
                     <Chip variant="outlined" size="small" label="Kategori" />
                 </CardContent>
             </Paper>
-            <Paper className={classes.card} elevation={2}>
-                <Box zIndex={5}>
-                    <CardMedia image={require('../images/contohBuku.jpg')} className={classes.media} />
-                </Box>
-                <CardContent className={classes.content}>
-                    <Typography variant='h4' component='h4'>
-                        Judul Apa Ya?
-                        </Typography>
-                    <Typography variant="body1" gutterBottom component="h4" color='textSecondary'>
-                        Penulis
-                        </Typography>
-                    <Rating />
-                    <Chip variant="outlined" size="small" label="Kategori" />
-                </CardContent>
-            </Paper>
-            <Paper className={classes.card} elevation={2}>
-                <Box zIndex={5}>
-                    <CardMedia image={require('../images/contohBuku.jpg')} className={classes.media} />
-                </Box>
-                <CardContent className={classes.content}>
-                    <Typography variant='h4' component='h4'>
-                        Judul Apa Ya?
-                        </Typography>
-                    <Typography variant="body1" gutterBottom component="h4" color='textSecondary'>
-                        Penulis
-                        </Typography>
-                    <Rating />
-                    <Chip variant="outlined" size="small" label="Kategori" />
-                </CardContent>
-            </Paper>
-            <Paper className={classes.card} elevation={2}>
-                <Box zIndex={5}>
-                    <CardMedia image={require('../images/contohBuku.jpg')} className={classes.media} />
-                </Box>
-                <CardContent className={classes.content}>
-                    <Typography variant='h4' component='h4'>
-                        Judul Apa Ya?
-                        </Typography>
-                    <Typography variant="body1" gutterBottom component="h4" color='textSecondary'>
-                        Penulis
-                        </Typography>
-                    <Rating />
-                    <Chip variant="outlined" size="small" label="Kategori" />
-                </CardContent>
-            </Paper>
-            <Paper className={classes.card} elevation={2}>
-                <Box zIndex={5}>
-                    <CardMedia image={require('../images/contohBuku.jpg')} className={classes.media} />
-                </Box>
-                <CardContent className={classes.content}>
-                    <Typography variant='h4' component='h4'>
-                        Judul Apa Ya?
-                        </Typography>
-                    <Typography variant="body1" gutterBottom component="h4" color='textSecondary'>
-                        Penulis
-                        </Typography>
-                    <Rating />
-                    <Chip variant="outlined" size="small" label="Kategori" />
-                </CardContent>
-            </Paper>
-        </Box>
+        );
+    }
+    return (
+        <Box className={classes.root} component='div'>
+            <Box component='div' className={classes.gridlist}>
+                {booklist}
+            </Box>
         </Box>
     );
 }

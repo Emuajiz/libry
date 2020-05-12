@@ -26,7 +26,7 @@ export default function Favorit() {
     return (
         <div className={classes.root}>
             <Grid container direction='row' >
-                <Grid item direction='column'>
+                <Grid item>
                     <Typography variant='h1' component='h1'>Antrean Buku</Typography>
                     <Typography variant='subtitle2' component='span'>Ada 8 buku tersimpan</Typography>
                 </Grid>

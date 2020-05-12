@@ -17,78 +17,78 @@ import { BukuPopuler, ArsipBuku } from './components/moreBooks';
 import PeminjamanBuku from './components/peminjamanBuku';
 
 const containerStyles = {
-  width: '100%',
-  minHeight: '100vh',
-  background: 'white',
+	width: '100%',
+	minHeight: '100vh',
+	background: 'white',
+	overflowX: 'hidden',
 };
 
 let theme = createMuiTheme({
-  palette: {
-    secondary: { main: '#CC5A71' },
-    primary: { main: '#C89B7B' },
-  },
-  typography: {
-    h1: {
-      fontSize: 32,
-      fontWeight: 500,
-    },
-    h2: {
-      fontSize: '1.6rem',
-      fontWeight: 500,
-    },
-    h3: {
-      fontSize: '1.2rem',
-      fontWeight: 500,
-    },
-    h4: {
-      fontSize: '0.9rem',
-      fontWeight: 500,
-    },
-    subtitle1: {
-      fontSize: '0.75rem',
-    },
-    body1: {
-      fontSize: '0.875rem',
-      lineHeight: '175%',
-      textAlign: 'justify',
-      fontWeight: 400,
-    },
-  },
+	palette: {
+		secondary: { main: '#CC5A71' },
+		primary: { main: '#C89B7B' },
+	},
+	typography: {
+		h1: {
+			fontSize: 32,
+			fontWeight: 500,
+		},
+		h2: {
+			fontSize: '1.6rem',
+			fontWeight: 500,
+		},
+		h3: {
+			fontSize: '1.2rem',
+			fontWeight: 500,
+		},
+		h4: {
+			fontSize: '0.9rem',
+			fontWeight: 500,
+		},
+		subtitle1: {
+			fontSize: '0.75rem',
+		},
+		body1: {
+			fontSize: '0.875rem',
+			lineHeight: '175%',
+			textAlign: 'justify',
+			fontWeight: 400,
+		},
+	},
 });
 
 theme = responsiveFontSizes(theme);
 
 function App() {
-  const [tab, setTab] = React.useState('');
-  const currentPath = window.location.pathname;
+	const [tab, setTab] = React.useState('');
+	const currentPath = window.location.pathname;
 
-  return (
-    <Router>
-      <ThemeProvider theme={theme}>
-        <Grid container direction="column" style={containerStyles}>
-          <Container maxWidth='xs'>
-            <Switch>
-              <Route path='/' exact component={Home} />
-              <Route path='/koleksiku' exact component={Koleksiku} />
-              <Route path='/favorit' exact component={Favorit} />
-              <Route path='/profil' exact component={Profil} />
-              <Route path='/books' exact component={overviewBuku} />
-              <Route path='/signin' exact component={Login} />
-              <Route path='/signup' exact component={Register} />
-              <Route path='/detail' exact component={BukuPopuler} />
-              <Route path='/arsipbuku' exact component={ArsipBuku} />
-              <Route path='/peminjaman' exact component={PeminjamanBuku} />
-            </Switch>
-          </Container>
-          {!(currentPath.includes('books') || currentPath.includes('signin')
-            || currentPath.includes('signup') || currentPath.includes('detail') || currentPath.includes('arsipbuku')
-            || currentPath.includes('peminjaman')
-          ) ? <Botnav value={tab} onChange={setTab} /> : null }
-          <CssBaseline />
-        </Grid>
-      </ThemeProvider>
-    </Router>
-  );
+	return (
+		<Router>
+			<ThemeProvider theme={theme}>
+				<Grid container direction="column" style={containerStyles}>
+					<Container maxWidth='xs'>
+						<Switch>
+							<Route path='/' exact component={Home} />
+							<Route path='/koleksiku' exact component={Koleksiku} />
+							<Route path='/favorit' exact component={Favorit} />
+							<Route path='/profil' exact component={Profil} />
+							<Route path='/books' exact component={overviewBuku} />
+							<Route path='/signin' exact component={Login} />
+							<Route path='/signup' exact component={Register} />
+							<Route path='/detail' exact component={BukuPopuler} />
+							<Route path='/arsipbuku' exact component={ArsipBuku} />
+							<Route path='/peminjaman' exact component={PeminjamanBuku} />
+						</Switch>
+					</Container>
+					<Route path={["/", "/koleksiku", "/favorit", "/profil"]} exact>
+						<Botnav value={tab} onChange={setTab} />
+					</Route>
+					<CssBaseline />
+				</Grid>
+			</ThemeProvider>
+		</Router>
+	);
 }
 
 export default App;

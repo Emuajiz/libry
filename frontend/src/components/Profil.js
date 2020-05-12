@@ -18,7 +18,7 @@ const SmallAvatar = withStyles((theme) => ({
 const useStyles = makeStyles((theme) => ({
     root: {
         paddingTop: theme.spacing(6),
-        paddingBottom: '11vh',
+        paddingBottom: '2rem',
         minHeight: `100vh`,
     },
     largeAvatar: {
