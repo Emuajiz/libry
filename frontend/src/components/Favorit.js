@@ -10,8 +10,8 @@ import BookList from './BookList'
 const useStyles = makeStyles((theme) => ({
     root: {
         paddingTop: '1.5rem',
-        paddingBottom: '5rem',
-        height: `100vh`,
+        paddingBottom: '2rem',
+        minHeight: `100vh`,
     },
     spaceTop: {
         marginTop: theme.spacing(1),
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function Koleksiku() {
+export default function Favorit() {
     const classes = useStyles();
     return (
         <div className={classes.root}>

@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
     root: {
         paddingTop: '1.5rem',
         paddingBottom: '11vh',
-        height: `100vh`,
+        minHeight: `100vh`,
     },
     spaceTop: {
         marginTop: theme.spacing(1),
@@ -39,7 +39,7 @@ export default function Koleksiku() {
                     <Typography variant='subtitle2' component='span'>Ada 8 buku tersimpan</Typography>
                 </Grid>
                 <div style={{ flexGrow: 1 }} />
-                <BtnGradient variant="contained" disableElevation color='secondary'>
+                <BtnGradient variant="contained" disableElevation color='secondary' href='./arsipbuku'>
                     <Icon icon={bxArchiveIn} style={{ color: '#f2f2f2', fontSize: '1.5625rem', marginRight: 6, }} />
                     Arsip Buku
                 </BtnGradient>
