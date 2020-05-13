@@ -9,7 +9,13 @@ import bxsBookOpen from '@iconify/icons-bx/bxs-book-open';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        marginTop: theme.spacing(2.5),
+        display: 'flex',
+        flexWrap: 'wrap',
+        overflow: 'visible',
+        width: `calc(100% + ${theme.spacing(2)})`,
+
+        marginRight: theme.spacing(-2),
+        marginTop: theme.spacing(3),
     },
     categories: {
         height: 52,
@@ -18,12 +24,6 @@ const useStyles = makeStyles((theme) => ({
         overflow: 'hidden',
         textAlign: 'left',
         marginRight: theme.spacing(0.75),
-    },
-    gridlist: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        overflow: 'hidden',
-        marginTop: theme.spacing(1.5),
     },
     gridlistChild: {
         flexWrap: 'nowrap',
@@ -74,50 +74,50 @@ export default function CategoriesTab() {
 
     return (
         <div className={classes.root}>
-            <div className={classes.gridlist}>
-                <GridList className={classes.gridlistChild} cellHeight={52} cols='50%'>
-                    <GridListTile rows='1'>
-                        <BtnGradient variant='inherit' className={classes.categories}>
-                            <Box style={{ marginBottom: '-1.3rem' }}>
-                                <Icon icon={bxsTrophy} style={{ color: '#f2f2f2', fontSize: '3.5rem', marginRight: '0.22rem', marginLeft: '-0.22rem' }} />
-                            </Box>
-                            <Typography variant="subtitle2" component="span">
-                                Buku Populer
+
+            <GridList className={classes.gridlistChild} cellHeight={52} cols='50%'>
+                <GridListTile rows='1'>
+                    <BtnGradient variant='inherit' className={classes.categories}>
+                        <Box style={{ marginBottom: '-1.3rem' }}>
+                            <Icon icon={bxsTrophy} style={{ color: '#f2f2f2', fontSize: '3.5rem', marginRight: '0.22rem', marginLeft: '-0.22rem' }} />
+                        </Box>
+                        <Typography variant="subtitle2" component="span">
+                            Buku Populer
                                 </Typography>
-                        </BtnGradient>
-                    </GridListTile>
-                    <GridListTile rows='1'>
-                        <BtnGradientAlt1 variant='inherit' className={classes.categories}>
-                            <Box style={{ marginBottom: '-2rem' }}>
-                                <Icon icon={baselineCategory} style={{ color: '#f2f2f2', fontSize: '3.5rem', marginRight: '0.22rem', marginLeft: '-0.22rem' }} />
-                            </Box>
-                            <Typography variant="subtitle2" component="span">
-                                Kategori
+                    </BtnGradient>
+                </GridListTile>
+                <GridListTile rows='1'>
+                    <BtnGradientAlt1 variant='inherit' className={classes.categories}>
+                        <Box style={{ marginBottom: '-2rem' }}>
+                            <Icon icon={baselineCategory} style={{ color: '#f2f2f2', fontSize: '3.5rem', marginRight: '0.22rem', marginLeft: '-0.22rem' }} />
+                        </Box>
+                        <Typography variant="subtitle2" component="span">
+                            Kategori
                                 </Typography>
-                        </BtnGradientAlt1>
-                    </GridListTile>
-                    <GridListTile rows='1'>
-                        <BtnGradientAlt2 variant='inherit' className={classes.categories}>
-                            <Box style={{ marginBottom: '-2rem' }}>
-                                <Icon icon={typewriterIcon} style={{ color: '#f2f2f2', fontSize: '3.5rem', marginRight: '0.22rem', marginLeft: '-0.22rem' }} />
-                            </Box>
-                            <Typography variant="subtitle2" component="span">
-                                Penulis
+                    </BtnGradientAlt1>
+                </GridListTile>
+                <GridListTile rows='1'>
+                    <BtnGradientAlt2 variant='inherit' className={classes.categories}>
+                        <Box style={{ marginBottom: '-2rem' }}>
+                            <Icon icon={typewriterIcon} style={{ color: '#f2f2f2', fontSize: '3.5rem', marginRight: '0.22rem', marginLeft: '-0.22rem' }} />
+                        </Box>
+                        <Typography variant="subtitle2" component="span">
+                            Penulis
                             </Typography>
-                        </BtnGradientAlt2>
-                    </GridListTile>
-                    <GridListTile rows='1'>
-                        <BtnGradient variant='inherit' className={classes.categories}>
-                            <Box style={{ marginBottom: '-2rem' }}>
-                                <Icon icon={bxsBookOpen} style={{ color: '#fafafa', fontSize: '3.5rem', marginRight: '0.22rem', marginLeft: '-0.22rem' }} />
-                            </Box>
-                            <Typography variant="subtitle2" component="span">
-                                Penerbit
+                    </BtnGradientAlt2>
+                </GridListTile>
+                <GridListTile rows='1'>
+                    <BtnGradient variant='inherit' className={classes.categories}>
+                        <Box style={{ marginBottom: '-2rem' }}>
+                            <Icon icon={bxsBookOpen} style={{ color: '#fafafa', fontSize: '3.5rem', marginRight: '0.22rem', marginLeft: '-0.22rem' }} />
+                        </Box>
+                        <Typography variant="subtitle2" component="span">
+                            Penerbit
                             </Typography>
-                        </BtnGradient>
-                    </GridListTile>
-                </GridList>
-            </div>
+                    </BtnGradient>
+                </GridListTile>
+            </GridList>
+
         </div>
     );
 }
