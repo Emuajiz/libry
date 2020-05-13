@@ -27,29 +27,35 @@ let theme = createMuiTheme({
 	palette: {
 		secondary: { main: '#CC5A71' },
 		primary: { main: '#C89B7B' },
+		textPrimary: { main: '#151515' },
 	},
 	typography: {
 		h1: {
-			fontSize: 32,
-			fontWeight: 500,
+			fontSize: '1.6rem',
+			fontWeight: 600,
+			lineHeight: 1.3,
 		},
 		h2: {
-			fontSize: '1.6rem',
+			fontSize: '1.3rem',
 			fontWeight: 500,
+			lineHeight: 1.3,
 		},
 		h3: {
-			fontSize: '1.2rem',
+			fontSize: '1rem',
 			fontWeight: 500,
+			lineHeight: 1.3,
 		},
 		h4: {
-			fontSize: '0.9rem',
-			fontWeight: 500,
+			fontSize: '0.8rem',
+			fontWeight: 800,
+			lineHeight: 1.3,
 		},
 		subtitle1: {
-			fontSize: '0.75rem',
+			fontSize: '0.6rem',
+			lineHeight: 1.3,
 		},
 		body1: {
-			fontSize: '0.875rem',
+			fontSize: '0.8rem',
 			lineHeight: '175%',
 			textAlign: 'justify',
 			fontWeight: 400,
