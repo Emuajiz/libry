@@ -1,4 +1,7 @@
 import React from 'react';
+import Popup from "reactjs-popup";
+import styled from 'styled-components';
+
 import { useHistory } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -17,6 +20,7 @@ import Review from './Review';
 import { RatingAlt } from './Rating';
 import BookGrid from './BookGrid';
 import NavPeminjaman from './NavPeminjaman';
+import ZoomOutImg from './zoomOutImages';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -63,10 +67,15 @@ const useStyles = makeStyles((theme) => ({
         marginRight: 0,
         paddingLeft: 0,
         paddingRight: 0,
+        zIndex: 100,
     },
     backbtn: {
-        margin: theme.spacing(2, 0, 0, 2),
+        margin: theme.spacing(0),
         background: 'rgba(34, 34, 34, 0.7)',
+        
+        positition: 'relative',
+        top: theme.spacing(4),
+        float: 'left',
 
         '&:hover': {
             background: 'rgba(34, 34, 34, 0.2)',
@@ -74,16 +83,34 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+const StyledPopup = styled(Popup)`
+    &-overlay {
+        background: rgba(34, 34, 34, 0.7),
+    }
+    &-content {
+        background: transparent;
+        border: none;
+    }
+`;
+
 export default function Koleksiku() {
     const classes = useStyles();
     const history = useHistory();
+
+
     return (
         <div className={classes.root}>
-            <CardMedia image={require('../images/contohBuku.jpg')} className={classes.media}>
-                <IconButton onClick={() => history.goBack()} className={classes.backbtn} edge='left' >
-                    <Icon icon={bxArrowBack} style={{ color: '#f2f2f2', fontSize: 24 }} />
-                </IconButton>
-            </CardMedia>
+            <IconButton onClick={() => history.goBack()} className={classes.backbtn} edge='left' >
+                <Icon icon={bxArrowBack} style={{ color: '#f2f2f2', fontSize: 24 }} />
+            </IconButton>
+            <StyledPopup modal
+                contentStyle={{ background: 'transparent', border: 'none', width: 344 }}
+                trigger=
+                {<CardMedia image={require('../images/contohBuku.jpg')} className={classes.media}>
+                </CardMedia>}>
+                {close => <ZoomOutImg close={close} />}
+            </StyledPopup>
+
             <Card className={classes.card}>
                 <CardContent className={classes.content}>
                     <Grid container direction='row' style={{ marginBottom: '1rem' }}>
