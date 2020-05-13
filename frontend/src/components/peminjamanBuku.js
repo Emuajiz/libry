@@ -1,4 +1,6 @@
 import React from 'react';
+import { useHistory } from "react-router-dom";
+
 import { Grid, Typography, IconButton, TextField, InputAdornment, Button } from '@material-ui/core';
 import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab';
 import { makeStyles, withStyles } from '@material-ui/styles'
@@ -57,11 +59,13 @@ export default function PeminjamanBuku() {
 		}
 	};
 	const classes = useStyles();
+	const history = useHistory();
+	React.useEffect(() => { window.scrollTo(0, 0); }, []);
 
 	return (
 		<Grid container className={classes.root} direction='column' justify='flex-start'>
 			<Grid container alignItems='center' className={classes.items}>
-				<IconButton>
+				<IconButton onClick={() => history.goBack()} edge='left' >
 					<Icon icon={bxArrowBack} style={{ color: '#cc5a71', fontSize: '29px' }} />
 				</IconButton>
 				<Typography variant='h1' component='h1' style={{ marginLeft: '0.75rem', fontWeight: 'bold' }}>
@@ -123,7 +127,7 @@ export default function PeminjamanBuku() {
 				<TextField
 					fullWidth
 					id="outlined-basic"
-					label="E-mail"
+					label="Waktu Peminjaman"
 					variant='filled'
 					InputProps={{
 						startAdornment: (
@@ -144,6 +148,6 @@ export default function PeminjamanBuku() {
 					Selanjutnya
                 </Button>
 			</Grid>
-		</Grid>
+		</Grid >
 	);
 }
