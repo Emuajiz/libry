@@ -21,8 +21,8 @@ import NavPeminjaman from './NavPeminjaman';
 const useStyles = makeStyles((theme) => ({
     root: {
         width: '100%',
-        height: 132,
-        paddingBottom: 'calc(3.8rem + 18px)'
+        height: '100%',
+        paddingBottom: 'calc(3.8rem + 18px)',
     },
     divider: {
         margin: theme.spacing(0, 2),
@@ -65,16 +65,12 @@ const useStyles = makeStyles((theme) => ({
         paddingRight: 0,
     },
     backbtn: {
-        position: 'absolute',
-        top: theme.spacing(2), left: theme.spacing(2),
+        margin: theme.spacing(2, 0, 0, 2),
         background: 'rgba(34, 34, 34, 0.7)',
-        
+
         '&:hover': {
             background: 'rgba(34, 34, 34, 0.2)',
         }
-    },
-    botNav: {
-        width: `calc(100% + ${theme.spacing(4)})`,
     },
 }));
 
@@ -83,11 +79,11 @@ export default function Koleksiku() {
     const history = useHistory();
     return (
         <div className={classes.root}>
-            <IconButton onClick={() => history.goBack()} className={classes.backbtn} edge='left' >
-                <Icon icon={bxArrowBack} style={{ color: '#f2f2f2', fontSize: 24 }} />
-            </IconButton>
-            <NavPeminjaman className={classes.botNav} />
-            <CardMedia image={require('../images/contohBuku.jpg')} className={classes.media} />
+            <CardMedia image={require('../images/contohBuku.jpg')} className={classes.media}>
+                <IconButton onClick={() => history.goBack()} className={classes.backbtn} edge='left' >
+                    <Icon icon={bxArrowBack} style={{ color: '#f2f2f2', fontSize: 24 }} />
+                </IconButton>
+            </CardMedia>
             <Card className={classes.card}>
                 <CardContent className={classes.content}>
                     <Grid container direction='row' style={{ marginBottom: '1rem' }}>
@@ -200,7 +196,7 @@ export default function Koleksiku() {
                 <BookGrid />
             </Box>
             <div className={classes.division} />
-            <Box className={classes.text} style={{ marginBottom: 'calc(3.7rem + 18px)' }}>
+            <Box className={classes.text}>
                 <Grid container direction='row'>
                     <Button
                         fullWidth
@@ -218,6 +214,7 @@ export default function Koleksiku() {
                 </Grid>
                 <BookGrid />
             </Box>
+            <NavPeminjaman />
         </div>
     );
 }
