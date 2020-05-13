@@ -67,7 +67,7 @@ export default function BookGridBig() {
         );
     }
     return (
-        <Grid container className={classes.gridlist} direction='column' component='div'>
+        <Grid container maxWidth='xs' className={classes.gridlist} direction='column' component='div'>
             <GridList className={classes.gridlistChild} cellHeight={'auto'} cols={2} component='div'>
                 {booklist}
             </GridList>
