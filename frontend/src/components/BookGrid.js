@@ -1,7 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Grid, GridList, GridListTile, CardContent, CardMedia, Typography, Chip } from '@material-ui/core'
-import { Link } from 'react-router-dom';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -38,13 +39,15 @@ const useStyles = makeStyles((theme) => ({
 	container: {
 		width: '100%',
 		// overflowX: 'hide',
-		flexGrow: 1,
-		marginTop: theme.spacing(3),
+		// flexGrow: 1,
+		marginTop: theme.spacing(2),
 	},
 	item: {
 		maxWidth: '33.33%',
 		flexBasis: '33.33%',
 		height: '100%',
+		textDecoration: 'inherit',
+		color: 'inherit',
 	},
 	mediaAlt: {
 		height: '11rem',
@@ -58,19 +61,19 @@ export default function BookGrid() {
 	const booklist = [];
 	for (var i = 0; i < 5; i++) {
 		booklist.push(
-		<GridListTile className={classes.Booklist} component={Link} to='/books'>
-			<CardMedia className={classes.media}
-				image={require('../images/contohBuku.jpg')} />
-			<CardContent className={classes.content}>
-				<Typography variant="h4" component="h3">
-					Judulnya apa ya?
+			<GridListTile className={classes.Booklist} component={Link} to='/books'>
+				<CardMedia className={classes.media}
+					image={require('../images/contohBuku.jpg')} />
+				<CardContent className={classes.content}>
+					<Typography variant="h4" component="h3">
+						Judulnya apa ya?
 				</Typography>
-				<Typography variant="body1" gutterBottom component="h4" color='textSecondary'>
-					Penulis
+					<Typography variant="body1" gutterBottom component="h4" color='textSecondary'>
+						Penulis
 				</Typography>
-				<Chip variant="outlined" size="small" label="Kategori" />
-			</CardContent>
-		</GridListTile>
+					<Chip variant="outlined" size="small" label="Kategori" />
+				</CardContent>
+			</GridListTile>
 		);
 	}
 	return (
@@ -84,76 +87,30 @@ export default function BookGrid() {
 
 function BookGridAlt() {
 	const classes = useStyles();
+	const bookgrid = [];
+	for (var i = 0; i < 10; i++) {
+		bookgrid.push(
+			<Grid item xs={3} className={classes.item} component={Link} to='/books'>
+				<CardMedia className={classes.mediaAlt}
+					image={require('../images/contohBuku.jpg')} />
+				<CardContent className={classes.content}>
+					<Typography variant="h4" component="h3">
+						Judulnya apa ya?
+                        </Typography>
+					<Typography variant="body1" gutterBottom component="h4" color='textSecondary'>
+						Penulis
+                        </Typography>
+					<Chip variant="outlined" size="small" label="Kategori" />
+				</CardContent>
+			</Grid>
+		);
+	};
 	return (
-		<Grid container className={classes.container} direction='row' spacing={2}>
-			<Grid item xs={3} className={classes.item} component='div'>
-				<CardMedia className={classes.mediaAlt}
-					image={require('../images/contohBuku.jpg')} />
-				<CardContent className={classes.content}>
-					<Typography variant="h4" component="h3">
-						Judulnya apa ya?
-                        </Typography>
-					<Typography variant="body1" gutterBottom component="h4" color='textSecondary'>
-						Penulis
-                        </Typography>
-					<Chip variant="outlined" size="small" label="Kategori" />
-				</CardContent>
-			</Grid>
-			<Grid item xs={3} className={classes.item} component='div'>
-				<CardMedia className={classes.mediaAlt}
-					image={require('../images/contohBuku.jpg')} />
-				<CardContent className={classes.content}>
-					<Typography variant="h4" component="h3">
-						Judulnya apa ya?
-                        </Typography>
-					<Typography variant="body1" gutterBottom component="h4" color='textSecondary'>
-						Penulis
-                        </Typography>
-					<Chip variant="outlined" size="small" label="Kategori" />
-				</CardContent>
-			</Grid>
-			<Grid item xs={3} className={classes.item} component='div'>
-				<CardMedia className={classes.mediaAlt}
-					image={require('../images/contohBuku.jpg')} />
-				<CardContent className={classes.content}>
-					<Typography variant="h4" component="h3">
-						Judulnya apa ya?
-                        </Typography>
-					<Typography variant="body1" gutterBottom component="h4" color='textSecondary'>
-						Penulis
-                        </Typography>
-					<Chip variant="outlined" size="small" label="Kategori" />
-				</CardContent>
-			</Grid>
-			<Grid item xs={3} className={classes.item} component='div'>
-				<CardMedia className={classes.mediaAlt}
-					image={require('../images/contohBuku.jpg')} />
-				<CardContent className={classes.content}>
-					<Typography variant="h4" component="h3">
-						Judulnya apa ya?
-                        </Typography>
-					<Typography variant="body1" gutterBottom component="h4" color='textSecondary'>
-						Penulis
-                        </Typography>
-					<Chip variant="outlined" size="small" label="Kategori" />
-				</CardContent>
-			</Grid>
-			<Grid item xs={3} className={classes.item} component='div'>
-				<CardMedia className={classes.mediaAlt}
-					image={require('../images/contohBuku.jpg')} />
-				<CardContent className={classes.content}>
-					<Typography variant="h4" component="h3">
-						Judulnya apa ya?
-                        </Typography>
-					<Typography variant="body1" gutterBottom component="h4" color='textSecondary'>
-						Penulis
-                        </Typography>
-					<Chip variant="outlined" size="small" label="Kategori" />
-				</CardContent>
-			</Grid>
+		<Grid container className={classes.container} direction='row' spacing={2} justify='space-between'>
+			{bookgrid}
 		</Grid>
 	);
 }
 
 
-export { BookGrid, BookGridAlt};
+export { BookGrid, BookGridAlt };

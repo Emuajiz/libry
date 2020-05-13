@@ -1,12 +1,16 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { useEffect } from 'react'
+
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Divider, Button, Box } from '@material-ui/core';
+
 import { Icon } from '@iconify/react';
 import bxChevronRight from '@iconify/icons-bx/bx-chevron-right';
+
 import AppBar from './Appbar'
 import CategoriesTab from './CategoriesTab'
 import BookGrid from './BookGrid'
-
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -34,7 +38,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Home() {
     const classes = useStyles();
-
     return (
         <div className={classes.root}>
             <AppBar />
@@ -47,7 +50,9 @@ export default function Home() {
             <Button
                 fullWidth className={classes.btn}
                 endIcon={<Icon icon={bxChevronRight}
-                    style={{ color: '#151515', fontSize: '22px' }} />}>
+                    style={{ color: '#151515', fontSize: '22px' }} />}
+                component={Link} to='/detail' 
+                >
                 <Typography variant='h3' component='h2' >Buku terpopuler saat ini</Typography>
                 <div style={{ flexGrow: 1 }} />
             </Button>
@@ -55,7 +60,8 @@ export default function Home() {
             <Button
                 fullWidth className={classes.btn}
                 endIcon={<Icon icon={bxChevronRight}
-                    style={{ color: '#151515', fontSize: '22px' }} />}>
+                    style={{ color: '#151515', fontSize: '22px' }} />}
+                component={Link} to='/detail' >
                 <Typography variant='h3' component='h2' >Buku pilihan untukmu</Typography>
                 <div style={{ flexGrow: 1 }} />
             </Button>
