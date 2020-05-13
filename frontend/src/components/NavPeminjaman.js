@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
 
         backgroundColor: '#F2F2F2',
         boxShadow: '0px -4px 18px rgba(0, 0, 0, 0.25)',
+        zIndex: 1000,
     },
     btn: {
         height: 42,
