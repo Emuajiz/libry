@@ -1,5 +1,6 @@
 import React from 'react';
 import { useHistory } from "react-router-dom";
+import moment from 'moment';
 
 import { Grid, Typography, IconButton, TextField, InputAdornment, Button } from '@material-ui/core';
 import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab';
@@ -25,9 +26,12 @@ const useStyles = makeStyles((theme) => ({
 	},
 	itemText: {
 		width: '100%',
-		marginTop: theme.spacing(5),
+		marginTop: theme.spacing(4),
 		marginBottom: theme.spacing(3),
 	},
+	textField: {
+		width: '100%',
+	}
 }));
 
 const MetodePeminjaman = withStyles((theme) => ({
@@ -58,9 +62,11 @@ export default function PeminjamanBuku() {
 			setMetode(newMetode);
 		}
 	};
+	const currDate = moment().format('YYYY-MM-DDTHH:mm');;
 	const classes = useStyles();
 	const history = useHistory();
 	React.useEffect(() => { window.scrollTo(0, 0); }, []);
+
 
 	return (
 		<Grid container className={classes.root} direction='column' justify='flex-start'>
@@ -73,80 +79,91 @@ export default function PeminjamanBuku() {
                 </Typography>
 			</Grid>
 			<Grid container className={classes.container} direction='column' jutsify='flex-start'>
-				<Grid item className={classes.itemText}>
-					<Typography variant='h1' component='h1' gutterBottom style={{ marginBottom: '1rem' }}>
-						Metode Peminjaman
+				<form style={{
+					display: 'flex',
+					flexDirection: 'column',
+					minHeight: '80vh'
+				}}>
+					<Grid item className={classes.itemText}>
+						<Typography variant='h1' component='h1' gutterBottom style={{ marginBottom: '1rem' }}>
+							Metode Peminjaman
                     </Typography>
-					<Typography variant='h3' component='h2' style={{ fontWeight: 300 }} color='textSecondary' gutterBottom>
-						Silakan pilih bentuk peminjaman yang diinginkan
+						<Typography variant='h3' component='h2' style={{ fontWeight: 300 }} color='textSecondary' gutterBottom>
+							Silakan pilih bentuk peminjaman yang diinginkan
                     </Typography>
-				</Grid>
-				<ToggleButtonGroup
-					value={metode}
-					exclusive
-					onChange={handleMetode}
-					aria-label="metode peminjaman"
-				>
-					<MetodePeminjaman
-						value="ebook"
-						color='secondary'
+					</Grid>
+					<ToggleButtonGroup
+						value={metode}
+						exclusive
+						onChange={handleMetode}
+						aria-label="metode peminjaman"
 					>
-						<Icon icon={outlineLibraryBooks}
-							style={{
-								color: '#cc5a71',
-								fontSize: '3rem',
-								margin: '0 0.375rem -2.2rem 0',
-							}} />
-						<Typography variant='body1' component='span' color='secondary' style={{ fontWeight: 'bold' }}>
-							E-book
+						<MetodePeminjaman
+							value="ebook"
+							color='secondary'
+						>
+							<Icon icon={outlineLibraryBooks}
+								style={{
+									color: '#cc5a71',
+									fontSize: '3rem',
+									margin: '0 0.375rem -2.2rem 0',
+								}} />
+							<Typography variant='body1' component='span' color='secondary' style={{ fontWeight: 'bold' }}>
+								E-book
                     </Typography>
-					</MetodePeminjaman>
-					<MetodePeminjaman
-						value="buku-fisik"
+						</MetodePeminjaman>
+						<MetodePeminjaman
+							value="buku-fisik"
+							color='secondary'
+						>
+							<Icon icon={bxBookReader}
+								style={{
+									color: '#cc5a71',
+									fontSize: '3rem',
+									margin: '0 0.375rem -2.2rem 0',
+								}} />
+							<Typography variant='body1' component='span' color='secondary' style={{ fontWeight: 'bold' }}>
+								Buku Fisik
+                    </Typography>
+						</MetodePeminjaman>
+					</ToggleButtonGroup>
+					<Grid item className={classes.itemText}>
+						<Typography variant='h1' component='h1' gutterBottom style={{ marginBottom: '1rem' }}>
+							Waktu Peminjaman
+                    </Typography>
+						<Typography variant='h3' component='h2' style={{ fontWeight: 300 }} color='textSecondary' gutterBottom>
+							Silakan pilih waktu kedatangan<br /> sesuai dengan keinginan
+                    </Typography>
+					</Grid>
+					<TextField
+						id="datetime-local"
+						label="Waktu Peminjaman"
+						type="datetime-local"
+						defaultValue={currDate}
+						className={classes.textField}
+						InputProps={{
+							startAdornment: (
+								<InputAdornment position="start">
+									<Icon icon={bxTimeFive} style={{ color: '#c89b7b', fontSize: '22px' }} />
+								</InputAdornment>
+							),
+						}}
+						InputLabelProps={{
+							shrink: true,
+						}}
+					/>
+
+					<div style={{ flexGrow: 1 }} />
+					<Button
 						color='secondary'
-					>
-						<Icon icon={bxBookReader}
-							style={{
-								color: '#cc5a71',
-								fontSize: '3rem',
-								margin: '0 0.375rem -2.2rem 0',
-							}} />
-						<Typography variant='body1' component='span' color='secondary' style={{ fontWeight: 'bold' }}>
-							Buku Fisik
-                    </Typography>
-					</MetodePeminjaman>
-				</ToggleButtonGroup>
-				<Grid item className={classes.itemText}>
-					<Typography variant='h1' component='h1' gutterBottom style={{ marginBottom: '1rem' }}>
-						Waktu Peminjaman
-                    </Typography>
-					<Typography variant='h3' component='h2' style={{ fontWeight: 300 }} color='textSecondary' gutterBottom>
-						Silakan pilih waktu kedatangan<br /> sesuai dengan keinginan
-                    </Typography>
-				</Grid>
-				<TextField
-					fullWidth
-					id="outlined-basic"
-					label="Waktu Peminjaman"
-					variant='filled'
-					InputProps={{
-						startAdornment: (
-							<InputAdornment position="start">
-								<Icon icon={bxTimeFive} style={{ color: '#c89b7b', fontSize: '22px' }} />
-							</InputAdornment>
-						),
-					}}
-					color='primary' />
-				<div style={{ flexGrow: 1 }} />
-				<Button
-					color='secondary'
-					variant='contained'
-					fullWidth endIcon={
-						<Icon icon={bxChevronRight} style={{ color: '#fcfcfc', fontSize: '22px' }} />
-					}
-					className={classes.btn}>
-					Selanjutnya
-                </Button>
+						variant='contained'
+						fullWidth endIcon={
+							<Icon icon={bxChevronRight} style={{ color: '#fcfcfc', fontSize: '22px' }} />
+						}
+						className={classes.btn}>
+						Selanjutnya
+                	</Button>
+				</form>
 			</Grid>
 		</Grid >
 	);

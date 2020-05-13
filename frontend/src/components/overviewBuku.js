@@ -1,8 +1,7 @@
 import React from 'react';
 import Popup from "reactjs-popup";
 import styled from 'styled-components';
-
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -104,7 +103,8 @@ export default function Koleksiku() {
                 <Icon icon={bxArrowBack} style={{ color: '#f2f2f2', fontSize: 24 }} />
             </IconButton>
             <StyledPopup modal
-                contentStyle={{ background: 'transparent', border: 'none', width: 344 }}
+                contentStyle={{ background: 'transparent', border: 'none', width: '75%' }}
+                
                 trigger=
                 {<CardMedia image={require('../images/contohBuku.jpg')} className={classes.media}>
                 </CardMedia>}>
@@ -213,6 +213,7 @@ export default function Koleksiku() {
                             <Icon icon={bxChevronRight}
                                 style={{ color: '#151515', fontSize: '1.2rem' }} />
                         }
+                        component={Link} to='/detail'
                     >
                         <Typography variant='h3' component='h3' style={{ fontWeight: 600 }}>
                             Buku lain karya Penulis
@@ -232,6 +233,7 @@ export default function Koleksiku() {
                             <Icon icon={bxChevronRight}
                                 style={{ color: '#151515', fontSize: '1.2rem' }} />
                         }
+                        component={Link} to='/detail'
                     >
                         <Typography variant='h3' component='h3' style={{ fontWeight: 600 }}>
                             Rekomendasi buku lain untukmu
