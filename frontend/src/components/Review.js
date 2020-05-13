@@ -2,7 +2,6 @@ import React from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { Paper, Grid, Typography, ButtonBase } from '@material-ui/core';
 import { Icon } from '@iconify/react';
-import bxsStar from '@iconify/icons-bx/bxs-star';
 import bxChevronRight from '@iconify/icons-bx/bx-chevron-right';
 
 import { RatingStar } from './Rating';
@@ -11,10 +10,11 @@ const useStyles = makeStyles((theme) => ({
     root: {
         width: '100%',
         height: 'auto',
+        textAlign: 'left',
+        
         padding: theme.spacing(3),
         paddingLeft: theme.spacing(0),
         paddingRight: 0,
-        textAlign: 'left',
     },
     text: {
         marginTop: theme.spacing(2),
