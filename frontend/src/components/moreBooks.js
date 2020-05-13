@@ -1,4 +1,6 @@
 import React from 'react';
+import { useHistory } from "react-router-dom";
+
 import { makeStyles } from '@material-ui/core/styles';
 import { IconButton, Grid, Typography } from '@material-ui/core'
 
@@ -10,21 +12,24 @@ import BookList from './BookList';
 
 const useStyles = makeStyles((theme) => ({
     root: {
+        width: '100%',
         minHeight: '100vh',
         // zIndex: 100,
     },
     items: {
-        marginTop: theme.spacing(3),
+        marginTop: theme.spacing(2),
         marginLeft: theme.spacing(-1),
     }
 }));
 
 export default function BukuPopuler() {
     const classes = useStyles();
+    const history = useHistory();
+    React.useEffect(() => { window.scrollTo(0, 0); }, []);
     return (
         <Grid container direction='column' alignItems='flex-start' className={classes.root}>
             <Grid container alignItems='center' className={classes.items}>
-                <IconButton>
+                <IconButton onClick={() => history.goBack()}>
                     <Icon icon={bxArrowBack} style={{ color: '#cc5a71', fontSize: '29px' }} />
                 </IconButton>
                 <Typography variant='h1' component='h1' style={{ marginLeft: '0.75rem', fontWeight: 'bold' }}>
@@ -38,10 +43,12 @@ export default function BukuPopuler() {
 
 function ArsipBuku() {
     const classes = useStyles();
+    const history = useHistory();
+    React.useEffect(() => { window.scrollTo(0, 0); }, []);
     return (
         <Grid container direction='column' alignItems='flex-start' className={classes.root}>
-            <Grid container alignItems='center' className={classes.items}>
-                <IconButton>
+            <Grid container alignItems='center' className={classes.items} style={{marginTop: '1.5rem'}}>
+                <IconButton onClick={() => history.goBack()}>
                     <Icon icon={bxArrowBack} style={{ color: '#cc5a71', fontSize: '29px' }} />
                 </IconButton>
                 <Grid item style={{textAlign: 'left', marginLeft: '0.75rem' }}>

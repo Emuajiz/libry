@@ -1,4 +1,6 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
+
 import { makeStyles } from '@material-ui/core/styles';
 import {
     Card, CardMedia, CardContent, Typography, Grid,
@@ -9,6 +11,7 @@ import { Icon } from '@iconify/react';
 import roundFavoriteBorder from '@iconify/icons-ic/round-favorite-border';
 import outlineLibraryBooks from '@iconify/icons-ic/outline-library-books';
 import bxChevronRight from '@iconify/icons-bx/bx-chevron-right';
+import bxArrowBack from '@iconify/icons-bx/bx-arrow-back';
 
 import Review from './Review';
 import { RatingAlt } from './Rating';
@@ -61,6 +64,15 @@ const useStyles = makeStyles((theme) => ({
         paddingLeft: 0,
         paddingRight: 0,
     },
+    backbtn: {
+        position: 'absolute',
+        top: theme.spacing(2), left: theme.spacing(2),
+        background: 'rgba(34, 34, 34, 0.7)',
+        
+        '&:hover': {
+            background: 'rgba(34, 34, 34, 0.2)',
+        }
+    },
     botNav: {
         width: `calc(100% + ${theme.spacing(4)})`,
     },
@@ -68,8 +80,12 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Koleksiku() {
     const classes = useStyles();
+    const history = useHistory();
     return (
         <div className={classes.root}>
+            <IconButton onClick={() => history.goBack()} className={classes.backbtn} edge='left' >
+                <Icon icon={bxArrowBack} style={{ color: '#f2f2f2', fontSize: 24 }} />
+            </IconButton>
             <NavPeminjaman className={classes.botNav} />
             <CardMedia image={require('../images/contohBuku.jpg')} className={classes.media} />
             <Card className={classes.card}>
