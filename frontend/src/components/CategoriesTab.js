@@ -1,6 +1,8 @@
 import React from 'react';
-import { createMuiTheme, responsiveFontSizes, withStyles, makeStyles } from '@material-ui/core/styles';
+
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 import { Button, Typography, GridList, GridListTile, Box } from '@material-ui/core'
+
 import { Icon } from '@iconify/react';
 import bxsTrophy from '@iconify/icons-bx/bxs-trophy';
 import baselineCategory from '@iconify/icons-ic/baseline-category';
@@ -65,9 +67,6 @@ const BtnGradientAlt2 = withStyles((theme) => ({
         textTransform: 'none',
     },
 }))(Button);
-
-let theme = createMuiTheme();
-theme = responsiveFontSizes(theme);
 
 export default function CategoriesTab() {
     const classes = useStyles();
