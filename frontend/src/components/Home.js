@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useEffect } from 'react'
 
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Divider, Button, Box } from '@material-ui/core';
