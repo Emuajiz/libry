@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function Review() {
+export default function Review({rating, jmlUlasan}) {
     const classes = useStyles();
     return (
         <Grid container alignContent='center' style={{ width: '100%' }}>
@@ -37,12 +37,12 @@ export default function Review() {
                     </Grid>
                     <Grid container direction='row' className={classes.text}>
                         <Typography variant='h1' component='span' style={{ fontSize: 48 }}>
-                            4,4
+                            {rating}
                         </Typography>
                         <Grid item style={{ display: 'flex', flexDirection: 'column', marginLeft: '1rem', justifyContent: 'flex-end' }}>
-                            <RatingStar />
+                            <RatingStar rating={rating} />
                             <Typography variant='body1' component='p' color='textSecondary'>
-                                XX ulasan
+                                {jmlUlasan} ulasan
                             </Typography>
                         </Grid>
                     </Grid>

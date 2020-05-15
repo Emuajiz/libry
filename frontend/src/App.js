@@ -15,6 +15,7 @@ import Register from './register';
 import { BukuPopuler, ArsipBuku } from './components/moreBooks';
 import PeminjamanBuku from './components/peminjamanBuku';
 import ZoomOutImg from './components/zoomOutImages';
+import CategoriesPage from './components/categoriesPage';
 
 const containerStyles = {
 	width: '100%',
@@ -73,13 +74,14 @@ function App() {
 			<ThemeProvider theme={theme}>
 				<Grid container direction="column" style={containerStyles}>
 					<Container maxWidth='xs'>
-						<Route path='/books' exact component={overviewBuku} />
+						<Route path='/book/:id' exact component={overviewBuku} />
 						<Route path='/signin' exact component={Login} />
 						<Route path='/signup' exact component={Register} />
 						<Route path='/detail' exact component={BukuPopuler} />
 						<Route path='/arsipbuku' exact component={ArsipBuku} />
 						<Route path='/peminjaman' exact component={PeminjamanBuku} />
 						<Route path='/images' exact component={ZoomOutImg} />
+						<Route path='/categories' exact component={CategoriesPage} />
 						<Switch>
 							<Route path='/' exact component={Home} />
 							<Route path='/koleksiku' exact component={Koleksiku} />

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -8,12 +8,14 @@ import { Box, Grid, GridList, GridListTile, CardContent, CardMedia, Typography, 
 const useStyles = makeStyles((theme) => ({
 	media: {
 		height: '10rem',
+		width: 112,
 		boxShadow: '5px 10px 32px rgba(21, 21, 21, 0.2)',
 		borderRadius: 4,
 	},
 	Booklist: {
 		marginRight: theme.spacing(1),
 		textDecoration: 'none', color: 'inherit',
+		width: '100%',
 		'& > *': {
 			overflow: 'visible',
 		}
@@ -56,30 +58,41 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
+const urlCuy = 'http://38e43de1.ngrok.io';
+
 export default function BookGrid() {
 	const classes = useStyles();
-	const booklist = [];
-	for (var i = 0; i < 5; i++) {
-		booklist.push(
-			<GridListTile className={classes.Booklist} component={Link} to='/books'>
-				<CardMedia className={classes.media}
-					image={require('../images/contohBuku.jpg')} />
-				<CardContent className={classes.content}>
-					<Typography variant="h4" component="h3">
-						Judulnya apa ya?
-				</Typography>
-					<Typography variant="body1" gutterBottom component="h4" color='textSecondary'>
-						Penulis
-				</Typography>
-					<Chip variant="outlined" size="small" label="Kategori" />
-				</CardContent>
-			</GridListTile>
-		);
+	useEffect(()=>{
+        fetchDetailBooks();
+    },[]);
+	const [books, setBooks] = useState([]);
+    const fetchDetailBooks = async() => {
+        const data = await fetch(
+            `${urlCuy}/api/buku`
+        );
+        const books = await data.json();
+        console.log(books.data);
+        setBooks(books.data);
 	}
+	
 	return (
 		<Box component='div' className={classes.gridlist}>
 			<GridList className={classes.gridlistChild} component='div' cellHeight={'auto'} cols={3.5}>
-				{booklist}
+				{books.map(item => (
+					<GridListTile className={classes.Booklist} component={Link} to={`/book/${item.id}`} key={item.id}>
+						<CardMedia className={classes.media}
+							image={`${urlCuy}/cover-buku/${item.cover}`} />
+						<CardContent className={classes.content}>
+							<Typography variant="h4" component="h3">
+								{item.judul}
+							</Typography>
+							<Typography variant="body1" gutterBottom component="h4" color='textSecondary'>
+								{item.penulis}
+							</Typography>
+							<Chip variant="outlined" size="small" label={item.kategori} />
+						</CardContent>
+					</GridListTile>
+				))}
 			</GridList>
 		</Box>
 	);
