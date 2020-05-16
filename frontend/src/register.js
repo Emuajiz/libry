@@ -1,4 +1,7 @@
 import React from 'react';
+import { useForm } from 'react-hook-form';
+import { Link as Links } from 'react-router-dom';
+
 import { makeStyles } from '@material-ui/core/styles';
 import { TextField, InputAdornment, Typography, Button, Link, Grid } from '@material-ui/core';
 
@@ -28,8 +31,38 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+const urlCuy = 'http://8198552c.ngrok.io';
+
 export default function Register() {
     const classes = useStyles();
+    const { register, handleSubmit } = useForm();
+
+    const onSubmit = (data) => {
+        console.log(data);
+        handlePost(data);
+    };
+
+    const handlePost = (data) => {
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'content-type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        };
+        console.log(requestOptions);
+        fetch(`${urlCuy}/api/register`, requestOptions)
+            .then(response => {
+                const data = response.json();
+                console.log(data);
+                if (!response.ok) {
+                    // get error message from body or default to response status
+                    const error = (data && data.message) || response.status;
+                    return Promise.reject(error);
+                }
+            })
+    };
 
     return (
         <Grid container direction='column' justify='center' className={classes.container}>
@@ -41,11 +74,14 @@ export default function Register() {
                     Selamat datang, pengguna
                 </Typography>
             </Grid>
-            <form className={classes.root} noValidate autoComplete="off">
+            <form className={classes.root} noValidate onSubmit={handleSubmit(onSubmit)}>
                 <TextField
                     id="outlined-basic"
                     label="E-mail"
+                    name="email"
+                    type="email"
                     variant='filled'
+                    inputRef={register}
                     InputProps={{
                         startAdornment: (
                             <InputAdornment position="start">
@@ -57,8 +93,26 @@ export default function Register() {
                     color='primary' />
                 <TextField
                     id="outlined-basic"
-                    label="Password"
+                    label="Nama Lengkap"
+                    name="nama"
                     variant='filled'
+                    inputRef={register}
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <Icon icon={bxKey} style={{ color: '#c89b7b', fontSize: '1.25rem' }} />
+                            </InputAdornment>
+                        ),
+                    }}
+                    color='primary'
+                    style={{ borderRadius: 8 }} />
+                <TextField
+                    id="outlined-basic"
+                    label="Password"
+                    name="password"
+                    type="password"
+                    variant='filled'
+                    inputRef={register}
                     InputProps={{
                         startAdornment: (
                             <InputAdornment position="start">
@@ -71,7 +125,9 @@ export default function Register() {
                 <TextField
                     id="outlined-basic"
                     label="No Telepon"
+                    name="phone"
                     variant='filled'
+                    inputRef={register}
                     InputProps={{
                         startAdornment: (
                             <InputAdornment position="start">
@@ -84,10 +140,12 @@ export default function Register() {
                 <TextField
                     id="outlined-basic"
                     label="Alamat"
+                    name='alamat'
                     variant='filled'
+                    inputRef={register}
                     InputProps={{
                         startAdornment: (
-                            <InputAdornment position="start" style={{justifyContent: 'flex-end', alignItems: 'flex-end'}}>
+                            <InputAdornment position="start" style={{ justifyContent: 'flex-end', alignItems: 'flex-end' }}>
                                 <Icon icon={bxsHome} style={{ color: '#c89b7b', fontSize: '1.25rem' }} />
                             </InputAdornment>
                         ),
@@ -95,21 +153,22 @@ export default function Register() {
                     multiline
                     color='primary'
                     style={{ borderRadius: 8 }} />
+                <Grid item className={classes.items}>
+                    <Button
+                        variant='contained'
+                        fullWidth color='secondary'
+                        style={{ borderRadius: 8 }}
+                        type='submit'
+                    >
+                        Sign Up
+                    </Button>
+                </Grid>
             </form>
-            <Grid item className={classes.items}>
-                <Button
-                    variant='contained'
-                    fullWidth color='secondary'
-                    style={{ borderRadius: 8 }}
-                >
-                    Sign Up
-            </Button>
-            </Grid>
             <Grid item className={classes.items} style={{ textAlign: 'center' }}>
                 <Typography variant='body1' component='span'>
                     Sudah memiliki akun?&nbsp;
                 </Typography>
-                <Link variant='body1' >
+                <Link variant='body1' component={Links} to='/signin'>
                     Sign In
                 </Link>
             </Grid>

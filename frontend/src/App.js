@@ -16,6 +16,7 @@ import { BukuPopuler, ArsipBuku } from './components/moreBooks';
 import PeminjamanBuku from './components/peminjamanBuku';
 import ZoomOutImg from './components/zoomOutImages';
 import CategoriesPage from './components/categoriesPage';
+import ReadBook from './components/ReadBook';
 import Coba from './components/aoba';
 
 const containerStyles = {
@@ -83,6 +84,7 @@ function App() {
 						<Route path='/pinjam/:id' exact component={PeminjamanBuku} />
 						<Route path='/images' exact component={ZoomOutImg} />
 						<Route path='/categories' exact component={CategoriesPage} />
+						<Route path='/baca' exact component={ReadBook} />
 						<Route path='/aoba' exact component={Coba} />
 						<Switch>
 							<Route path='/' exact component={Home} />
