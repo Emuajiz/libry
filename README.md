@@ -68,7 +68,14 @@ Motivasi&ensp;: Kesulitan mencari buku yang sesuai dengan minat, ribetnya meminj
 
 Goals&ensp;: Bisa mencari buku dengan cepat tanpa harus mencari satu-satu. Bisa meminjam buku tanpa harus mencarinya ke raknya terlebih dahulu, jadi saat di resepsionis langsung bisa mengambil bukunya. 
 
-##  User story 
+##  User story
+- Sebagai seorang user saya ingin booking buku saat di perjalanan, sehingga saat saya datang ke perpustakaan saya dapat langsung mengambil bukunya.
+- Sebagai seorang pustakawan saya ingin mengetahui status peminjaman dengan jelas agar pengorganisiran buku yang dipinjam lebih jelas.
+- Sebagai seorang user saya ingin mengatur preferensi tampilan baca buku agar saya dapat nyaman membaca e-book di ponsel saya.
+- Sebagai seorang user saya ingin bisa mengorganisir buku yang sedang maupun yang telah dipinjam agar apabila saya membutuhkannya lagi saya bisa mendapatkannya dengan lebih mudah.
+- Sebagai seorang user saya ingin bisa membaca pratinjau buku yang ingin dipinjam baik ebook atau pun bukan agar saya mengetahui apakah buku tersebut yang saya cari atau bukan.
+- Sebagai seorang user saya ingin bisa melihat tanggapan orang lain mengenai buku yang akan dipinjam agar saya dapat dengan cepat memutuskan buku yang saya inginkan.
+
 ##  Use case diagram
 ##  Use case description 
 ##  Activity diagram
