@@ -1,12 +1,12 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, Route } from 'react-router-dom';
 
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { Typography, Button, Grid } from '@material-ui/core';
 import { Icon } from '@iconify/react';
 import bxArchiveIn from '@iconify/icons-bx/bx-archive-in';
-import BookGridBig from './BookGridBig'
 
+import BookGridBig from './BookGridBig'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -31,7 +31,34 @@ const BtnGradient = withStyles((theme) => ({
     },
 }))(Button);
 
+const urlCuy = 'http://8198552c.ngrok.io';
+const token = 'JvsUQymW7UEfNWoYBUEMREo7B4qdYjult7VSuSPUqyQsFkJwAL2PL1eF8f3LYrWQWlnKSEr5vZPFdQuS';
+
 export default function Koleksiku() {
+    useEffect(() => {
+        fetchDetailBooks();
+    }, []);
+
+    const [books, setBooks] = React.useState([]);
+
+    const fetchDetailBooks = async () => {
+        const requestOptions = {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'content-type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+        };
+        const data = await fetch(
+            `${urlCuy}/api/pinjam`, requestOptions
+        );
+        var books = await data.json();
+        console.log(books);
+        books = Array.from(books);
+        setBooks(books);
+    }
+
     const classes = useStyles();
     return (
         <div className={classes.root}>
@@ -46,7 +73,17 @@ export default function Koleksiku() {
                     Arsip Buku
                 </BtnGradient>
             </Grid>
-            <BookGridBig />
+            {books.map(item => (
+                <BookGridBig
+                    id={item.id}
+                    judul={item.judul}
+                    penulis={item.penulis}
+                    tipe={item.tipe}
+                    sisa={item.sisa_hari}
+                    file={item.file_location}
+                    cover={item.cover_location}
+                />
+            ))}
         </div>
     );
 }

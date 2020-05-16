@@ -16,6 +16,7 @@ import { BukuPopuler, ArsipBuku } from './components/moreBooks';
 import PeminjamanBuku from './components/peminjamanBuku';
 import ZoomOutImg from './components/zoomOutImages';
 import CategoriesPage from './components/categoriesPage';
+import Coba from './components/aoba';
 
 const containerStyles = {
 	width: '100%',
@@ -79,9 +80,10 @@ function App() {
 						<Route path='/signup' exact component={Register} />
 						<Route path='/detail' exact component={BukuPopuler} />
 						<Route path='/arsipbuku' exact component={ArsipBuku} />
-						<Route path='/peminjaman' exact component={PeminjamanBuku} />
+						<Route path='/pinjam/:id' exact component={PeminjamanBuku} />
 						<Route path='/images' exact component={ZoomOutImg} />
 						<Route path='/categories' exact component={CategoriesPage} />
+						<Route path='/aoba' exact component={Coba} />
 						<Switch>
 							<Route path='/' exact component={Home} />
 							<Route path='/koleksiku' exact component={Koleksiku} />

@@ -1,9 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, GridList, GridListTile, CardContent, CardMedia, Typography, Chip } from '@material-ui/core'
 import LinearProgress from '@material-ui/core/LinearProgress';
+
+import { Icon } from '@iconify/react';
+import outlineLibraryBooks from '@iconify/icons-ic/outline-library-books';
+import ReadBook from './ReadBook';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -28,49 +32,59 @@ const useStyles = makeStyles((theme) => ({
         flexWrap: 'wrap',
         width: `calc(100% + ${theme.spacing(1.5)})`,
         overflow: 'visible',
-        
+
         marginTop: theme.spacing(3),
         marginRight: theme.spacing(-1.5),
     },
     gridlistChild: {
         flexWrap: 'nowrap',
     },
-    progressBaca: {
+    jenisBuku: {
         marginTop: theme.spacing(1),
         marginBottom: theme.spacing(1),
     },
 }));
 
-export default function BookGridBig() {
+const urlCuy = 'http://8198552c.ngrok.io';
+const token = 'JvsUQymW7UEfNWoYBUEMREo7B4qdYjult7VSuSPUqyQsFkJwAL2PL1eF8f3LYrWQWlnKSEr5vZPFdQuS';
+
+export default function BookGridBig({ id, judul, penulis, tipe, file, cover, sisa }) {
     const classes = useStyles();
-    const booklist = []
-    for (var i = 0; i < 5; i++) {
-        booklist.push(
-            <GridListTile className={classes.Booklist} component={Link} to='/books' >
-                <CardMedia className={classes.media}
-                    image={require('../images/contohBuku.jpg')} />
-                <CardContent className={classes.content}>
-                    <Typography variant="h3" component="h2">
-                        Judulnya apa ya?
-                        </Typography>
-                    <Typography variant="body1" gutterBottom component="h4" color='textSecondary'>
-                        Penulis
-                        </Typography>
-                    <Grid item className={classes.progressBaca}>
-                        <LinearProgress variant='determinate' value={80} color='secondary' />
-                        <Typography variant="subtitle1" component='span'>80%</Typography>
-                    </Grid>
-                    <Typography variant='h4' component='h3' paragraph>3 hari tersisa</Typography>
-                    <Chip variant="outlined" size="small" label="Kategori" />
-                </CardContent>
-            </GridListTile>
-        );
+    const params = {
+        pathname: '/baca',
+        state: {
+            judul: `${judul}`,
+            file: `${file}`
+        }
     }
     return (
+        
         <Grid container maxWidth='xs' className={classes.gridlist} direction='column' component='div'>
             <GridList className={classes.gridlistChild} cellHeight={'auto'} cols={2} component='div'>
-                {booklist}
+                <GridListTile
+                    className={classes.Booklist}
+                    component={Link} to={params}>
+                    <CardMedia className={classes.media}
+                        image={cover} />
+                    <CardContent className={classes.content}>
+                        <Typography variant="h3" component="h2">
+                            {judul}
+                        </Typography>
+                        <Typography variant="body1" gutterBottom component="h4" color='textSecondary'>
+                            {penulis}
+                        </Typography>
+                        <Grid item className={classes.jenisBuku}>
+                            <Icon icon={outlineLibraryBooks} style={{ color: '#222222', fontSize: '17px' }} />
+                            {tipe === 'd' ?
+                                <Typography variant='body1' component='span' color='textSecondary'>Buku Digital</Typography>
+                                : <Typography variant='body1' component='span' color='textSecondary'>Buku Fisik</Typography>}
+                        </Grid>
+                        <Typography variant='h4' component='h3' paragraph>{sisa} hari tersisa</Typography>
+                        <Chip variant="outlined" size="small" label="Kategori" />
+                    </CardContent>
+                </GridListTile>
             </GridList>
         </Grid>
+        
     );
 }

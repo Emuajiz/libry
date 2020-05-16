@@ -26,9 +26,9 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function NavPeminjaman() {
+export default function NavPeminjaman({ booksId }) {
     const classes = useStyles();
-
+    console.log(booksId);
     return (
         <Grid maxWidth='xs' container direction='row' justify='center' className={classes.root} >
             <Button variant='contained'
@@ -36,7 +36,7 @@ export default function NavPeminjaman() {
                 size='small'
                 className={classes.btn}
                 style={{ marginRight: '0.5rem', width: 'calc(80% - 0.5rem)' }}
-                component={Link} to='./peminjaman'
+                component={Link} to={`/pinjam/${booksId}`}
                 >
                 Pinjam Buku
             </Button>

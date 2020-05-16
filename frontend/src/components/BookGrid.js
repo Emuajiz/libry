@@ -1,21 +1,21 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Box, Grid, GridList, GridListTile, CardContent, CardMedia, Typography, Chip } from '@material-ui/core'
+import { Grid, GridListTile, CardContent, CardMedia, Typography, Chip } from '@material-ui/core'
 
 
 const useStyles = makeStyles((theme) => ({
 	media: {
 		height: '10rem',
 		width: 112,
-		boxShadow: '5px 10px 32px rgba(21, 21, 21, 0.2)',
+		boxShadow: '5px 8px 24px rgba(21, 21, 21, 0.2)',
 		borderRadius: 4,
 	},
 	Booklist: {
-		marginRight: theme.spacing(1),
+		marginRight: theme.spacing(2),
 		textDecoration: 'none', color: 'inherit',
-		width: '100%',
+		// width: '100%',
 		'& > *': {
 			overflow: 'visible',
 		}
@@ -27,17 +27,7 @@ const useStyles = makeStyles((theme) => ({
 			paddingBottom: theme.spacing(1.5),
 		}
 	},
-	gridlist: {
-		display: 'flex',
-		// flexWrap: 'wrap',
-		marginRight: theme.spacing(-1.5),
-		width: `calc(100% + ${theme.spacing(1.5)})`,
-		// overflow: 'hidden',
-		marginTop: theme.spacing(2),
-	},
-	gridlistChild: {
-		flexWrap: 'nowrap',
-	},
+	
 	container: {
 		width: '100%',
 		// overflowX: 'hide',
@@ -58,43 +48,23 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const urlCuy = 'http://38e43de1.ngrok.io';
-
-export default function BookGrid() {
+export default function BookGrid({ id, judul, penulis, kategori, cover }) {
 	const classes = useStyles();
-	useEffect(()=>{
-        fetchDetailBooks();
-    },[]);
-	const [books, setBooks] = useState([]);
-    const fetchDetailBooks = async() => {
-        const data = await fetch(
-            `${urlCuy}/api/buku`
-        );
-        const books = await data.json();
-        console.log(books.data);
-        setBooks(books.data);
-	}
-	
+
 	return (
-		<Box component='div' className={classes.gridlist}>
-			<GridList className={classes.gridlistChild} component='div' cellHeight={'auto'} cols={3.5}>
-				{books.map(item => (
-					<GridListTile className={classes.Booklist} component={Link} to={`/book/${item.id}`} key={item.id}>
-						<CardMedia className={classes.media}
-							image={`${urlCuy}/cover-buku/${item.cover}`} />
-						<CardContent className={classes.content}>
-							<Typography variant="h4" component="h3">
-								{item.judul}
-							</Typography>
-							<Typography variant="body1" gutterBottom component="h4" color='textSecondary'>
-								{item.penulis}
-							</Typography>
-							<Chip variant="outlined" size="small" label={item.kategori} />
-						</CardContent>
-					</GridListTile>
-				))}
-			</GridList>
-		</Box>
+		<GridListTile className={classes.Booklist} component={Link} to={`/book/${id}`}>
+			<CardMedia className={classes.media}
+				image={cover} />
+			<CardContent className={classes.content}>
+				<Typography variant="h4" component="h3">
+					{judul}
+				</Typography>
+				<Typography variant="body1" gutterBottom component="h4" color='textSecondary'>
+					{penulis}
+				</Typography>
+				<Chip variant="outlined" size="small" label={kategori} />
+			</CardContent>
+		</GridListTile>
 	);
 }
 

@@ -93,9 +93,8 @@ const StyledPopup = styled(Popup)`
     }
 `;
 
-const urlCuy = 'http://38e43de1.ngrok.io';
-
-
+const urlCuy = 'http://8198552c.ngrok.io';
+const token = 'JvsUQymW7UEfNWoYBUEMREo7B4qdYjult7VSuSPUqyQsFkJwAL2PL1eF8f3LYrWQWlnKSEr5vZPFdQuS';
 
 export default function Koleksiku({ match }) {
     const classes = useStyles();
@@ -104,44 +103,48 @@ export default function Koleksiku({ match }) {
     useEffect(() => {
         fetchDetailBooks();
     }, []);
-
+    
     const [books, setBooks] = useState([]);
+    const [wishlist, setWishlist] = useState(null);
+    
     const fetchDetailBooks = async () => {
+        const requestOptions = {
+            method: 'GET',
+            headers: { 
+                'Accept': 'application/json',
+                'content-type': 'application/json',
+                'Authorization' : `Bearer ${token}`,
+            },
+        };
         const data = await fetch(
-            `${urlCuy}/api/buku/${match.params.id}`
+            `${urlCuy}/api/buku/${match.params.id}`, requestOptions
         );
         const books = await data.json();
         console.log(books);
         setBooks(books);
+        if(books.fav) setWishlist(1);
     }
 
-    const token = 'oLvVj6WYYqTPYyQ3wKh9ontxNrvjPAWWxrjcQIhpWbRMAKwLxfTggmC9yeLTzKrw0UuVJzz166oS8l0B';
-    const [wishlist, setWishlist] = useState(null);
+    
     const [error, setError] = useState([]);
 
     const handleWishlist = (e) => {
         const idId = match.params.id;
-        console.log(idId);
-        const obj = {
-            buku: `${idId}`
-        };
-        console.log(obj);
         const requestOptions = {
             method: 'POST',
             headers: { 
                 'Accept': 'application/json',
+                'content-type': 'application/json',
                 'Authorization' : `Bearer ${token}`,
-                'Access-Control-Allow-Origin': '*',
             },
-            body: "{\n \"buku\" : \"1bdc61f3-a9e2-49b4-8bd2-e2e98d4b65f7\"\n}"
-            
+            body: `{"buku" : "${idId}"}`,
         };
-        if(wishlist == null) setWishlist(1);
-        else setWishlist(null);
+        if(!wishlist){
         fetch(`${urlCuy}/api/wishlist`, requestOptions)
             .then(response => {
                 const data = response.json();
                 console.log(data);
+                setWishlist(1);
                 if (!response.ok) {
                     // get error message from body or default to response status
                     const error = (data && data.message) || response.status;
@@ -152,6 +155,23 @@ export default function Koleksiku({ match }) {
                 setError({ errorMessage: error.toString() });
                 console.error('There was an error!', error);
             });
+        } else {
+            fetch(`${urlCuy}/api/wishlist/delete`, requestOptions)
+            .then(response => {
+                const data = response.json();
+                console.log(data);
+                setWishlist(null);
+                if (!response.ok) {
+                    // get error message from body or default to response status
+                    const error = (data && data.message) || response.status;
+                    return Promise.reject(error);
+                } 
+            })
+            .catch(error => {
+                setError({ errorMessage: error.toString() });
+                console.error('There was an error!', error);
+            });
+        }
     }
 
     return (
@@ -308,7 +328,7 @@ export default function Koleksiku({ match }) {
                 </Grid>
                 <BookGrid />
             </Box>
-            <NavPeminjaman />
+            <NavPeminjaman booksId={match.params.id} />
         </div>
     );
 }
