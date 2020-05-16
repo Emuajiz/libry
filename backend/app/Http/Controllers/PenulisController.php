@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\Buku as BukuResource;
+use App\Http\Resources\Penulis as PenulisResource;
 use App\Penulis;
+
 use Illuminate\Http\Request;
 
 class PenulisController extends Controller
@@ -15,9 +18,8 @@ class PenulisController extends Controller
     public function index()
     {
         //
-        return response()->json([
-            Penulis::with(['buku', 'buku.fisik', 'buku.digital'])->get()
-        ]);
+        // return Penulis::all();
+        return PenulisResource::Collection(Penulis::all());
     }
 
     /**
@@ -84,5 +86,10 @@ class PenulisController extends Controller
     public function destroy(Penulis $penulis)
     {
         //
+    }
+
+    public function buku(Penulis $penulis)
+    {
+        return BukuResource::Collection($penulis->buku);
     }
 }

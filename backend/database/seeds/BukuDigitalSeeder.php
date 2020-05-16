@@ -12,11 +12,12 @@ class BukuDigitalSeeder extends Seeder
     public function run()
     {
         //
-        $buku = \App\Buku::all()->first()->id;
-        DB::table('buku_digitals')->insert([
-            'id' => $buku,
-            'jumlah' => 20,
-            'nama_file' => 'buku',
-        ]);
+        foreach (\App\Buku::all() as $key => $value) {
+            DB::table('buku_digitals')->insert([
+                'id' => $value->id,
+                'jumlah' => 20,
+                'nama_file' => 'buku1.epub',
+            ]);
+        }
     }
 }

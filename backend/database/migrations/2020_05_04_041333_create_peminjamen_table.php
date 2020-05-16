@@ -18,9 +18,9 @@ class CreatePeminjamenTable extends Migration
             $table->uuid('buku_id');
             $table->uuid('pengunjung_id');
             $table->char('tipe', 1);
-            $table->date('pinjam');
-            $table->date('balik');
-            $table->date('tgl_balik')->nullable();
+            $table->dateTime('pinjam', 0);
+            $table->dateTime('balik', 0);
+            $table->dateTime('tgl_balik', 0)->nullable();
             $table->timestamps();
 
             $table->primary('id');

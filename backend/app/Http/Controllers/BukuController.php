@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\Buku as BukuResource;
+use App\Http\Resources\BukuCollection;
 use App\Buku;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BukuController extends Controller
 {
@@ -12,12 +16,9 @@ class BukuController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-        return response()->json([
-            Buku::with(['digital', 'fisik', 'review'])->get(),
-        ]);
+        return BukuResource::collection(Buku::paginate());
     }
 
     /**
@@ -50,9 +51,8 @@ class BukuController extends Controller
     public function show(Buku $buku)
     {
         //
-        return response()->json([
-            $buku,
-        ]);
+        // return new BukuCollection($buku);
+        return new BukuResource($buku);
     }
 
     /**

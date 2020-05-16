@@ -12,11 +12,13 @@ class WishlistSeeder extends Seeder
     public function run()
     {
         //
-        $buku = \App\Buku::all()->first()->id;
-        $pengunjung = \App\Pengunjung::all()->first()->id;
-        DB::table('wishlists')->insert([
-            'buku_id' => $buku,
-            'pengunjung_id' => $pengunjung,
-        ]);
+        
+        foreach (\App\Buku::all() as $key => $value) {
+            if(rand(0,1))
+            DB::table('wishlists')->insert([
+                'buku_id' => $value->id,
+                'pengunjung_id' => \App\User::all()[rand(0, 2)]->id,
+            ]);
+        }
     }
 }

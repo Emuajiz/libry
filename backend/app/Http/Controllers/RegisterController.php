@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\Pengunjung as PengunjungResource; 
+
 use App\User;
 use App\Pengunjung;
 use Illuminate\Http\Request;
@@ -18,17 +20,26 @@ class RegisterController extends Controller
     {
         $request->validate([
             'email' => 'required|email|unique:users',
-            'password' => 'required|confirmed',
+            'nama' => 'required',
+            'password' => 'required',
+            'phone' => 'required',
+            'alamat' => 'required',
         ]);
 
+        $id = Str::uuid();
         $user = User::create([
-            'id' => Str::uuid(),
+            'id' => $id,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
-        return response()->json(
-            $user
-        );
+        $pengunjung = Pengunjung::create([
+            'id' => $id,
+            'nama' => $request->nama,
+            'alamat' => $request->alamat,
+            'hp' => $request->phone,
+        ]);
+
+        return new PengunjungResource($pengunjung);
     }
 }

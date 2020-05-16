@@ -13,15 +13,18 @@ class PeminjamanSeeder extends Seeder
     public function run()
     {
         //
-        $buku = \App\Buku::all()->first()->id;
-        $pengunjung = \App\Pengunjung::all()->first()->id;
-        DB::table('peminjamen')->insert([
-            'id' => Str::uuid(),
-            'tipe' => 'f',
-            'buku_id' => $buku,
-            'pengunjung_id' => $pengunjung,
-            'pinjam' => \Carbon\Carbon::now()->format('Y-m-d'),
-            'balik' => \Carbon\Carbon::now()->add(7, 'day')->format('Y-m-d'),
-        ]);
+        $tipe = ['f', 'd'];
+
+        foreach (\App\Buku::all() as $key => $value) {
+            if(rand(0,1))
+            DB::table('peminjamen')->insert([
+                'id' => Str::uuid(),
+                'tipe' => $tipe[rand(0, 1)],
+                'buku_id' => $value->id,
+                'pengunjung_id' => \App\User::all()[rand(0, 2)]->id,
+                'pinjam' => \Carbon\Carbon::now(),
+                'balik' => \Carbon\Carbon::now()->add(7, 'day'),
+            ]);
+        }
     }
 }

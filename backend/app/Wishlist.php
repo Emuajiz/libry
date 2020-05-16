@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+// use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class Wishlist extends Model
 {
@@ -13,7 +14,7 @@ class Wishlist extends Model
 
     public function pengunjung()
     {
-        return $this->belongsTo('App\Pengunjung');
+        return $this->belongsTo('App\User');
     }
 
     public function buku()

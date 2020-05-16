@@ -12,10 +12,11 @@ class BukuFisikSeeder extends Seeder
     public function run()
     {
         //
-        $buku = \App\Buku::all()->first()->id;
-        DB::table('buku_fisiks')->insert([
-            'id' => $buku,
-            'jumlah' => 20
-        ]);
+        foreach (\App\Buku::all() as $key => $value) {
+            DB::table('buku_fisiks')->insert([
+                'id' => $value->id,
+                'jumlah' => 20
+            ]);
+        }
     }
 }

@@ -14,16 +14,17 @@ class PengunjungSeeder extends Seeder
     public function run()
     {
         //
-        $id = \App\User::all()->first()->id;
-        DB::table('pengunjungs')->insert([
-            'id' => $id,
-            'nama' => 'thareeq',
-            'alamat' => 'rumah',
-            'jk' => 1,
-            'pp' => 'thareeq.png',
-            'hp' => '089622220124',
-            'tl' => Date('2000-11-19'),
-            'pekerjaan' => 'kuliah',
-        ]);
+        foreach (\App\User::all() as $key => $value) {
+            DB::table('pengunjungs')->insert([
+                'id' => $value->id,
+                'nama' => 'thareeq',
+                'alamat' => 'rumah',
+                // 'jk' => 1,
+                // 'pp' => 'thareeq.png',
+                'hp' => '089622220124',
+                // 'tl' => Date('2000-11-19'),
+                // 'pekerjaan' => 'kuliah',
+            ]);
+        }
     }
 }

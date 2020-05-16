@@ -20,6 +20,8 @@ class CreateBukusTable extends Migration
             $table->year('tahun');
             $table->integer('halaman');
             $table->string('kategori');
+            $table->string('cover');
+            $table->text('sinopsis');
             $table->uuid('penulis_id');
             $table->uuid('penerbit_id');
             $table->timestamps();

@@ -19,8 +19,18 @@ class Buku extends Model
         return $this->hasOne("App\BukuFisik", "id");
     }
 
-    public function review()
+    public function reviews()
     {
         return $this->hasMany('App\ReviewBuku');
+    }
+
+    public function penulis()
+    {
+        return $this->belongsTo("App\Penulis");
+    }
+
+    public function penerbit()
+    {
+        return $this->belongsTo("App\Penerbit");
     }
 }
