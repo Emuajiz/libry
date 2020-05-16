@@ -7,9 +7,6 @@ import Rating from './Rating';
 
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        paddingBottom: '5rem',
-    },
     media: {
         height: '10rem',
         width: '6.5rem',
@@ -53,33 +50,26 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function BookList() {
+export default function BookList({ id, judul, penulis, kategori, cover }) {
     const classes = useStyles();
-    const booklist = [];
-    for (var i = 0; i < 5; i++) {
-        booklist.push(
-            <Paper className={classes.card} elevation={2} component={Link} to='/books' style={{textDecoration: 'none', color: 'inherit',}} >
+    console.log(id);
+    return (
+        <Box component='div' className={classes.gridlist}>
+            <Paper className={classes.card} elevation={2} component={Link} to={'/book/' + id} style={{ textDecoration: 'none', color: 'inherit', }} >
                 <Box zIndex={1}>
-                    <CardMedia image={require('../images/contohBuku.jpg')} className={classes.media} />
+                    <CardMedia image={cover} className={classes.media} />
                 </Box>
                 <CardContent className={classes.content}>
                     <Typography variant='h4' component='h4'>
-                        Judul Apa Ya?
-                        </Typography>
+                        {judul}
+                    </Typography>
                     <Typography variant="body1" gutterBottom component="h4" color='textSecondary'>
-                        Penulis
-                        </Typography>
+                        {penulis}
+                    </Typography>
                     <Rating />
-                    <Chip variant="outlined" size="small" label="Kategori" />
+                    <Chip variant="outlined" size="small" label={kategori} />
                 </CardContent>
             </Paper>
-        );
-    }
-    return (
-        <Box className={classes.root} component='div'>
-            <Box component='div' className={classes.gridlist}>
-                {booklist}
-            </Box>
         </Box>
     );
 }
