@@ -56,6 +56,12 @@ Buku yang sedang dipinjam baik e-book maupun buku fisik memiliki batas peminjama
 Jikalau pengguna masih bingung dalam memilih buku untuk dipinjam, pengguna dapat melihat katalog buku. Katalog buku ini berisikan daftar lengkap buku-buku yang berada di perpustakaan. Pengguna dapat melihat pratinjau buku untuk mengetahui apakah buku tersebut merupakan buku yang ia maksud atau bukan. Selain itu terdapat juga ulasan dari pengguna yang sudah membaca sebelumnya mengenai bagaimana isi buku tersebut.
 
 ##  Analisis user (user profile)
+Umur&ensp;: >12 tahun
+Jenis kelamin&ensp;: Laki-laki dan perempuan
+Pendidikan&ensp;: >SMP
+Personality&ensp;: Inginnya serba cepat dan tidak ribet, sering bepergian, sering membaca dari ponsel
+Motivasi&ensp;: Kesulitan mencari buku yang sesuai dengan minat, ribetnya meminjam buku
+Goals&ensp;: Bisa mencari buku dengan cepat tanpa harus mencari satu-satu. Bisa meminjam buku tanpa harus mencarinya ke raknya terlebih dahulu, jadi saat di resepsionis langsung bisa mengambil bukunya. 
 ##  User story 
 ##  Use case diagram
 ##  Use case description 
