@@ -2,11 +2,13 @@ import React, { useEffect } from 'react';
 import { Link, Route } from 'react-router-dom';
 
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import { Typography, Button, Grid } from '@material-ui/core';
+import { Typography, Button, Grid, GridList } from '@material-ui/core';
 import { Icon } from '@iconify/react';
 import bxArchiveIn from '@iconify/icons-bx/bx-archive-in';
 
-import BookGridBig from './BookGridBig'
+import BookGridBig from './BookGridBig';
+import NotFound from './NotFound';
+import Loading from './LoadingScreen';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -16,6 +18,18 @@ const useStyles = makeStyles((theme) => ({
     },
     spaceTop: {
         marginTop: theme.spacing(1),
+    },
+    gridlist: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        width: `calc(100% + ${theme.spacing(1.5)})`,
+        overflowX: 'auto',
+
+        marginTop: theme.spacing(3),
+        marginRight: theme.spacing(-1.5),
+    },
+    gridlistChild: {
+        flexWrap: 'nowrap',
     },
 }));
 
@@ -31,15 +45,21 @@ const BtnGradient = withStyles((theme) => ({
     },
 }))(Button);
 
-const urlCuy = 'http://8198552c.ngrok.io';
-const token = 'JvsUQymW7UEfNWoYBUEMREo7B4qdYjult7VSuSPUqyQsFkJwAL2PL1eF8f3LYrWQWlnKSEr5vZPFdQuS';
+const tkn = JSON.parse(localStorage.getItem('login'));
+
+var token;
+if (tkn) {
+    token = tkn.token;
+} else {
+    token = '';
+}
+const urlCuy = 'http://3e9c1c7e.ngrok.io';
+
 
 export default function Koleksiku() {
-    useEffect(() => {
-        fetchDetailBooks();
-    }, []);
-
     const [books, setBooks] = React.useState([]);
+    const [loading, setLoading] = React.useState(true);
+    const [ada, setAda] = React.useState(false);
 
     const fetchDetailBooks = async () => {
         const requestOptions = {
@@ -54,16 +74,23 @@ export default function Koleksiku() {
             `${urlCuy}/api/pinjam`, requestOptions
         );
         var books = await data.json();
-        console.log(books);
         books = Array.from(books);
         setBooks(books);
+        setLoading(false);
+        if(books.length) setAda(true);
+        console.log(books.length);
     }
+    useEffect(() => {
+        console.log(token);
+        fetchDetailBooks();
+    }, []);
 
     const classes = useStyles();
     return (
+
         <div className={classes.root}>
             <Grid container direction='row'>
-                <Grid item direction='column'>
+                <Grid item>
                     <Typography variant='h1' component='h1'>Koleksiku</Typography>
                     <Typography variant='subtitle2' component='span'>Ada 8 buku tersimpan</Typography>
                 </Grid>
@@ -73,17 +100,29 @@ export default function Koleksiku() {
                     Arsip Buku
                 </BtnGradient>
             </Grid>
-            {books.map(item => (
-                <BookGridBig
-                    id={item.id}
-                    judul={item.judul}
-                    penulis={item.penulis}
-                    tipe={item.tipe}
-                    sisa={item.sisa_hari}
-                    file={item.file_location}
-                    cover={item.cover_location}
-                />
-            ))}
+            <Grid container className={classes.gridlist} direction='column' component='div'>
+                {loading ? (
+                    <Loading />
+                ) : (!ada) ? (
+                        <NotFound 
+                            message='Anda belum meminjam buku satupun' 
+                            style={{ marginTop: 'auto', marginBottom: 'auto' }} />
+                    ) : ( 
+                        <GridList className={classes.gridlistChild} cellHeight={'auto'} cols={2} component='div'>
+                            {books.map(item => (
+                                <BookGridBig
+                                    key={item.id}
+                                    judul={item.judul}
+                                    penulis={item.penulis}
+                                    tipe={item.tipe}
+                                    sisa={item.sisa_hari}
+                                    file={item.file_location}
+                                    cover={item.cover_location}
+                                />
+                            ))}
+                        </GridList>
+                )}
+            </Grid>
         </div>
     );
 }

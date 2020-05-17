@@ -13,8 +13,15 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const urlCuy = 'http://8198552c.ngrok.io';
-const token = 'JvsUQymW7UEfNWoYBUEMREo7B4qdYjult7VSuSPUqyQsFkJwAL2PL1eF8f3LYrWQWlnKSEr5vZPFdQuS';
+const tkn = JSON.parse(localStorage.getItem('login'));
+
+var token;
+if(tkn) {
+    token = tkn.token;
+} else {
+    token = '';
+}
+const urlCuy = 'http://3e9c1c7e.ngrok.io';
 
 export default function ReadBook() {
     const location = useLocation();
@@ -22,6 +29,7 @@ export default function ReadBook() {
 
     React.useEffect(() => {
         console.log(location);
+        fetchDetailBooks();
     }, [])
 
     const fetchDetailBooks = async () => {
@@ -31,17 +39,16 @@ export default function ReadBook() {
                 'Accept': 'application/json',
                 'content-type': 'application/json',
                 'Authorization': `Bearer ${token}`,
-                'Access-Control-Allow-Orign': '*',
             },
         };
-        const data = await fetch(
-            `${location.state.file}`, requestOptions
+        await fetch(
+            `${urlCuy}/file-buku/${location.state.file}`
         );
     }
     return (
         <div className={classes.container}>
             <ReactReader
-                url={location.state.file}
+                url={`${urlCuy}/file-buku/${location.state.file}`}
                 title={location.state.judul}
                 location={"epubcfi(/6/2[titlepage]!/4/1:0)"}
                 locationChanged={epubcifi => console.log(epubcifi)}

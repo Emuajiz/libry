@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link as Links, Redirect } from 'react-router-dom';
+
 import { useForm } from 'react-hook-form';
 import { makeStyles } from '@material-ui/core/styles';
 import { TextField, InputAdornment, Typography, Button, Link, Grid } from '@material-ui/core';
@@ -27,11 +29,14 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const urlCuy = 'http://8198552c.ngrok.io';
+const urlCuy = 'http://3e9c1c7e.ngrok.io';
 
 export default function Login() {
     const classes = useStyles();
+    const [ signIn, setSignIn ] = React.useState(false);
     const { register, handleSubmit } = useForm();
+    let login;
+    login = JSON.parse(localStorage.getItem('login'));
 
     const onSubmit = (data) => {
         console.log(data);
@@ -49,19 +54,27 @@ export default function Login() {
         };
         console.log(requestOptions);
         fetch(`${urlCuy}/api/login`, requestOptions)
-            .then(response => {
-                const data = response.json();
-                console.log(data);
-                if (!response.ok) {
-                    // get error message from body or default to response status
-                    const error = (data && data.message) || response.status;
-                    return Promise.reject(error);
+        .then(response => {
+            response.json().then((result) => {
+                console.warn('result', result);
+                if(result.token){
+                    localStorage.setItem('login',JSON.stringify({
+                        login: true,
+                        token: result.token,
+                    }))
+                    setSignIn(true);
+                } else {
+                    localStorage.setItem('login',JSON.stringify({
+                        login: false,
+                    }))
                 }
             })
+        })
     };
 
     return (
         <Grid container direction='column' justify='center' className={classes.container}>
+            {(login || signIn) ? <Redirect to='/' /> : ''}
             <Grid item className={classes.items1}>
                 <Typography variant='h1' component='h1' style={{ fontSize: 32 }} gutterBottom>
                     Sign In
@@ -115,14 +128,10 @@ export default function Login() {
             </form>
 
             <Grid item className={classes.items} style={{ textAlign: 'center' }}>
-                <Link variant='body1'>
-                    Lupa kata sandi
-                </Link>
-                <br />
                 <Typography variant='body1' component='span'>
                     Belum memiliki akun?&nbsp;
                 </Typography>
-                <Link variant='body1' >
+                <Link variant='body1' component={Links} to='/signup'>
                     Sign Up
                 </Link>
             </Grid>

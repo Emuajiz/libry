@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Link as Links } from 'react-router-dom';
+import { Link as Links, Redirect } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { TextField, InputAdornment, Typography, Button, Link, Grid } from '@material-ui/core';
@@ -31,11 +31,14 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const urlCuy = 'http://8198552c.ngrok.io';
+const urlCuy = 'http://3e9c1c7e.ngrok.io';
 
 export default function Register() {
     const classes = useStyles();
+    const [ signup, setSignUp ] = React.useState(false);
     const { register, handleSubmit } = useForm();
+    let login;
+    login = JSON.parse(localStorage.getItem('login'));
 
     const onSubmit = (data) => {
         console.log(data);
@@ -56,6 +59,7 @@ export default function Register() {
             .then(response => {
                 const data = response.json();
                 console.log(data);
+                if (response.ok) setSignUp(true);
                 if (!response.ok) {
                     // get error message from body or default to response status
                     const error = (data && data.message) || response.status;
@@ -66,6 +70,8 @@ export default function Register() {
 
     return (
         <Grid container direction='column' justify='center' className={classes.container}>
+            {(signup) ? <Redirect to='/signin' /> : ''}
+            {login ? <Redirect to='/' /> : ''}
             <Grid item className={classes.items1}>
                 <Typography variant='h1' component='h1' style={{ fontSize: 32 }} gutterBottom>
                     Sign Up
@@ -89,7 +95,7 @@ export default function Register() {
                             </InputAdornment>
                         ),
                     }}
-                    style={{ borderRadius: 8 }}
+                    // style={{ borderRadius: 8 }}
                     color='primary' />
                 <TextField
                     id="outlined-basic"

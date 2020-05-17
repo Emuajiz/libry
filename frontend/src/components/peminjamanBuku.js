@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation, Redirect } from "react-router-dom";
 import moment from 'moment';
 import { useForm } from 'react-hook-form';
 
@@ -9,6 +9,9 @@ import {
 	Button, FormControl, FormLabel, FormControlLabel,
 	Radio, RadioGroup
 } from '@material-ui/core';
+
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab';
 import { makeStyles, withStyles } from '@material-ui/styles'
 
@@ -37,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	textField: {
 		width: '100%',
-	}
+	},
 }));
 
 const MetodePeminjaman = withStyles((theme) => ({
@@ -61,13 +64,29 @@ const MetodePeminjaman = withStyles((theme) => ({
 	}
 }))(ToggleButton);
 
-const urlCuy = 'http://8198552c.ngrok.io';
-const token = 'JvsUQymW7UEfNWoYBUEMREo7B4qdYjult7VSuSPUqyQsFkJwAL2PL1eF8f3LYrWQWlnKSEr5vZPFdQuS';
+const tkn = JSON.parse(localStorage.getItem('login'));
+
+var token;
+if (tkn) {
+	token = tkn.token;
+} else {
+	token = '';
+}
+const urlCuy = 'http://3e9c1c7e.ngrok.io';
+
+function Alert(props) {
+	return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 export default function PeminjamanBuku({ match }) {
+	const location = useLocation();
+	console.log(location);
 	const currDate = moment().format('YYYY-MM-DDTHH:mm');
 	const [metode, setMetode] = React.useState('');
 	const [date, setDate] = React.useState(currDate);
+	const [open, setOpen] = React.useState(false);
+	const [openSucc, setOpenSucc] = React.useState(false);
+	const [toKoleksi, setToKoleksi] = React.useState(false);
 
 	const handleMetode = (event) => {
 		setMetode(event.target.value);
@@ -85,6 +104,14 @@ export default function PeminjamanBuku({ match }) {
 	const onSubmit = (data) => {
 		console.log(data);
 		handlePost(data);
+	};
+	const handleClose = (event, reason) => {
+		if (reason === 'clickaway') {
+			return;
+		}
+
+		setOpen(false);
+		setOpenSucc(false);
 	};
 
 	React.useEffect(() => { console.log(match.params.id); window.scrollTo(0, 0); }, []);
@@ -104,6 +131,16 @@ export default function PeminjamanBuku({ match }) {
 			.then(response => {
 				const data = response.json();
 				console.log(data);
+				console.log(response.status);
+				if (response.status === 403) {
+					setOpen(true);
+					console.log(open);
+				}
+				if (response.status === 200) {
+					setOpenSucc(true);
+					setTimeout(() => setToKoleksi(true),1000);
+					console.log(openSucc);
+				}
 				if (!response.ok) {
 					// get error message from body or default to response status
 					const error = (data && data.message) || response.status;
@@ -114,6 +151,7 @@ export default function PeminjamanBuku({ match }) {
 
 	return (
 		<Grid container className={classes.root} direction='column' justify='flex-start'>
+			{toKoleksi ? <Redirect to='/koleksiku' /> : null}
 			<Grid container alignItems='center' className={classes.items}>
 				<IconButton onClick={() => history.goBack()} edge='left' >
 					<Icon icon={bxArrowBack} style={{ color: '#cc5a71', fontSize: '29px' }} />
@@ -147,41 +185,81 @@ export default function PeminjamanBuku({ match }) {
 							style={{ display: "none" }}
 							inputRef={register}
 						/>
-						<RadioGroup aria-label="tipe-buku" name="tipe" value={metode} onChange={handleMetode}>
-							<FormControlLabel value="d" control={<Radio inputRef={register} />} label="Ebook" />
-							<FormControlLabel value="f" control={<Radio inputRef={register} />} label="Buku Fisik" />
-						</RadioGroup>
+
+						{(location.state.digital & location.state.fisik) ? (
+							<RadioGroup aria-label="tipe-buku" name="tipe" value={metode} onChange={handleMetode}>
+								<FormControlLabel value="d" control={<Radio inputRef={register} />} label="Ebook" />
+								<FormControlLabel value="f" control={<Radio inputRef={register} />} label="Buku Fisik" />
+							</RadioGroup>
+						) : location.state.digital ? (<FormControlLabel value="d" control={<Radio inputRef={register} />} label="Ebook" />)
+								: location.state.fisik ? (<FormControlLabel value="f" control={<Radio inputRef={register} />} label="Buku Fisik" />) : ''
+						}
+
 					</FormControl>
-					<FormControl component="fieldset" className={classes.itemText}>
-						<FormLabel component="legend" color='textPrimary'>
-							<Typography variant='h1' component='h1' gutterBottom style={{ marginBottom: '1rem' }}>
-								Waktu Peminjaman
+					{(metode === 'f') ? (
+						<FormControl component="fieldset" className={classes.itemText}>
+							<FormLabel component="legend" color='textPrimary'>
+								<Typography variant='h1' component='h1' gutterBottom style={{ marginBottom: '1rem' }}>
+									Waktu Peminjaman
                     		</Typography>
-							<Typography variant='h3' component='h2' style={{ fontWeight: 300 }} color='textSecondary' gutterBottom>
-								Silakan pilih waktu kedatangan<br /> sesuai dengan keinginan
+								<Typography variant='h3' component='h2' style={{ fontWeight: 300 }} color='textSecondary' gutterBottom>
+									Silakan pilih waktu kedatangan<br /> sesuai dengan keinginan
                     		</Typography>
-						</FormLabel>
-						<TextField
-							id="datetime-local"
-							label="Waktu Peminjaman"
-							type="datetime-local"
-							className={classes.textField}
-							name="pinjam"
-							value={date}
-							inputRef={register}
-							onChange={handleDate}
-							InputProps={{
-								startAdornment: (
-									<InputAdornment position="start">
-										<Icon icon={bxTimeFive} style={{ color: '#c89b7b', fontSize: '22px' }} />
-									</InputAdornment>
-								),
-							}}
-							InputLabelProps={{
-								shrink: true,
-							}}
-						/>
-					</FormControl>
+							</FormLabel>
+							<TextField
+								id="datetime-local"
+								label="Waktu Peminjaman"
+								type="datetime-local"
+								className={classes.textField}
+								name="pinjam"
+								value={date}
+								inputRef={register}
+								onChange={handleDate}
+								InputProps={{
+									startAdornment: (
+										<InputAdornment position="start">
+											<Icon icon={bxTimeFive} style={{ color: '#c89b7b', fontSize: '22px' }} />
+										</InputAdornment>
+									),
+								}}
+								InputLabelProps={{
+									shrink: true,
+								}}
+							/>
+						</FormControl>
+					) : (
+							<FormControl component="fieldset" className={classes.itemText} style={{ display: 'none' }}>
+								<FormLabel component="legend" color='textPrimary'>
+									<Typography variant='h1' component='h1' gutterBottom style={{ marginBottom: '1rem' }}>
+										Waktu Peminjaman
+                    		</Typography>
+									<Typography variant='h3' component='h2' style={{ fontWeight: 300 }} color='textSecondary' gutterBottom>
+										Silakan pilih waktu kedatangan<br /> sesuai dengan keinginan
+                    		</Typography>
+								</FormLabel>
+								<TextField
+									id="datetime-local"
+									label="Waktu Peminjaman"
+									type="datetime-local"
+									className={classes.textField}
+									name="pinjam"
+									value={date}
+									inputRef={register}
+									onChange={handleDate}
+									InputProps={{
+										startAdornment: (
+											<InputAdornment position="start">
+												<Icon icon={bxTimeFive} style={{ color: '#c89b7b', fontSize: '22px' }} />
+											</InputAdornment>
+										),
+									}}
+									InputLabelProps={{
+										shrink: true,
+									}}
+								/>
+							</FormControl>
+						)}
+
 					<div style={{ flexGrow: 1 }} />
 					<Button
 						color='secondary'
@@ -193,6 +271,17 @@ export default function PeminjamanBuku({ match }) {
 						className={classes.btn}>
 						Selanjutnya
                 	</Button>
+					<Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+						<Alert onClose={handleClose} severity="error">
+							Maaf buku telah dipinjam oleh orang lain
+        				</Alert>
+					</Snackbar>
+					<Snackbar open={openSucc} autoHideDuration={6000} onClose={handleClose}>
+						<Alert onClose={handleClose} severity="success">
+							Buku telah masuk ke koleksiku<br/>
+							Mengalihkan ke koleksiku
+        				</Alert>
+					</Snackbar>
 				</form>
 			</Grid>
 		</Grid >

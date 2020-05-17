@@ -1,5 +1,7 @@
 /* eslint-disable default-case */
 import React from 'react';
+import { Redirect } from "react-router-dom";
+
 import { Grid, CssBaseline, Container } from '@material-ui/core';
 import { createMuiTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
@@ -18,6 +20,8 @@ import ZoomOutImg from './components/zoomOutImages';
 import CategoriesPage from './components/categoriesPage';
 import ReadBook from './components/ReadBook';
 import Coba from './components/aoba';
+import Komentar from './components/Komentar';
+import BeriKomentar from './components/beriKomentar';
 
 const containerStyles = {
 	width: '100%',
@@ -68,11 +72,41 @@ let theme = createMuiTheme({
 
 theme = responsiveFontSizes(theme);
 
+const tkn = JSON.parse(localStorage.getItem('login'));
+const urlCuy = 'http://3e9c1c7e.ngrok.io';
+
 function App() {
 	const [tab, setTab] = React.useState('');
+	const [login, setLogin] = React.useState(true);
+	const testAPI = async () => {
+        const requestOptions = {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'content-type': 'application/json',
+                'Authorization': `Bearer ${tkn.token}`,
+            },
+        };
+        await fetch(
+            `${urlCuy}/api/pinjam`, requestOptions
+		)
+		.then(response => {
+			response.json().then((result) => {
+				if(response.status===401){
+					localStorage.clear();
+					setLogin(false);
+				}
+			})
+        })
+	}
+	React.useEffect(() => {
+        console.log(tkn);
+        testAPI();
+    }, []);
 
 	return (
 		<Router>
+			{(!tkn || !login) ? <Redirect to='/signin' /> : ''}
 			<ThemeProvider theme={theme}>
 				<Grid container direction="column" style={containerStyles}>
 					<Container maxWidth='xs'>
@@ -86,6 +120,8 @@ function App() {
 						<Route path='/categories' exact component={CategoriesPage} />
 						<Route path='/baca' exact component={ReadBook} />
 						<Route path='/aoba' exact component={Coba} />
+						<Route path='/komentar/:id' exact component={Komentar} />
+						<Route path='/beriKomentar/:id' exact component={BeriKomentar} />
 						<Switch>
 							<Route path='/' exact component={Home} />
 							<Route path='/koleksiku' exact component={Koleksiku} />

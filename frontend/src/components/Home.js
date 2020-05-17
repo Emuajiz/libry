@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography, Divider, Button, Box, GridList } from '@material-ui/core';
+import { Typography, Divider, Button, Box, GridList, CircularProgress } from '@material-ui/core';
 
 import { Icon } from '@iconify/react';
 import bxChevronRight from '@iconify/icons-bx/bx-chevron-right';
@@ -10,6 +10,7 @@ import bxChevronRight from '@iconify/icons-bx/bx-chevron-right';
 import AppBar from './Appbar'
 import CategoriesTab from './CategoriesTab'
 import BookGrid from './BookGrid'
+import Loading from './LoadingScreen';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -40,28 +41,27 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(2),
 	},
 	gridlistChild: {
-		flexWrap: 'nowrap',
+        flexWrap: 'nowrap',
 	},
 }));
 
-const urlCuy = 'http://8198552c.ngrok.io';
-const token = 'JvsUQymW7UEfNWoYBUEMREo7B4qdYjult7VSuSPUqyQsFkJwAL2PL1eF8f3LYrWQWlnKSEr5vZPFdQuS';
+const urlCuy = 'http://3e9c1c7e.ngrok.io';
 
 export default function Home() {
     const classes = useStyles();
-
+    const [books, setBooks] = useState([]);
+    const [loading, setLoading] = React.useState(true);
+    
     useEffect(() => {
         fetchDetailBooks();
     }, []);
 
-    const [books, setBooks] = useState([]);
     const fetchDetailBooks = async () => {
         const requestOptions = {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
                 'content-type': 'application/json',
-                'Authorization': `Bearer ${token}`,
             },
         };
         const data = await fetch(
@@ -70,7 +70,9 @@ export default function Home() {
         const books = await data.json();
         console.log(books.data);
         setBooks(books.data);
+        setLoading(false);
     }
+    
     return (
         <div className={classes.root}>
             <AppBar />
@@ -91,7 +93,11 @@ export default function Home() {
             </Button>
             <Box component='div' className={classes.gridlist}>
                 <GridList className={classes.gridlistChild} component='div' cellHeight={'auto'}>
-                    {books.map(item => (
+                    {(loading) ? (
+                        <div style={{height: 50, width: '100vw'}}>
+                        <CircularProgress color="secondary" />
+                        </div>
+                    ) : books.map(item => (
                         <BookGrid
                             key={item.id}
                             id={item.id}
@@ -113,7 +119,11 @@ export default function Home() {
             </Button>
             <Box component='div' className={classes.gridlist}>
                 <GridList className={classes.gridlistChild} component='div' cellHeight={'auto'}>
-                    {books.map(item => (
+                    {(loading) ? (
+                        <div style={{height: 50, width: '100vw'}}>
+                        <CircularProgress color="secondary" />
+                        </div>
+                    ) : books.map(item => (
                         <BookGrid
                             key={item.id}
                             id={item.id}
@@ -125,9 +135,6 @@ export default function Home() {
                     ))}
                 </GridList>
             </Box>
-            <Button fullWidth variant='contained' size='medium' color='secondary' className={classes.spaceTop}>
-                Lainnya
-            </Button>
         </div>
     );
 }

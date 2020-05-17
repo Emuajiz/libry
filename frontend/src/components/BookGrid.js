@@ -52,7 +52,7 @@ export default function BookGrid({ id, judul, penulis, kategori, cover }) {
 	const classes = useStyles();
 
 	return (
-		<GridListTile className={classes.Booklist} component={Link} to={`/book/${id}`}>
+		<GridListTile className={classes.Booklist} component={Link} to={`/book/${id}`} key={id}>
 			<CardMedia className={classes.media}
 				image={cover} />
 			<CardContent className={classes.content}>
