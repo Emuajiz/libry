@@ -35,7 +35,7 @@ class ReviewController extends Controller
             ]);
         }
         return response()->json([
-            'message' => 'kamu harus pinjam dulu ya',
+            'message' => 'bukunya harus dibalikin dulu ya',
             Str::uuid()
         ], 403);
     }
