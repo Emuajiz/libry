@@ -1,4 +1,5 @@
 import React from 'react';
+import { useForm } from 'react-hook-form';
 import { makeStyles } from '@material-ui/core/styles';
 import { TextField, InputAdornment, Typography, Button, Link, Grid } from '@material-ui/core';
 
@@ -26,8 +27,38 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+const urlCuy = 'http://8198552c.ngrok.io';
+
 export default function Login() {
     const classes = useStyles();
+    const { register, handleSubmit } = useForm();
+
+    const onSubmit = (data) => {
+        console.log(data);
+        handlePost(data);
+    };
+
+    const handlePost = (data) => {
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'content-type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        };
+        console.log(requestOptions);
+        fetch(`${urlCuy}/api/login`, requestOptions)
+            .then(response => {
+                const data = response.json();
+                console.log(data);
+                if (!response.ok) {
+                    // get error message from body or default to response status
+                    const error = (data && data.message) || response.status;
+                    return Promise.reject(error);
+                }
+            })
+    };
 
     return (
         <Grid container direction='column' justify='center' className={classes.container}>
@@ -39,11 +70,14 @@ export default function Login() {
                     Selamat datang, pengguna
                 </Typography>
             </Grid>
-            <form className={classes.root} noValidate autoComplete="off">
+            <form className={classes.root} noValidate onSubmit={handleSubmit(onSubmit)}>
                 <TextField
                     id="outlined-basic"
                     label="E-mail"
+                    name='email'
+                    type='email'
                     variant='filled'
+                    inputRef={register}
                     InputProps={{
                         startAdornment: (
                             <InputAdornment position="start">
@@ -55,7 +89,10 @@ export default function Login() {
                 <TextField
                     id="outlined-basic"
                     label="Password"
+                    name='password'
+                    type='password'
                     variant='filled'
+                    inputRef={register}
                     InputProps={{
                         startAdornment: (
                             <InputAdornment position="start">
@@ -65,16 +102,18 @@ export default function Login() {
                     }}
                     color='primary'
                     style={{ borderRadius: 8 }} />
-            </form>
-            <Grid item className={classes.items}>
-                <Button
-                    variant='contained'
-                    fullWidth color='secondary'
-                    style={{ borderRadius: 8 }}
-                >
-                    Sign In
+                <Grid item className={classes.items}>
+                    <Button
+                        variant='contained'
+                        fullWidth color='secondary'
+                        style={{ borderRadius: 8 }}
+                        type='submit'
+                    >
+                        Sign In
                 </Button>
-            </Grid>
+                </Grid>
+            </form>
+
             <Grid item className={classes.items} style={{ textAlign: 'center' }}>
                 <Link variant='body1'>
                     Lupa kata sandi

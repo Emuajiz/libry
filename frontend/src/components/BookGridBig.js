@@ -45,9 +45,6 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const urlCuy = 'http://8198552c.ngrok.io';
-const token = 'JvsUQymW7UEfNWoYBUEMREo7B4qdYjult7VSuSPUqyQsFkJwAL2PL1eF8f3LYrWQWlnKSEr5vZPFdQuS';
-
 export default function BookGridBig({ id, judul, penulis, tipe, file, cover, sisa }) {
     const classes = useStyles();
     const params = {
