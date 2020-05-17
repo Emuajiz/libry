@@ -78,6 +78,7 @@ const urlCuy = 'http://3e9c1c7e.ngrok.io';
 function App() {
 	const [tab, setTab] = React.useState('');
 	const [login, setLogin] = React.useState(true);
+
 	const testAPI = async () => {
         const requestOptions = {
             method: 'GET',
@@ -101,17 +102,17 @@ function App() {
 	}
 	React.useEffect(() => {
         console.log(tkn);
-        testAPI();
+		if(tkn != null ) testAPI();
     }, []);
 
 	return (
 		<Router>
-			{(!tkn || !login) ? <Redirect to='/signin' /> : ''}
+			{(!tkn || !login) ? <Redirect to='/login' /> : ''}
 			<ThemeProvider theme={theme}>
 				<Grid container direction="column" style={containerStyles}>
 					<Container maxWidth='xs'>
 						<Route path='/book/:id' exact component={overviewBuku} />
-						<Route path='/signin' exact component={Login} />
+						<Route path='/login' exact component={Login} />
 						<Route path='/signup' exact component={Register} />
 						<Route path='/detail' exact component={BukuPopuler} />
 						<Route path='/arsipbuku' exact component={ArsipBuku} />

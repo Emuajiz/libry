@@ -68,30 +68,24 @@ export default function BookGrid({ id, judul, penulis, kategori, cover }) {
 	);
 }
 
-function BookGridAlt() {
+function BookGridAlt({ id, judul, penulis, kategori, cover }) {
 	const classes = useStyles();
-	const bookgrid = [];
-	for (var i = 0; i < 10; i++) {
-		bookgrid.push(
+
+	return (
+		
 			<Grid item xs={3} className={classes.item} component={Link} to='/books'>
 				<CardMedia className={classes.mediaAlt}
-					image={require('../images/contohBuku.jpg')} />
+					image={cover} />
 				<CardContent className={classes.content}>
 					<Typography variant="h4" component="h3">
-						Judulnya apa ya?
+						{judul}
                         </Typography>
 					<Typography variant="body1" gutterBottom component="h4" color='textSecondary'>
-						Penulis
+						{penulis}
                         </Typography>
-					<Chip variant="outlined" size="small" label="Kategori" />
+					<Chip variant="outlined" size="small" label={kategori} />
 				</CardContent>
 			</Grid>
-		);
-	};
-	return (
-		<Grid container className={classes.container} direction='row' spacing={2} justify='space-between'>
-			{bookgrid}
-		</Grid>
 	);
 }
 

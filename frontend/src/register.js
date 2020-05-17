@@ -7,6 +7,7 @@ import { TextField, InputAdornment, Typography, Button, Link, Grid } from '@mate
 
 import { Icon } from '@iconify/react';
 import emailIcon from '@iconify/icons-mdi/email';
+import nameIcon from '@iconify/icons-wpf/name';
 import bxKey from '@iconify/icons-bx/bx-key';
 import bxsPhone from '@iconify/icons-bx/bxs-phone';
 import bxsHome from '@iconify/icons-bx/bxs-home';
@@ -70,7 +71,7 @@ export default function Register() {
 
     return (
         <Grid container direction='column' justify='center' className={classes.container}>
-            {(signup) ? <Redirect to='/signin' /> : ''}
+            {(signup) ? <Redirect to='/login' /> : ''}
             {login ? <Redirect to='/' /> : ''}
             <Grid item className={classes.items1}>
                 <Typography variant='h1' component='h1' style={{ fontSize: 32 }} gutterBottom>
@@ -106,7 +107,7 @@ export default function Register() {
                     InputProps={{
                         startAdornment: (
                             <InputAdornment position="start">
-                                <Icon icon={bxKey} style={{ color: '#c89b7b', fontSize: '1.25rem' }} />
+                                <Icon icon={nameIcon} style={{ color: '#c89b7b', fontSize: '1.25rem' }} />
                             </InputAdornment>
                         ),
                     }}
@@ -174,8 +175,8 @@ export default function Register() {
                 <Typography variant='body1' component='span'>
                     Sudah memiliki akun?&nbsp;
                 </Typography>
-                <Link variant='body1' component={Links} to='/signin'>
-                    Sign In
+                <Link variant='body1' component={Links} to='/login'>
+                    Log in
                 </Link>
             </Grid>
         </Grid>
