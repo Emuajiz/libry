@@ -1,11 +1,10 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import { Button, Typography, GridList, GridListTile, Box } from '@material-ui/core'
 
 import { Icon } from '@iconify/react';
 import bxsTrophy from '@iconify/icons-bx/bxs-trophy';
-import baselineCategory from '@iconify/icons-ic/baseline-category';
 import typewriterIcon from '@iconify/icons-mdi/typewriter';
 import bxsBookOpen from '@iconify/icons-bx/bxs-book-open';
 
@@ -70,13 +69,17 @@ const BtnGradientAlt2 = withStyles((theme) => ({
 
 export default function CategoriesTab() {
     const classes = useStyles();
-
     return (
         <div className={classes.root}>
 
             <GridList className={classes.gridlistChild} cellHeight={52} cols='50%'>
                 <GridListTile rows='1'>
-                    <BtnGradient variant='inherit' className={classes.categories}>
+                    <BtnGradient variant='inherit' className={classes.categories} component={Link} to={{
+                        pathname: '/detail',
+                        state: {
+                            message: 'Buku Populer'
+                        }
+                    }}>
                         <Box style={{ marginBottom: '-1.3rem' }}>
                             <Icon icon={bxsTrophy} style={{ color: '#f2f2f2', fontSize: '3.5rem', marginRight: '0.22rem', marginLeft: '-0.22rem' }} />
                         </Box>
@@ -86,34 +89,34 @@ export default function CategoriesTab() {
                     </BtnGradient>
                 </GridListTile>
                 <GridListTile rows='1'>
-                    <BtnGradientAlt1 variant='inherit' className={classes.categories}>
-                        <Box style={{ marginBottom: '-2rem' }}>
-                            <Icon icon={baselineCategory} style={{ color: '#f2f2f2', fontSize: '3.5rem', marginRight: '0.22rem', marginLeft: '-0.22rem' }} />
-                        </Box>
-                        <Typography variant="subtitle2" component="span">
-                            Kategori
-                                </Typography>
-                    </BtnGradientAlt1>
-                </GridListTile>
-                <GridListTile rows='1'>
-                    <BtnGradientAlt2 variant='inherit' className={classes.categories}>
+                    <BtnGradientAlt1 variant='inherit' className={classes.categories} component={Link} to={{
+                        pathname: '/detail',
+                        state: {
+                            message: 'Penulis'
+                        }
+                    }}>
                         <Box style={{ marginBottom: '-2rem' }}>
                             <Icon icon={typewriterIcon} style={{ color: '#f2f2f2', fontSize: '3.5rem', marginRight: '0.22rem', marginLeft: '-0.22rem' }} />
                         </Box>
                         <Typography variant="subtitle2" component="span">
                             Penulis
-                            </Typography>
-                    </BtnGradientAlt2>
+                        </Typography>
+                    </BtnGradientAlt1>
                 </GridListTile>
                 <GridListTile rows='1'>
-                    <BtnGradient variant='inherit' className={classes.categories}>
+                    <BtnGradientAlt2 variant='inherit' className={classes.categories} component={Link} to={{
+                        pathname: '/detail',
+                        state: {
+                            message: 'Penerbit'
+                        }
+                    }}>
                         <Box style={{ marginBottom: '-2rem' }}>
                             <Icon icon={bxsBookOpen} style={{ color: '#fafafa', fontSize: '3.5rem', marginRight: '0.22rem', marginLeft: '-0.22rem' }} />
                         </Box>
                         <Typography variant="subtitle2" component="span">
                             Penerbit
-                            </Typography>
-                    </BtnGradient>
+                        </Typography>
+                    </BtnGradientAlt2>
                 </GridListTile>
             </GridList>
 

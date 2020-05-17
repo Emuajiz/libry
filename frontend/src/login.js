@@ -77,10 +77,10 @@ export default function Login() {
             {(login || signIn) ? <Redirect to='/' /> : ''}
             <Grid item className={classes.items1}>
                 <Typography variant='h1' component='h1' style={{ fontSize: 32 }} gutterBottom>
-                    Sign In
+                    Log in
                 </Typography>
                 <Typography variant='h2' component='h2' style={{ fontWeight: 300 }}>
-                    Selamat datang, pengguna
+                    Selamat datang di <b>Libry</b>
                 </Typography>
             </Grid>
             <form className={classes.root} noValidate onSubmit={handleSubmit(onSubmit)}>
@@ -122,7 +122,7 @@ export default function Login() {
                         style={{ borderRadius: 8 }}
                         type='submit'
                     >
-                        Sign In
+                        Log in
                 </Button>
                 </Grid>
             </form>

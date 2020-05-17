@@ -135,7 +135,13 @@ Booking buku
 ![Use Case Diagram](images/useactivity4.png)
 
 ##  Gantt chart
+<<<<<<< HEAD
 ![Gantt chart](images/ganttchart.png)
+=======
+
+![Entity Relationship Diagram](images/ganttchart.png.png)
+
+>>>>>>> c198aad14ef5cd62fd02fc156eab6953485222bb
 ##  ERD
 
 Entity Relationship Diagram

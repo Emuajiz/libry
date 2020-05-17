@@ -14,6 +14,7 @@ import MuiAlert from '@material-ui/lab/Alert';
 import { Icon } from '@iconify/react';
 import emailIcon from '@iconify/icons-mdi/email';
 import bxKey from '@iconify/icons-bx/bx-key';
+import announcementIcon from '@iconify/icons-zondicons/announcement';
 import bxArrowBack from '@iconify/icons-bx/bx-arrow-back';
 
 function Alert(props) {
@@ -153,8 +154,8 @@ export default function BeriKomentar({ match }) {
                     inputRef={register}
                     InputProps={{
                         startAdornment: (
-                            <InputAdornment position="start">
-                                <Icon icon={emailIcon} style={{ color: '#c89b7b', fontSize: '1.25rem' }} />
+                            <InputAdornment position="start" style={{ justifyContent: 'flex-end', alignItems: 'flex-end' }}>
+                                <Icon icon={announcementIcon} style={{ color: '#c89b7b', fontSize: '1.25rem' }} />
                             </InputAdornment>
                         ),
                     }}
@@ -171,7 +172,7 @@ export default function BeriKomentar({ match }) {
             </form>
             <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
                 <Alert onClose={handleClose} severity="error">
-                    {message}
+                    Silakan kembalikan buku ini terlebih dahulu
                 </Alert>
             </Snackbar>
         </Grid>

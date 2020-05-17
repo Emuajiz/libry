@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography, IconButton, Grid } from '@material-ui/core';
+import { Typography, Grid } from '@material-ui/core';
 
-import { Icon } from '@iconify/react';
-import bxListUl from '@iconify/icons-bx/bx-list-ul';
-import bxSearchAlt from '@iconify/icons-bx/bx-search-alt';
 import BookList from './BookList';
 import NotFound from './NotFound';
 import Loading from './LoadingScreen';

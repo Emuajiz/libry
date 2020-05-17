@@ -345,7 +345,14 @@ export default function Koleksiku({ match }) {
                             <Icon icon={bxChevronRight}
                                 style={{ color: '#151515', fontSize: '1.2rem' }} />
                         }
-                        component={Link} to='/detail'
+                        component={Link} to={{
+                            pathname: '/detail',
+                            state: {
+                                penulis: true,
+                                message: `Buku dari ${books.penulis}`,
+                                link: `${books.buku_lain_penulis}`
+                            }
+                        }}
                     >
                         <Typography variant='h3' component='h3' style={{ fontWeight: 600 }}>
                             Buku lain karya Penulis
@@ -378,7 +385,14 @@ export default function Koleksiku({ match }) {
                             <Icon icon={bxChevronRight}
                                 style={{ color: '#151515', fontSize: '1.2rem' }} />
                         }
-                        component={Link} to='/detail'
+                        component={Link} to={{
+                            pathname: '/detail',
+                            state: {
+                                penerbit: true,
+                                message: `Buku dari ${books.penerbit}`,
+                                link: books.buku_lain_penerbit
+                            }
+                        }}
                     >
                         <Typography variant='h3' component='h3' style={{ fontWeight: 600 }}>
                             Buku lain dari penerbit {books.penerbit}
