@@ -189,4 +189,4 @@ Profile page
 ![Entity Relationship Diagram](images/profile.jpg)
 
 Loading screen
-![Entity Relationship Diagram](images/loading.jpg)
+![Entity Relationship Diagram](images/loading-screen.jpg)
