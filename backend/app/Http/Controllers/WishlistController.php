@@ -13,7 +13,7 @@ class WishlistController extends Controller
 {
     public function index(Request $request)
     {
-        return BukuResource::Collection($request->user()->wishlists()->paginate());
+        return BukuResource::Collection($request->user()->wishlists()->orderBy('created_at', 'ASC')->paginate());
     }
 
     public function store(Request $request)

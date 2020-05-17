@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\Buku as BukuResource;
-use App\Http\Resources\BukuCollection;
+use App\Http\Resources\DetailBuku as DetailBukuResource;
 use App\Buku;
 
 use Illuminate\Http\Request;
@@ -18,7 +18,29 @@ class BukuController extends Controller
      */
     public function index(Request $request)
     {
-        return BukuResource::collection(Buku::paginate());
+        return BukuResource::collection(Buku::orderBy('judul', 'ASC')->paginate());
+    }
+    
+    public function terbaru(Request $request)
+    {
+        return BukuResource::collection(Buku::orderBy('tahun', 'DESC')
+        ->orderBy('created_at', 'DESC')
+        ->paginate());
+    }
+    
+    public function populer(Request $request)
+    {
+        return BukuResource::collection(Buku::withCount('reviews')->orderBy('reviews_count', 'DESC')->paginate());
+    }
+
+    public function search(Request $request)
+    {
+        if(isset($request->q))
+            return BukuResource::collection(Buku::where('judul', 'like', '%' . $request->q . '%')
+            ->orderBy('judul', 'ASC')
+            ->paginate());
+        else
+            return response()->json('Bad Request', 400);
     }
 
     /**
@@ -51,8 +73,7 @@ class BukuController extends Controller
     public function show(Buku $buku)
     {
         //
-        // return new BukuCollection($buku);
-        return new BukuResource($buku);
+        return new DetailBukuResource($buku);
     }
 
     /**

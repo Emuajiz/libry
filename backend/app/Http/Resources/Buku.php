@@ -39,12 +39,15 @@ class Buku extends JsonResource
             'rating' => $ratings,
             'ulasan' => $count,
             'buku_lain_penulis' => url('api/penulis/buku/' . $this->penulis->id),
+            'buku_lain_penerbit' => url('api/penerbit/buku/' . $this->penerbit->id),
             'fav' => $this->when(Auth::guard('sanctum')->user(), function(){
                 return count(\App\Wishlist::where('pengunjung_id', Auth::guard('sanctum')->user()->id)
                 ->where('buku_id', $this->id)
                 ->get());
                 // return Auth::guard('sanctum')->user()->id;
             }),
+            'fisik' => $this->fisik && true,
+            'digital' => $this->digital && true,
         ];
     }
 }

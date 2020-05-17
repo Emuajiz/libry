@@ -19,7 +19,7 @@ class PenulisController extends Controller
     {
         //
         // return Penulis::all();
-        return PenulisResource::Collection(Penulis::all());
+        return PenulisResource::Collection(Penulis::orderBy('nama', 'ASC')->get());
     }
 
     /**
@@ -90,6 +90,6 @@ class PenulisController extends Controller
 
     public function buku(Penulis $penulis)
     {
-        return BukuResource::Collection($penulis->buku);
+        return BukuResource::Collection($penulis->buku()->orderBy('judul', 'ASC')->get());
     }
 }

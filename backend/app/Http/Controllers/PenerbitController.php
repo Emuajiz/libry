@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\Buku as BukuResource;
+
 use App\Penerbit;
 use Illuminate\Http\Request;
 
@@ -81,5 +83,10 @@ class PenerbitController extends Controller
     public function destroy(Penerbit $penerbit)
     {
         //
+    }
+
+    public function buku(Penerbit $penerbit)
+    {
+        return BukuResource::Collection($penerbit->buku()->orderBy('judul', 'ASC')->get());
     }
 }

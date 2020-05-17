@@ -8,10 +8,11 @@ use App\Peminjaman;
 use App\Http\Resources\Pinjam as PinjamResource;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 use App\Http\Resources\Buku as BukuResource;
 
@@ -33,17 +34,26 @@ class PinjamController extends Controller
         ->whereNull('tgl_balik')
         ->orderBy('created_at', 'DESC')
         ->get();
-        // $pinjam2 = Peminjaman::select(DB::raw('DISTINCT pengunjung_id, buku_id'))->get();
+        
         return PinjamResource::collection($pinjam1);
     }
 
     public function sudah(Request $request)
     {
+        // $idSedang = Arr::flatten(Peminjaman::where('pengunjung_id', $request->user()->id)
+        // ->whereNull('tgl_balik')
+        // ->orderBy('created_at', 'DESC')
+        // ->get('buku_id')->toArray());
+
         $pinjam1 = Peminjaman::where('pengunjung_id', $request->user()->id)
         ->whereNotNull('tgl_balik')
+        // ->whereNotIn('buku_id', $idSedang)
+        // ->groupBy('buku_id')
         ->orderBy('created_at', 'DESC')
         ->get();
-        // $pinjam2 = Peminjaman::select(DB::raw('DISTINCT pengunjung_id, buku_id'))->get();
+
+        // return $idSedang;
+
         return PinjamResource::collection($pinjam1);
     }
 
@@ -62,7 +72,7 @@ class PinjamController extends Controller
         {
             // ambil data buku yang masih dipinjam
             $cek = $request->user()
-            ->pengunjung->peminjaman
+            ->peminjaman
             ->where('tipe', $request->tipe)
             ->whereNull('tgl_balik');
 

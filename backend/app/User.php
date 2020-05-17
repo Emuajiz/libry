@@ -52,7 +52,12 @@ class User extends Authenticatable
 
     public function wishlists()
     {
-        return $this->belongsToMany('App\Buku', 'wishlists');
+        return $this->belongsToMany('App\Buku', 'wishlists', 'pengunjung_id');
+    }
+    
+    public function reviews()
+    {
+        return $this->hasMany('App\ReviewBuku', 'pengunjung_id');
     }
 
 }

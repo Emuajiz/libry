@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Pengunjung;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
@@ -36,5 +37,16 @@ class UserController extends Controller
             "message" => "success",
         ]);
     
+    }
+
+    public function profile_change(Request $request)
+    {
+        $pengunjung = Pengunjung::find($request->user()->id);
+        $pengunjung->nama = $request->nama ?? $pengunjung->nama;
+        $pengunjung->alamat = $request->alamat ?? $pengunjung->alamat;
+        $pengunjung->hp = $request->hp ?? $pengunjung->hp;
+        $pengunjung->save();
+
+        return $pengunjung;
     }
 }

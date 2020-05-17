@@ -39,7 +39,7 @@ class BukuSeeder extends Seeder
             "1b81d090-d93a-47b3-9052-1137708ae807",
         ];
 
-        for ($i=0; $i < 10; $i++) { 
+        for ($i=0; $i < 1; $i++) { 
             DB::table('bukus')->insert([
                 'id' => $id[$i],
                 'isbn' => '123456789',
@@ -63,7 +63,7 @@ class BukuSeeder extends Seeder
                 'kategori' => 'novel',
                 'tahun' => '2020',
                 'halaman' => 245,
-                'cover' => 'cover.jpg',
+                'cover' => 'hp' . $i . '.jpg',
                 'sinopsis' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
                 'penulis_id' => '1721f63d-7260-48ed-a788-fd53aefe92a1',
                 'penerbit_id' => $penerbit,

@@ -13,10 +13,11 @@ class BukuFisikSeeder extends Seeder
     {
         //
         foreach (\App\Buku::all() as $key => $value) {
-            DB::table('buku_fisiks')->insert([
-                'id' => $value->id,
-                'jumlah' => 20
-            ]);
+            if(rand(0,2))
+                DB::table('buku_fisiks')->insert([
+                    'id' => $value->id,
+                    'jumlah' => 20
+                ]);
         }
     }
 }
