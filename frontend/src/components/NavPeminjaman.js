@@ -26,17 +26,24 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function NavPeminjaman({ booksId }) {
+export default function NavPeminjaman({ booksId, fisik, digital }) {
     const classes = useStyles();
     console.log(booksId);
+    const params = {
+        pathname: `/pinjam/${booksId}`,
+        state: {
+            fisik: fisik,
+            digital: digital
+        }
+    };
     return (
-        <Grid maxWidth='xs' container direction='row' justify='center' className={classes.root} >
+        <Grid container direction='row' justify='center' className={classes.root} >
             <Button variant='contained'
                 color='secondary'
                 size='small'
                 className={classes.btn}
                 style={{ marginRight: '0.5rem', width: 'calc(80% - 0.5rem)' }}
-                component={Link} to={`/pinjam/${booksId}`}
+                component={Link} to={params}
                 >
                 Pinjam Buku
             </Button>

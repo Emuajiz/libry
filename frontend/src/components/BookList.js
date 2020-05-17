@@ -5,7 +5,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Box, CardContent, CardMedia, Typography, Chip, Paper } from '@material-ui/core';
 import Rating from './Rating';
 
-
 const useStyles = makeStyles((theme) => ({
     media: {
         height: '10rem',

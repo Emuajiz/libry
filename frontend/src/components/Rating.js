@@ -61,8 +61,8 @@ export default function Rating({rating}) {
         <Box>
             {star}
             {unStar}
-            <Typography variant='subtitle1' component='span'>
-                {rating}
+            <Typography variant='body1' component='span'>
+                &nbsp;&nbsp;{rating}
             </Typography>
         </Box>
     );

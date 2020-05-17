@@ -6,7 +6,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import {
     Card, CardMedia, CardContent, Typography, Grid,
-    IconButton, Box, Divider, Button
+    IconButton, Box, Divider, Button, GridList
 } from '@material-ui/core';
 
 import { Icon } from '@iconify/react';
@@ -21,6 +21,7 @@ import { RatingAlt } from './Rating';
 import BookGrid from './BookGrid';
 import NavPeminjaman from './NavPeminjaman';
 import ZoomOutImg from './zoomOutImages';
+import Loading from './LoadingScreen';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -81,6 +82,15 @@ const useStyles = makeStyles((theme) => ({
             background: 'rgba(34, 34, 34, 0.2)',
         }
     },
+    gridlist: {
+		display: 'flex',
+		marginRight: theme.spacing(-1.5),
+		width: `calc(100% + ${theme.spacing(1.5)})`,
+        marginTop: theme.spacing(2),
+	},
+	gridlistChild: {
+        flexWrap: 'nowrap',
+	},
 }));
 
 const StyledPopup = styled(Popup)`
@@ -93,90 +103,121 @@ const StyledPopup = styled(Popup)`
     }
 `;
 
-const urlCuy = 'http://8198552c.ngrok.io';
-const token = 'JvsUQymW7UEfNWoYBUEMREo7B4qdYjult7VSuSPUqyQsFkJwAL2PL1eF8f3LYrWQWlnKSEr5vZPFdQuS';
+const tkn = JSON.parse(localStorage.getItem('login'));
+
+var token;
+if (tkn) {
+    token = tkn.token;
+} else {
+    token = '';
+}
+const urlCuy = 'http://3e9c1c7e.ngrok.io';
 
 export default function Koleksiku({ match }) {
     const classes = useStyles();
     const history = useHistory();
-
-    useEffect(() => {
-        fetchDetailBooks();
-    }, []);
-    
     const [books, setBooks] = useState([]);
     const [wishlist, setWishlist] = useState(null);
-    
+    const [error, setError] = useState([]);
+    const [ulasan, setUlasan] = useState([]);
+    const [load, setLoad] = useState(true);
+    const [penulisLain, setPenulisLain] = useState([]);
+    const [penerbitLain, setPenerbitLain] = useState([]);
+
+    useEffect(() => {
+        console.log(match.params.id);
+        fetchDetailBooks();
+    }, []);
+
     const fetchDetailBooks = async () => {
         const requestOptions = {
             method: 'GET',
-            headers: { 
+            headers: {
                 'Accept': 'application/json',
                 'content-type': 'application/json',
-                'Authorization' : `Bearer ${token}`,
+                'Authorization': `Bearer ${token}`,
             },
         };
         const data = await fetch(
             `${urlCuy}/api/buku/${match.params.id}`, requestOptions
         );
         const books = await data.json();
+        const data1 = await fetch(
+            books.buku_lain_penerbit, requestOptions
+        );
+        const data2 = await fetch(
+            books.buku_lain_penulis, requestOptions
+        );
+        var penulisLain = await data2.json();
+        penulisLain = Array.from(penulisLain);
+        var penerbitLain = await data1.json();
+        penerbitLain = Array.from(penerbitLain);
+        console.log(penulisLain);
+        console.log(books.ulasan.jumlah);
         console.log(books);
         setBooks(books);
-        if(books.fav) setWishlist(1);
+        setPenulisLain(penulisLain);
+        setPenerbitLain(penerbitLain);
+        setUlasan(books.ulasan);
+        if (books.fav) setWishlist(1);
+        setLoad(false);
     }
-
-    
-    const [error, setError] = useState([]);
 
     const handleWishlist = (e) => {
         const idId = match.params.id;
         const requestOptions = {
             method: 'POST',
-            headers: { 
+            headers: {
                 'Accept': 'application/json',
                 'content-type': 'application/json',
-                'Authorization' : `Bearer ${token}`,
+                'Authorization': `Bearer ${token}`,
             },
             body: `{"buku" : "${idId}"}`,
         };
-        if(!wishlist){
-        fetch(`${urlCuy}/api/wishlist`, requestOptions)
-            .then(response => {
-                const data = response.json();
-                console.log(data);
-                setWishlist(1);
-                if (!response.ok) {
-                    // get error message from body or default to response status
-                    const error = (data && data.message) || response.status;
-                    return Promise.reject(error);
-                } 
-            })
-            .catch(error => {
-                setError({ errorMessage: error.toString() });
-                console.error('There was an error!', error);
-            });
+        if (!wishlist) {
+            fetch(`${urlCuy}/api/wishlist`, requestOptions)
+                .then(response => {
+                    const data = response.json();
+                    console.log(data);
+                    setWishlist(1);
+                    if (!response.ok) {
+                        // get error message from body or default to response status
+                        setError((data && data.message) || response.status);
+                        return Promise.reject(error);
+                    }
+                })
+                .catch(error => {
+                    setError({ errorMessage: error.toString() });
+                    console.error('There was an error!', error);
+                });
         } else {
             fetch(`${urlCuy}/api/wishlist/delete`, requestOptions)
-            .then(response => {
-                const data = response.json();
-                console.log(data);
-                setWishlist(null);
-                if (!response.ok) {
-                    // get error message from body or default to response status
-                    const error = (data && data.message) || response.status;
-                    return Promise.reject(error);
-                } 
-            })
-            .catch(error => {
-                setError({ errorMessage: error.toString() });
-                console.error('There was an error!', error);
-            });
+                .then(response => {
+                    const data = response.json();
+                    console.log(data);
+                    setWishlist(null);
+                    if (!response.ok) {
+                        // get error message from body or default to response status
+                        setError((data && data.message) || response.status);
+                        return Promise.reject(error);
+                    }
+                })
+                .catch(error => {
+                    setError({ errorMessage: error.toString() });
+                    console.error('There was an error!', error);
+                });
         }
     }
 
     return (
+
         <div className={classes.root}>
-            <IconButton onClick={() => history.goBack()} className={classes.backbtn} edge='left' >
+            {load ? (
+                <div style={{ height: '100vh', display: 'sticky', zIndex: 999 }}>
+                    <Loading />
+                </div>
+            ) : ''}
+            <IconButton onClick={() => history.goBack()} className={classes.backbtn} >
                 <Icon icon={bxArrowBack} style={{ color: '#f2f2f2', fontSize: 24 }} />
             </IconButton>
             <StyledPopup modal
@@ -206,19 +247,22 @@ export default function Koleksiku({ match }) {
                         </IconButton>
                     </Grid>
                     <Grid container direction='row'>
-                        <RatingAlt rating={books.rating} jmlUlasan={books.ulasan} />
+                        <RatingAlt rating={books.rating} jmlUlasan={ulasan.jumlah} />
                         <Divider orientation="vertical" flexItem className={classes.divider} />
                         <Grid item style={{ textAlign: 'center' }}>
                             <Icon icon={outlineLibraryBooks} style={{ color: '#222222', fontSize: '17px' }} />
-                            <Typography variant='body1' component='p' color='textSecondary'>eBook</Typography>
+                            <Typography variant='body1' component='p' color='textSecondary'>
+                                {(books.fisik && books.digital) ? 'Buku fisik dan Digital' : books.fisik ? 'Buku Fisik' : 'eBook'}
+                            </Typography>
                         </Grid>
+                        {/* 
                         <Divider orientation="vertical" flexItem className={classes.divider} />
-                        <Grid item style={{ textAlign: 'center' }}>
+                            <Grid item style={{ textAlign: 'center' }}>
                             <Typography variant='h3' component='p'>03</Typography>
                             <Typography variant='body1' component='p' color='textSecondary'>
                                 Salinan
                             </Typography>
-                        </Grid>
+                        </Grid> */}
                     </Grid>
                 </CardContent>
             </Card>
@@ -273,6 +317,7 @@ export default function Koleksiku({ match }) {
                             <Icon icon={bxChevronRight}
                                 style={{ color: '#151515', fontSize: '1.2rem' }} />
                         }
+                        component={Link} to={`/beriKomentar/${match.params.id}`}
                     >
                         <Grid container direction='column'>
                             <Typography variant='h3' component='h3' style={{ fontWeight: 600 }}>
@@ -287,7 +332,9 @@ export default function Koleksiku({ match }) {
                 </Grid>
             </Box>
             <div className={classes.division} />
-            <Review className={classes.text} rating={books.rating} jmlUlasan={books.ulasan} />
+            <Link to={`/komentar/${match.params.id}`} style={{textDecoration: 'none', color: 'inherit'}}>
+                <Review className={classes.text} rating={books.rating} jmlUlasan={ulasan.jumlah} />
+            </Link>
             <div className={classes.division} />
             <Box className={classes.text}>
                 <Grid container direction='row'>
@@ -306,7 +353,20 @@ export default function Koleksiku({ match }) {
                         <div style={{ flexGrow: 1 }} />
                     </Button>
                 </Grid>
-                <BookGrid />
+                <Box component='div' className={classes.gridlist}>
+                    <GridList className={classes.gridlistChild} component='div' cellHeight={'auto'}>
+                        {penulisLain.map(item => (
+                            <BookGrid
+                                key={item.id}
+                                id={item.id}
+                                judul={item.judul}
+                                penulis={item.penulis}
+                                kategori={item.kategori}
+                                cover={urlCuy + '/cover-buku/' + item.cover}
+                            />
+                        ))}
+                    </GridList>
+                </Box>
             </Box>
             <div className={classes.division} />
             <Box className={classes.text}>
@@ -321,14 +381,27 @@ export default function Koleksiku({ match }) {
                         component={Link} to='/detail'
                     >
                         <Typography variant='h3' component='h3' style={{ fontWeight: 600 }}>
-                            Rekomendasi buku lain untukmu
+                            Buku lain dari penerbit {books.penerbit}
                         </Typography>
                         <div style={{ flexGrow: 1 }} />
                     </Button>
                 </Grid>
-                <BookGrid />
+                <Box component='div' className={classes.gridlist}>
+                    <GridList className={classes.gridlistChild} component='div' cellHeight={'auto'}>
+                        {penerbitLain.map(item => (
+                            <BookGrid
+                                key={item.id}
+                                id={item.id}
+                                judul={item.judul}
+                                penulis={item.penulis}
+                                kategori={item.kategori}
+                                cover={urlCuy + '/cover-buku/' + item.cover}
+                            />
+                        ))}
+                    </GridList>
+                </Box>
             </Box>
-            <NavPeminjaman booksId={match.params.id} />
+            {load ? '' : <NavPeminjaman booksId={match.params.id} fisik={books.fisik} digital={books.digital} />}
         </div>
     );
 }
