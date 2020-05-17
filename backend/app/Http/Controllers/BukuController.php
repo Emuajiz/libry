@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\Buku as BukuResource;
+use App\Http\Resources\DetailBuku as DetailBukuResource;
 use App\Buku;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BukuController extends Controller
 {
@@ -12,12 +16,31 @@ class BukuController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-        return response()->json([
-            Buku::with(['digital', 'fisik', 'review'])->get(),
-        ]);
+        return BukuResource::collection(Buku::orderBy('judul', 'ASC')->paginate());
+    }
+    
+    public function terbaru(Request $request)
+    {
+        return BukuResource::collection(Buku::orderBy('tahun', 'DESC')
+        ->orderBy('created_at', 'DESC')
+        ->paginate());
+    }
+    
+    public function populer(Request $request)
+    {
+        return BukuResource::collection(Buku::withCount('reviews')->orderBy('reviews_count', 'DESC')->paginate());
+    }
+
+    public function search(Request $request)
+    {
+        if(isset($request->q))
+            return BukuResource::collection(Buku::where('judul', 'like', '%' . $request->q . '%')
+            ->orderBy('judul', 'ASC')
+            ->paginate());
+        else
+            return response()->json('Bad Request', 400);
     }
 
     /**
@@ -50,9 +73,7 @@ class BukuController extends Controller
     public function show(Buku $buku)
     {
         //
-        return response()->json([
-            $buku,
-        ]);
+        return new DetailBukuResource($buku);
     }
 
     /**

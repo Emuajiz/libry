@@ -14,7 +14,7 @@ class PenerbitSeeder extends Seeder
     {
         //
         DB::table('penerbits')->insert([
-            'id' => Str::uuid(),
+            'id' => '37d004e6-4fbf-436c-b687-95cc84a903e8',
             'nama' => 'cetakan',
             'deskripsi' => 'lorem ipsum',
             'link' => 'https://www.wikipedia.org/'

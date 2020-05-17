@@ -5,10 +5,16 @@ namespace App\Http\Controllers;
 use App\Buku;
 use App\Peminjaman;
 
+use App\Http\Resources\Pinjam as PinjamResource;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
+
+use App\Http\Resources\Buku as BukuResource;
 
 use Carbon\Carbon;
 
@@ -17,16 +23,44 @@ class PinjamController extends Controller
     //
     public function index(Request $request)
     {
-        return response()->json([
-            'sedang' => Peminjaman::where('pengunjung_id', $request->user()->id)->whereNull('tgl_balik')->get(),
-            'sudah' => Peminjaman::where('pengunjung_id', $request->user()->id)->whereNotNull('tgl_balik')->get(),
-        ]);
+        $pinjam1 = Peminjaman::where('pengunjung_id', $request->user()->id)->orderBy('created_at', 'DESC')->get();
+        // $pinjam2 = Peminjaman::select(DB::raw('DISTINCT pengunjung_id, buku_id'))->get();
+        return PinjamResource::collection($pinjam1);
+    }
+
+    public function sedang(Request $request)
+    {
+        $pinjam1 = Peminjaman::where('pengunjung_id', $request->user()->id)
+        ->whereNull('tgl_balik')
+        ->orderBy('created_at', 'DESC')
+        ->get();
+        
+        return PinjamResource::collection($pinjam1);
+    }
+
+    public function sudah(Request $request)
+    {
+        // $idSedang = Arr::flatten(Peminjaman::where('pengunjung_id', $request->user()->id)
+        // ->whereNull('tgl_balik')
+        // ->orderBy('created_at', 'DESC')
+        // ->get('buku_id')->toArray());
+
+        $pinjam1 = Peminjaman::where('pengunjung_id', $request->user()->id)
+        ->whereNotNull('tgl_balik')
+        // ->whereNotIn('buku_id', $idSedang)
+        // ->groupBy('buku_id')
+        ->orderBy('created_at', 'DESC')
+        ->get();
+
+        // return $idSedang;
+
+        return PinjamResource::collection($pinjam1);
     }
 
     public function pinjam(Request $request)
     {
         $request->validate([
-            'pinjam' => 'required|date_format:Y-m-d',
+            'pinjam' => 'required|date_format:Y-m-d\TH:i',
             'buku' => 'required|uuid',
             'tipe' => [
                 'required',
@@ -38,7 +72,7 @@ class PinjamController extends Controller
         {
             // ambil data buku yang masih dipinjam
             $cek = $request->user()
-            ->pengunjung->peminjaman
+            ->peminjaman
             ->where('tipe', $request->tipe)
             ->whereNull('tgl_balik');
 
@@ -85,16 +119,16 @@ class PinjamController extends Controller
             }
 
             // sekarang baru bisa pinjem 1 minggu aja :)
-            $balik = Carbon::parse($request->pinjam)->add(7, 'day')->format('Y-m-d');
+            $balik = Carbon::parse($request->pinjam)->add(7, 'day');
 
             $pinjam = new Peminjaman();
             $pinjam->id = Str::uuid();
             $pinjam->buku_id = $request->buku;
             $pinjam->pengunjung_id = $request->user()->id;
-            $pinjam->pinjam = $request->pinjam;
+            $pinjam->pinjam = Carbon::parse($request->pinjam);
             $pinjam->balik = $balik;
             $pinjam->tipe = $request->tipe;
-            // $pinjam->save();
+            $pinjam->save();
             
             return response()->json([
                 $pinjam,
@@ -109,7 +143,7 @@ class PinjamController extends Controller
 
     }
 
-    public function balik(Request $request)
+    public function balik(Request $request, Peminjaman $pinjam)
     {
         $request->validate([
             'peminjaman_id' => 'required|uuid',
@@ -119,12 +153,10 @@ class PinjamController extends Controller
         {
             $pinjam = Peminjaman::where('id', $request->peminjaman_id)
             ->whereNull('tgl_balik')->firstOrFail();
-            $pinjam->tgl_balik = Carbon::now()->format('Y-m-d');
+            $pinjam->tgl_balik = Carbon::now();
             $pinjam->save();
     
-            return response()->json([
-                $pinjam,
-            ]);
+            return response()->json($pinjam);
         }
         catch(ModelNotFoundException $e)
         {

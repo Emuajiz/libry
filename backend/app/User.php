@@ -44,4 +44,20 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Pengunjung', 'id');
     }
+    
+    public function peminjaman()
+    {
+        return $this->hasMany('App\Peminjaman', 'pengunjung_id');
+    }
+
+    public function wishlists()
+    {
+        return $this->belongsToMany('App\Buku', 'wishlists', 'pengunjung_id');
+    }
+    
+    public function reviews()
+    {
+        return $this->hasMany('App\ReviewBuku', 'pengunjung_id');
+    }
+
 }

@@ -14,7 +14,9 @@ class LoginController extends Controller
      * login
      */
     public function index(Request $request)
-    {
+    {   
+        // return $request->all();
+
         $request->validate([
             'email' => 'required|email',
             'password' => 'required',
@@ -23,6 +25,9 @@ class LoginController extends Controller
         $user = User::where('email', $request->email)->first();
     
         if (! $user || ! Hash::check($request->password, $user->password)) {
+            return response()->json([
+                'message' => 'salah bro, masukin ulang',
+            ], 401);
             throw ValidationException::withMessages([
                 'email' => ['The provided credentials are incorrect.'],
             ]);

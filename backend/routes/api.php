@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,40 +27,73 @@ Route::post('/register', 'RegisterController@index');
 
 //Route tampilkan list buku
 Route::get('/buku', 'BukuController@index');
+//Route tampilkan list buku terbaru
+Route::get('/buku/terbaru', 'BukuController@terbaru');
+//Route tampilkan list buku populer
+Route::get('/buku/populer', 'BukuController@populer');
+//Route cari dari judul
+Route::get('/buku/cari', 'BukuController@search');
 //Route detail buku
 Route::get('/buku/{buku}', 'BukuController@show');
-//Route menampilkan buku yang dipinjamg
-Route::middleware('auth:sanctum')->get('/pinjam', 'PinjamController@index');
+//Route menampilkan buku yang sedang
+Route::middleware('auth:sanctum')->get('/pinjam', 'PinjamController@sedang');
+//Route menampilkan buku yang sudah dipinjam
+Route::middleware('auth:sanctum')->get('/pinjam/sudah', 'PinjamController@sudah');
 //Route pinjam buku
 Route::middleware('auth:sanctum')->post('/pinjam', 'PinjamController@pinjam');
 //Route balikin buku
 Route::middleware('auth:sanctum')->post('/balikin', 'PinjamController@balik');
+
+// Route buat nulis review
+Route::middleware('auth:sanctum')->post('/ulasan', 'ReviewController@store');
 
 //Route list wishlist
 Route::middleware('auth:sanctum')->get('/wishlist', 'WishlistController@index');
 //Route tambah wishlist
 Route::middleware('auth:sanctum')->post('/wishlist', 'WishlistController@store');
 //Route hapus wishlist
-Route::middleware('auth:sanctum')->delete('/wishlist/{buku}', 'WishlistController@destroy');
+Route::middleware('auth:sanctum')->post('/wishlist/delete', 'WishlistController@destroy');
 
-Route::middleware('auth:sanctum')->post('/register/pengunjung', 'PengunjungController@store');
+// Route::middleware('auth:sanctum')->post('/register/pengunjung', 'PengunjungController@store');
 
+Route::middleware('auth:sanctum')->post('/user/ganti-profile', 'UserController@profile_change');
 Route::middleware('auth:sanctum')->post('/user/ganti-sandi', 'UserController@password_change');
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::any('/tes', function(Request $request){
-    // $tanggal = \Carbon\Carbon::parse('2020-05-07T10:44:31.000000Z');
-    return [
-        $request->all()
-    ];
-});
-
 // route penulis
 Route::get('/penulis', 'PenulisController@index');
+Route::get('/penulis/buku/{penulis}', 'PenulisController@buku');
+
+// Route penerbit
+// Route::get('/penulis/buku/{penulis}', 'PenulisController@buku');
+Route::get('/penerbit/buku/{penerbit}', 'PenerbitController@buku');
 
 // route generate uuid
 Route::get('/uuid/gen', function(){
-    return Str::uuid();
+    return [
+        Str::uuid(),
+        Str::uuid(),
+        Str::uuid(),
+        Str::uuid(),
+        Str::uuid(),
+        Str::uuid(),
+        Str::uuid(),
+        Str::uuid(),
+        Str::uuid(),
+        Str::uuid(),
+        Str::uuid(),
+        Str::uuid(),
+    ];
+});
+
+// route temp
+Route::
+// middleware('auth:sanctum')->
+get('temp', function(Request $request){
+    $url = Storage::url(
+        'file-buku/hp1.epub'
+    );
+    return $url;
 });

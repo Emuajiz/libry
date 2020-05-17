@@ -77,8 +77,38 @@ Goals&ensp;: Bisa mencari buku dengan cepat tanpa harus mencari satu-satu. Bisa 
 - Sebagai seorang user saya ingin bisa melihat tanggapan orang lain mengenai buku yang akan dipinjam agar saya dapat dengan cepat memutuskan buku yang saya inginkan.
 
 ##  Use case diagram
-##  Use case description 
+![Use Case Diagram](images/usecase.png)
+##  Use case description
+Use Case 1: Melihat Katalog Buku
+![Use Case 1: Melihat Katalog Buku](images/usecasedescription1.png)
+Use Case 2: Melihat detail buku
+![Use Case 2: Melihat detail buku](images/usecasedescription2.png)
+Use Case 3: Booking buku fisik
+![Use Case 3: Booking buku fisik](images/usecasedescription3.png)
+Use Case 4: Pinjam buku digital
+![Use Case 4: Pinjam buku digital](images/usecasedescription4.png)
+Use Case 5: Cek jadwal booking
+![Use Case 5: Cek jadwal booking](images/usecasedescription5.png)
+Use case 6: Baca buku
+![Use case 6: Baca buku](images/usecasedescription6.png)
+Use case 7: Input data baru
+![Use case 7: Input data baru](images/usecasedescription7.png)
+Use case 8: Mendata peminjaman buku
+![Use case 8: Mendata peminjaman buku](images/usecasedescription8.png)
+Use Case 9: Mengubah katalog
+![Use Case 9: Mengubah katalog](images/usecasedescription9.png)
 ##  Activity diagram
+Input buku
+![Use Case Diagram](images/useactivity1.png)
+Edit buku
+![Use Case Diagram](images/useactivity2.png)
+Baca buku
+![Use Case Diagram](images/useactivity3.png)
+Booking buku
+![Use Case Diagram](images/useactivity4.png)
 ##  Gantt chart
+![Entity Relationship Diagram](images/ganttchart.png.png)
 ##  ERD
+Entity Relationship Diagram
+![Entity Relationship Diagram](images/erd.png)
 ##  Hasil implementasi perangkat lunak
