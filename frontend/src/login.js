@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const urlCuy = 'http://3e9c1c7e.ngrok.io';
+const urlCuy = 'http://6a43ab11.ngrok.io';
 
 export default function Login() {
     const classes = useStyles();
@@ -71,7 +71,7 @@ export default function Login() {
             })
         })
     };
-
+    
     return (
         <Grid container direction='column' justify='center' className={classes.container}>
             {(login || signIn) ? <Redirect to='/' /> : ''}

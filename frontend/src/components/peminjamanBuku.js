@@ -72,7 +72,7 @@ if (tkn) {
 } else {
 	token = '';
 }
-const urlCuy = 'http://3e9c1c7e.ngrok.io';
+const urlCuy = 'http://6a43ab11.ngrok.io';
 
 function Alert(props) {
 	return <MuiAlert elevation={6} variant="filled" {...props} />;

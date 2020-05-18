@@ -73,7 +73,7 @@ function BookGridAlt({ id, judul, penulis, kategori, cover }) {
 
 	return (
 		
-			<Grid item xs={3} className={classes.item} component={Link} to='/books'>
+			<Grid item xs={3} className={classes.item} component={Link} to={`/book/${id}`} key={id}>
 				<CardMedia className={classes.mediaAlt}
 					image={cover} />
 				<CardContent className={classes.content}>
