@@ -1,7 +1,7 @@
 # Libry - Your Pocket Library
 Kelompok:
 1. Aldi Oktaviana Hidayat &ensp; G64180005
-2. Muhammad Thareeq &ensp; &ensp; G6418
+2. Muhammad Thareeq &ensp; &ensp; G64180041
 
 ## Latar Belakang
 
