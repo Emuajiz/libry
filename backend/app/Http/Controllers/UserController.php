@@ -49,4 +49,14 @@ class UserController extends Controller
 
         return $pengunjung;
     }
+
+    public function show(Request $request)
+    {
+        return [
+            'nama' => $request->user()->pengunjung->nama,
+            'alamat' => $request->user()->pengunjung->alamat,
+            'email' => $request->user()->email,
+            'nomor' => $request->user()->pengunjung->hp,
+        ];
+    }
 }

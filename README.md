@@ -1,7 +1,7 @@
 # Libry - Your Pocket Library
 Kelompok:
 1. Aldi Oktaviana Hidayat &ensp; G64180005
-2. Muhammad Thareeq &ensp; &ensp; G6418
+2. Muhammad Thareeq &ensp; &ensp; G64180041
 
 ## Latar Belakang
 
@@ -79,36 +79,114 @@ Goals&ensp;: Bisa mencari buku dengan cepat tanpa harus mencari satu-satu. Bisa 
 ##  Use case diagram
 ![Use Case Diagram](images/usecase.png)
 ##  Use case description
+
 Use Case 1: Melihat Katalog Buku
+
 ![Use Case 1: Melihat Katalog Buku](images/usecasedescription1.png)
+
 Use Case 2: Melihat detail buku
+
 ![Use Case 2: Melihat detail buku](images/usecasedescription2.png)
+
 Use Case 3: Booking buku fisik
+
 ![Use Case 3: Booking buku fisik](images/usecasedescription3.png)
+
 Use Case 4: Pinjam buku digital
+
 ![Use Case 4: Pinjam buku digital](images/usecasedescription4.png)
+
 Use Case 5: Cek jadwal booking
+
 ![Use Case 5: Cek jadwal booking](images/usecasedescription5.png)
+
 Use case 6: Baca buku
+
 ![Use case 6: Baca buku](images/usecasedescription6.png)
+
 Use case 7: Input data baru
+
 ![Use case 7: Input data baru](images/usecasedescription7.png)
+
 Use case 8: Mendata peminjaman buku
+
 ![Use case 8: Mendata peminjaman buku](images/usecasedescription8.png)
+
 Use Case 9: Mengubah katalog
+
 ![Use Case 9: Mengubah katalog](images/usecasedescription9.png)
+
 ##  Activity diagram
+
 Input buku
+
 ![Use Case Diagram](images/useactivity1.png)
+
 Edit buku
+
 ![Use Case Diagram](images/useactivity2.png)
+
 Baca buku
+
 ![Use Case Diagram](images/useactivity3.png)
+
 Booking buku
+
 ![Use Case Diagram](images/useactivity4.png)
+
 ##  Gantt chart
-![Entity Relationship Diagram](images/ganttchart.png.png)
+![Gantt chart](images/ganttchart.png)
 ##  ERD
+
 Entity Relationship Diagram
+
 ![Entity Relationship Diagram](images/erd.png)
+
 ##  Hasil implementasi perangkat lunak
+Splash Screen
+![Entity Relationship Diagram](images/splash-screen.jpg)
+
+Login
+![Entity Relationship Diagram](images/login.jpg)
+
+Register
+![Entity Relationship Diagram](images/register.jpg)
+
+Home Screen
+![Entity Relationship Diagram](images/home-screen.jpg)
+
+Detail buku
+![Entity Relationship Diagram](images/detail-buku.jpg)
+
+Baca ebook
+![Entity Relationship Diagram](images/baca-buku.jpg)
+
+Daftar buku yang sedang dipinjam
+![Entity Relationship Diagram](images/daftar-buku-dipinjam.jpg)
+
+Histori buku yang pernah dipinjam
+![Entity Relationship Diagram](images/histori-peminjaman.jpg)
+
+Daftar wishlist
+![Entity Relationship Diagram](images/wishlist.jpg)
+
+List buku dari penulis yang sama
+![Entity Relationship Diagram](images/list-buku-dari-penulis.jpg)
+
+List penulis
+![Entity Relationship Diagram](images/daftar-penulis.jpg)
+
+List buku dari penerbit yang sama
+![Entity Relationship Diagram](images/list-buku-dari-penerbit.jpg)
+
+List Ulasan Buku
+![Entity Relationship Diagram](images/list-ulasan-buku.jpg)
+
+Tambah ulasan
+![Entity Relationship Diagram](images/form-tulis-ulasan.jpg)
+
+Profile page
+![Entity Relationship Diagram](images/profile.jpg)
+
+Loading screen
+![Entity Relationship Diagram](images/loading-screen.jpg)
