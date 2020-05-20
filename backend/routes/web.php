@@ -15,12 +15,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
-Route::get('/tes', function(Request $request){
-    return [
-        $request->all(),
-        file_get_contents('php://input'),
-    ];
-});
+// Route::get('/tes', function(Request $request){
+//     return [
+//         $request->all(),
+//         file_get_contents('php://input'),
+//     ];
+// });
