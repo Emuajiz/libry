@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const urlCuy = 'http://3e9c1c7e.ngrok.io';
+const urlCuy = 'http://6a43ab11.ngrok.io';
 
 export default function Home() {
     const classes = useStyles();

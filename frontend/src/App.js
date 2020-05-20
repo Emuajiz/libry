@@ -73,7 +73,7 @@ let theme = createMuiTheme({
 theme = responsiveFontSizes(theme);
 
 const tkn = JSON.parse(localStorage.getItem('login'));
-const urlCuy = 'http://3e9c1c7e.ngrok.io';
+const urlCuy = 'http://6a43ab11.ngrok.io';
 
 function App() {
 	const [tab, setTab] = React.useState('');
@@ -103,7 +103,7 @@ function App() {
 	React.useEffect(() => {
         console.log(tkn);
 		if(tkn != null ) testAPI();
-    }, []);
+    }, [login]);
 
 	return (
 		<Router>
