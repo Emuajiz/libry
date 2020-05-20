@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources;
 
+use App\Peminjaman;
+
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,6 +23,11 @@ class DetailBuku extends JsonResource
         $ratings = array_reduce($this->reviews()->get('rating')->toArray(), function($carry, $item){
             return $carry + $item['rating'];
         });
+
+        $pinjam = Peminjaman::where('pengunjung_id', Auth::guard('sanctum')->id())
+        ->where('buku_id', $this->id)
+        ->whereNull('tgl_balik')
+        ->get();
 
         if($count)
             $ratings /= $count;
@@ -54,6 +61,10 @@ class DetailBuku extends JsonResource
             }),
             'fisik' => $this->fisik && true,
             'digital' => $this->digital && true,
+            'pinjam' => [
+                'digital' => $this->when($pinjam[0]->tipe == 'd' || $pinjam[1]->tipe == 'd', true),
+                'fisik' => $this->when($pinjam[0]->tipe == 'f' || $pinjam[1]->tipe == 'f', true)
+            ]
         ];
     }
 }
