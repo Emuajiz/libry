@@ -27,7 +27,19 @@ class DetailBuku extends JsonResource
         $pinjam = Peminjaman::where('pengunjung_id', Auth::guard('sanctum')->id())
         ->where('buku_id', $this->id)
         ->whereNull('tgl_balik')
-        ->get();
+        ->get('tipe');
+
+        $status = [];
+        foreach ($pinjam as $key => $value) {
+            if($value->tipe == 'd')
+            {
+                $status['digital'] = true;
+            }
+            if($value->tipe == 'f')
+            {
+                $status['fisik'] = true;
+            }
+        }
 
         if($count)
             $ratings /= $count;
@@ -61,10 +73,7 @@ class DetailBuku extends JsonResource
             }),
             'fisik' => $this->fisik && true,
             'digital' => $this->digital && true,
-            'pinjam' => [
-                'digital' => $this->when($pinjam[0]->tipe == 'd' || $pinjam[1]->tipe == 'd', true),
-                'fisik' => $this->when($pinjam[0]->tipe == 'f' || $pinjam[1]->tipe == 'f', true)
-            ]
+            'pinjam' => $this->when($status, $status),
         ];
     }
 }
