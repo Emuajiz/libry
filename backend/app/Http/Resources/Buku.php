@@ -20,6 +20,8 @@ class Buku extends JsonResource
             return $carry + $item['rating'];
         });
 
+        // $pinjam = Peminjaman::where('pengunjung_id', Auth::guard('sanctum'))
+
         if($count)
             $ratings /= $count;
         else
@@ -41,7 +43,7 @@ class Buku extends JsonResource
             'buku_lain_penulis' => url('api/penulis/buku/' . $this->penulis->id),
             'buku_lain_penerbit' => url('api/penerbit/buku/' . $this->penerbit->id),
             'fav' => $this->when(Auth::guard('sanctum')->user(), function(){
-                return count(\App\Wishlist::where('pengunjung_id', Auth::guard('sanctum')->user()->id)
+                return count(\App\Wishlist::where('pengunjung_id', Auth::guard('sanctum')->id())
                 ->where('buku_id', $this->id)
                 ->get());
                 // return Auth::guard('sanctum')->user()->id;
