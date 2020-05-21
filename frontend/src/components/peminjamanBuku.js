@@ -12,12 +12,17 @@ import {
 
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab';
-import { makeStyles, withStyles } from '@material-ui/styles'
+// import { ToggleButton
+// 	// , ToggleButtonGroup 
+// } from '@material-ui/lab';
+import {
+	makeStyles
+	// , withStyles 
+} from '@material-ui/styles'
 
 import { Icon } from '@iconify/react';
-import outlineLibraryBooks from '@iconify/icons-ic/outline-library-books';
-import bxBookReader from '@iconify/icons-bx/bx-book-reader';
+// import outlineLibraryBooks from '@iconify/icons-ic/outline-library-books';
+// import bxBookReader from '@iconify/icons-bx/bx-book-reader';
 import bxArrowBack from '@iconify/icons-bx/bx-arrow-back';
 import bxTimeFive from '@iconify/icons-bx/bx-time-five';
 import bxChevronRight from '@iconify/icons-bx/bx-chevron-right';
@@ -43,26 +48,26 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const MetodePeminjaman = withStyles((theme) => ({
-	root: {
-		width: '7.5rem',
-		height: 64,
-		overflow: 'hidden',
-		padding: theme.spacing(0, 1),
-		border: '1.5px solid #CC5A71',
+// const MetodePeminjaman = withStyles((theme) => ({
+// 	root: {
+// 		width: '7.5rem',
+// 		height: 64,
+// 		overflow: 'hidden',
+// 		padding: theme.spacing(0, 1),
+// 		border: '1.5px solid #CC5A71',
 
-		textAlign: 'right',
-		textTransform: 'inherit',
-	},
-	selected: {
-		'&&&': {
-			backgroundColor: '#CC5A71',
-		},
-		'&& *': {
-			color: '#f2f2f2'
-		}
-	}
-}))(ToggleButton);
+// 		textAlign: 'right',
+// 		textTransform: 'inherit',
+// 	},
+// 	selected: {
+// 		'&&&': {
+// 			backgroundColor: '#CC5A71',
+// 		},
+// 		'&& *': {
+// 			color: '#f2f2f2'
+// 		}
+// 	}
+// }))(ToggleButton);
 
 const tkn = JSON.parse(localStorage.getItem('login'));
 
@@ -72,7 +77,7 @@ if (tkn) {
 } else {
 	token = '';
 }
-const urlCuy = 'http://6a43ab11.ngrok.io';
+const urlCuy = 'https://libry.thareeq.id';
 
 function Alert(props) {
 	return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -87,6 +92,7 @@ export default function PeminjamanBuku({ match }) {
 	const [open, setOpen] = React.useState(false);
 	const [openSucc, setOpenSucc] = React.useState(false);
 	const [toKoleksi, setToKoleksi] = React.useState(false);
+	const [error, setError] = React.useState('');
 
 	const handleMetode = (event) => {
 		setMetode(event.target.value);
@@ -129,23 +135,25 @@ export default function PeminjamanBuku({ match }) {
 		console.log(requestOptions);
 		fetch(`${urlCuy}/api/pinjam`, requestOptions)
 			.then(response => {
-				const data = response.json();
-				console.log(data);
-				console.log(response.status);
-				if (response.status === 403) {
-					setOpen(true);
-					console.log(open);
-				}
-				if (response.status === 200) {
-					setOpenSucc(true);
-					setTimeout(() => setToKoleksi(true),1000);
-					console.log(openSucc);
-				}
-				if (!response.ok) {
-					// get error message from body or default to response status
-					const error = (data && data.message) || response.status;
-					return Promise.reject(error);
-				}
+				response.json().then((result) => {
+					console.log(result.message);
+					console.log(response.status);
+					if (response.status === 403) {
+						setOpen(true);
+						setError(result.message);
+						console.log(open);
+					}
+					if (response.status === 200) {
+						setOpenSucc(true);
+						setTimeout(() => setToKoleksi(true), 1000);
+						console.log(openSucc);
+					}
+					if (!response.ok) {
+						// get error message from body or default to response status
+						const error = (data && data.message) || response.status;
+						return Promise.reject(error);
+					}
+				})
 			})
 	};
 
@@ -273,12 +281,14 @@ export default function PeminjamanBuku({ match }) {
                 	</Button>
 					<Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
 						<Alert onClose={handleClose} severity="error">
-							Maaf buku telah dipinjam oleh orang lain
+							<span style={{textTransform: 'capitalize'}}>
+								{error}
+							</span>
         				</Alert>
 					</Snackbar>
 					<Snackbar open={openSucc} autoHideDuration={6000} onClose={handleClose}>
 						<Alert onClose={handleClose} severity="success">
-							Buku telah masuk ke koleksiku<br/>
+							Buku telah masuk ke koleksiku<br />
 							Mengalihkan ke koleksiku
         				</Alert>
 					</Snackbar>

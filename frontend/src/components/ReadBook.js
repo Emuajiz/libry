@@ -21,7 +21,7 @@ if(tkn) {
 } else {
     token = '';
 }
-const urlCuy = 'http://6a43ab11.ngrok.io';
+const urlCuy = 'https://libry.thareeq.id';
 
 export default function ReadBook() {
     const location = useLocation();

@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 function ListKomentar({ key, nama, rating, tulisan, jmlUlasan }) {
     const classes = useStyles();
     return (
-        <div>
+        <div style={{width: '100%'}}>
             <Paper className={classes.paper} key={key} elevation={0}>
                 <Typography variant='h3' component='h2'>
                     {nama}
@@ -62,7 +62,7 @@ if (tkn) {
 } else {
     token = '';
 }
-const urlCuy = 'http://6a43ab11.ngrok.io';
+const urlCuy = 'https://libry.thareeq.id';
 
 export default function Komentar({ match }) {
     const classes = useStyles();

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { Typography, Button, Grid, GridList } from '@material-ui/core';
@@ -22,6 +22,8 @@ const useStyles = makeStyles((theme) => ({
     gridlist: {
         display: 'flex',
         flexWrap: 'wrap',
+        
+        minHeight: '70vh',
         width: `calc(100% + ${theme.spacing(1.5)})`,
         overflowX: 'auto',
 
@@ -30,7 +32,12 @@ const useStyles = makeStyles((theme) => ({
     },
     gridlistChild: {
         flexWrap: 'nowrap',
+        padding: theme.spacing(.75),
     },
+    notFound: {
+        height: '100%',
+        margin: '50% auto 50% auto'
+    }
 }));
 
 const BtnGradient = withStyles((theme) => ({
@@ -53,7 +60,7 @@ if (tkn) {
 } else {
     token = '';
 }
-const urlCuy = 'http://6a43ab11.ngrok.io';
+const urlCuy = 'https://libry.thareeq.id';
 
 
 export default function Koleksiku() {
@@ -78,7 +85,7 @@ export default function Koleksiku() {
         setBooks(books);
         setLoading(false);
         if(books.length) setAda(true);
-        console.log(books.length);
+        console.log(books);
     }
     useEffect(() => {
         console.log(token);
@@ -92,7 +99,15 @@ export default function Koleksiku() {
             <Grid container direction='row'>
                 <Grid item>
                     <Typography variant='h1' component='h1'>Koleksiku</Typography>
-                    <Typography variant='subtitle2' component='span'>Ada 8 buku tersimpan</Typography>
+                    {(books.length) ? (
+                        <Typography variant='subtitle2' component='span' color='textSecondary'>
+                            Ada {books.length} buku tersimpan
+                        </Typography>
+                    ) : (
+                        <Typography variant='subtitle2' component='span' color='textSecondary'>
+                            Yuk, pinjam buku!
+                        </Typography>
+                    )}
                 </Grid>
                 <div style={{ flexGrow: 1 }} />
                 <BtnGradient variant="contained" disableElevation color='secondary' component={Link} to='/arsipbuku'>
@@ -104,9 +119,17 @@ export default function Koleksiku() {
                 {loading ? (
                     <Loading />
                 ) : (!ada) ? (
+                        <div
+                            style={{
+                                height: '100%',
+                                width: '100%',
+                                margin: '50% auto 50% auto'
+                            }}
+                        >
                         <NotFound 
                             message='Anda belum meminjam buku satupun' 
-                            style={{ marginTop: 'auto', marginBottom: 'auto' }} />
+                             />
+                        </div>
                     ) : ( 
                         <GridList className={classes.gridlistChild} cellHeight={'auto'} cols={2} component='div'>
                             {books.map(item => (
@@ -118,6 +141,7 @@ export default function Koleksiku() {
                                     sisa={item.sisa_hari}
                                     file={item.file_location}
                                     cover={item.cover_location}
+                                    detail={item.detail_buku}
                                 />
                             ))}
                         </GridList>

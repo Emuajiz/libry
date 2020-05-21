@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Box, CardContent, CardMedia, Typography, Chip, Paper } from '@material-ui/core';
+import { Box, CardContent, CardMedia, Typography, Chip, Paper, Button } from '@material-ui/core';
 import Rating from './Rating';
 
 const useStyles = makeStyles((theme) => ({
@@ -49,7 +49,37 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function BookList({ id, judul, penulis, kategori, cover }) {
+function BookListAlt({ id, judul, penulis, links, cover }) {
+    const classes = useStyles();
+    return(
+        <Box component='div' className={classes.gridlist} key={id}>
+            <Paper className={classes.card} elevation={2} component={Link} to={'/book/' + links.split('/')[5]} style={{ textDecoration: 'none', color: 'inherit', }} >
+                <Box zIndex={1}>
+                    <CardMedia image={cover} className={classes.media} />
+                </Box>
+                <CardContent className={classes.content}>
+                    <Typography variant='h4' component='h4'>
+                        {judul}
+                    </Typography>
+                    <Typography variant="body1" gutterBottom component="h4" color='textSecondary'>
+                        {penulis}
+                    </Typography>
+                    <Button
+                        fullWidth
+                        component={Link}
+                        to={'/beriKomentar/' + links.split('/')[5]}
+                        variant='outlined'
+                        size='small'
+                    >
+                        Beri Ulasan
+                    </Button>
+                </CardContent>
+            </Paper>
+        </Box>
+    );
+}
+
+export default function BookList({ id, judul, penulis, kategori, cover, rating }) {
     const classes = useStyles();
     console.log(id);
     return (
@@ -65,10 +95,12 @@ export default function BookList({ id, judul, penulis, kategori, cover }) {
                     <Typography variant="body1" gutterBottom component="h4" color='textSecondary'>
                         {penulis}
                     </Typography>
-                    <Rating />
+                    <Rating rating={rating} />
                     <Chip variant="outlined" size="small" label={kategori} />
                 </CardContent>
             </Paper>
         </Box>
     );
 }
+
+export {BookListAlt, BookList};

@@ -12,8 +12,6 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 
 import { Icon } from '@iconify/react';
-import emailIcon from '@iconify/icons-mdi/email';
-import bxKey from '@iconify/icons-bx/bx-key';
 import announcementIcon from '@iconify/icons-zondicons/announcement';
 import bxArrowBack from '@iconify/icons-bx/bx-arrow-back';
 
@@ -49,13 +47,17 @@ if (tkn) {
 } else {
     token = '';
 }
-const urlCuy = 'http://6a43ab11.ngrok.io';
+const urlCuy = 'https://libry.thareeq.id';
 
 export default function BeriKomentar({ match }) {
     const history = useHistory();
     const classes = useStyles();
     const { register, handleSubmit } = useForm();
     const [message, setMessage] = React.useState('');
+    const [success, setSuccess] = React.useState(false);
+    const [selectedValue, setSelectedValue] = React.useState(0);
+    const [open, setOpen] = React.useState(false);
+
     const onSubmit = (data) => {
         console.log(data);
         handlePost(data);
@@ -69,11 +71,11 @@ export default function BeriKomentar({ match }) {
                 'content-type': 'application/json',
                 'Authorization': `Bearer ${token}`,
             },
-            body: {
+            body: JSON.stringify({
                 'buku': data.buku,
-                'rating' : data.rating,
+                'rating' : parseInt(data.rating),
                 'tulisan' : data.tulisan,
-            },
+            }),
         };
         console.log(requestOptions);
         fetch(`${urlCuy}/api/ulasan`, requestOptions)
@@ -81,9 +83,13 @@ export default function BeriKomentar({ match }) {
                 response.json().then((result) => {
                     console.log(result);
                     setMessage(result.message);
-                    if (result.message === 'kamu harus pinjam dulu ya') {
+                    if (!response.ok) {
                         setOpen(true);
                         console.log(open);
+                    } 
+                    if(response.ok) {
+                        setSuccess(true);
+                        console.log(success);
                     }
                     console.warn('result', result);
                 })
@@ -91,8 +97,7 @@ export default function BeriKomentar({ match }) {
             })
     }
 
-    const [selectedValue, setSelectedValue] = React.useState(0);
-    const [open, setOpen] = React.useState(false);
+    
     const handleChange = (event) => {
         setSelectedValue(event.target.value);
         console.log(parseInt(selectedValue));
@@ -172,7 +177,16 @@ export default function BeriKomentar({ match }) {
             </form>
             <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
                 <Alert onClose={handleClose} severity="error">
-                    Silakan kembalikan buku ini terlebih dahulu
+                    <span style={{textTransform: 'capitalize'}}>
+                        {message}
+                    </span>
+                </Alert>
+            </Snackbar>
+            <Snackbar open={success} autoHideDuration={6000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="success">
+                    <span style={{textTransform: 'capitalize'}}>
+                        Terima kasih telah memberi komentar
+                    </span>
                 </Alert>
             </Snackbar>
         </Grid>

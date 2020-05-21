@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, Route } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, GridList, GridListTile, CardContent, CardMedia, Typography, Chip } from '@material-ui/core'
+import { Grid, GridList, GridListTile, CardContent, CardMedia, Typography, Button } from '@material-ui/core'
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 import { Icon } from '@iconify/react';
@@ -35,16 +35,20 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function BookGridBig({ key, judul, penulis, tipe, file, cover, sisa }) {
+export default function BookGridBig({ key, judul, penulis, tipe, file, cover, sisa, detail }) {
     const classes = useStyles();
     console.log(judul);
-    const params = {
+    var params = {
         pathname: '/baca',
         state: {
             judul: `${judul}`,
             file: `${file}`
         }
     }
+    if(tipe === 'f') params = '';
+
+    const detailBuku = detail.split('/')[5];
+    console.log(detailBuku);
     return (
         <GridListTile
             className={classes.Booklist}
@@ -63,11 +67,20 @@ export default function BookGridBig({ key, judul, penulis, tipe, file, cover, si
                 <Grid item className={classes.jenisBuku}>
                     <Icon icon={outlineLibraryBooks} style={{ color: '#222222', fontSize: '17px' }} />
                     {tipe === 'd' ?
-                        <Typography variant='body1' component='span' color='textSecondary'>Buku Digital</Typography>
-                        : <Typography variant='body1' component='span' color='textSecondary'>Buku Fisik</Typography>}
+                        <Typography variant='body1' component='span' color='textSecondary'>&nbsp;Buku Digital</Typography>
+                        : <Typography variant='body1' component='span' color='textSecondary'>&nbsp;Buku Fisik</Typography>}
                 </Grid>
                 <Typography variant='h4' component='h3' paragraph>{sisa} hari tersisa</Typography>
-                <Chip variant="outlined" size="small" label="Kategori" />
+                <Button 
+                    fullWidth
+                    component={Link}
+                    to={'/book/' + detailBuku}
+                    variant='outlined'
+                    color='secondary'
+                    style={{borderRadius: 6}}
+                >
+                    Detail Buku
+                </Button>
             </CardContent>
         </GridListTile>
 

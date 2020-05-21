@@ -29,7 +29,7 @@ if (tkn) {
 } else {
     token = '';
 }
-const urlCuy = 'http://6a43ab11.ngrok.io';
+const urlCuy = 'https://libry.thareeq.id';
 
 
 export default function Favorit() {
@@ -57,7 +57,7 @@ export default function Favorit() {
         var books = await data.json();
         books = Array.from(books.data);
         setBooks(books);
-        console.log(books.length);
+        console.log(books);
         if(books.length) setAda(true);
         setLoading(false);
     }
@@ -88,7 +88,8 @@ export default function Favorit() {
                     judul={item.judul}
                     penulis={item.penulis}
                     kategori={item.kategori}
-                    cover={urlCuy + '/cover-buku/' + item.cover} />
+                    cover={urlCuy + '/cover-buku/' + item.cover}
+                    rating={item.rating} />
             )) : (
             <Grid item className={classes.centerItem}>
                 <NotFound message='Anda belum menentukan Wishlist Anda' />

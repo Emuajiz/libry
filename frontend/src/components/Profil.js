@@ -1,12 +1,14 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import { makeStyles
+import {
+    makeStyles
     // , withStyles 
 } from '@material-ui/core/styles';
 import { Typography, Avatar, Grid, Button } from '@material-ui/core';
 import { Icon } from '@iconify/react';
 import bxChevronRight from '@iconify/icons-bx/bx-chevron-right';
 import bxsExit from '@iconify/icons-bx/bxs-exit';
+import Loading from './LoadingScreen';
 
 // const SmallAvatar = withStyles((theme) => ({
 //     root: {
@@ -61,22 +63,23 @@ if (tkn) {
 } else {
     token = '';
 }
-const urlCuy = 'http://6a43ab11.ngrok.io';
+const urlCuy = 'https://libry.thareeq.id';
 
 export default function Profil() {
     const classes = useStyles();
     const [logout, setLogout] = React.useState(false);
     const [profile, setProfile] = React.useState([]);
+    const [loading, setLoading] = React.useState(true);
 
     const handlerLogout = () => {
         localStorage.clear();
         setLogout(true);
     };
 
-    React.useEffect(() =>{
+    React.useEffect(() => {
         fetchProfile();
     }, [])
-    
+
     const fetchProfile = async () => {
         const requestOptions = {
             method: 'GET',
@@ -92,39 +95,45 @@ export default function Profil() {
         const profile = await data.json();
         setProfile(profile);
         console.log(profile);
+        setLoading(false);
     }
+
     return (
-        <Grid container className={classes.root} direction='column' alignItems='center' spacing={4}>
+        <div>
             {(logout) ? <Redirect to='/login' /> : null}
-            <Avatar
-                alt={profile.nama}
-                className={classes.largeAvatar}
-            />
-            <div class={classes.spaceTop}>
-                <Typography variant='h3' component='h3' gutterBottom>
-                    {profile.nama}
-                </Typography>
-            </div>
-            <div class={classes.spaceTop1}>
-                <Typography variant='body1' component='p' gutterBottom style={{fontAlign: 'center'}}>
-                    {profile.email}
-                </Typography>
-                <Typography variant='body1' component='p' gutterBottom style={{fontAlign: 'center'}}>
-                    {profile.nomor}
-                </Typography>
-            </div>
-            <div className={classes.divider} />
-            <Grid item style={{width: '100%'}}>
-                <Button fullWidth
-                    className={classes.btn}
-                    onClick={handlerLogout}
-                    startIcon={<Icon icon={bxsExit} style={{ color: '#cc5a71', fontSize: '1.5rem' }} />}
-                    endIcon={<Icon icon={bxChevronRight}
-                    style={{ color: '#151515', fontSize: '22px' }} />}>
-                        Logout
+            {loading ? <Loading style={{minHeight: '100vh'}} /> : (
+                <Grid container className={classes.root} direction='column' alignItems='center' spacing={4}>
+                    <Avatar
+                        alt={profile.nama}
+                        className={classes.largeAvatar}
+                    />
+                    <div className={classes.spaceTop}>
+                        <Typography variant='h3' component='h3' gutterBottom>
+                            {profile.nama}
+                        </Typography>
+                    </div>
+                    <div className={classes.spaceTop1}>
+                        <Typography variant='body1' component='p' gutterBottom style={{ fontAlign: 'center' }}>
+                            {profile.email}
+                        </Typography>
+                        <Typography variant='body1' component='p' gutterBottom style={{ fontAlign: 'center' }}>
+                            {profile.nomor}
+                        </Typography>
+                    </div>
+                    <div className={classes.divider} />
+                    <Grid item style={{ width: '100%' }}>
+                        <Button fullWidth
+                            className={classes.btn}
+                            onClick={handlerLogout}
+                            startIcon={<Icon icon={bxsExit} style={{ color: '#cc5a71', fontSize: '1.5rem' }} />}
+                            endIcon={<Icon icon={bxChevronRight}
+                                style={{ color: '#151515', fontSize: '22px' }} />}>
+                            Logout
                     <div style={{ flexGrow: 1 }} />
-                </Button>
-            </Grid>
-        </Grid >
+                        </Button>
+                    </Grid>
+                </Grid>
+            )}
+        </div>
     );
 }

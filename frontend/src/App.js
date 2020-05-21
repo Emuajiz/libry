@@ -72,20 +72,22 @@ let theme = createMuiTheme({
 
 theme = responsiveFontSizes(theme);
 
-const tkn = JSON.parse(localStorage.getItem('login'));
-const urlCuy = 'http://6a43ab11.ngrok.io';
+const urlCuy = 'https://libry.thareeq.id';
 
 function App() {
+	const tkn = JSON.parse(localStorage.getItem('login'));
 	const [tab, setTab] = React.useState('');
 	const [login, setLogin] = React.useState(true);
-
+	
 	const testAPI = async () => {
-        const requestOptions = {
+		const tooken = tkn.token;
+		console.log(tooken);
+		const requestOptions = {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
-                'content-type': 'application/json',
-                'Authorization': `Bearer ${tkn.token}`,
+				'content-type': 'application/json',
+                'Authorization': `Bearer ${tooken}`,
             },
         };
         await fetch(
@@ -101,13 +103,14 @@ function App() {
         })
 	}
 	React.useEffect(() => {
-        console.log(tkn);
-		if(tkn != null ) testAPI();
-    }, [login]);
-
+		console.log(tkn);
+		if(tkn) testAPI(tkn.token);
+		else setLogin(false);
+    });
+	
 	return (
 		<Router>
-			{(!tkn || !login) ? <Redirect to='/login' /> : ''}
+			{(!login) ? <Redirect to='/login' /> : ''}
 			<ThemeProvider theme={theme}>
 				<Grid container direction="column" style={containerStyles}>
 					<Container maxWidth='xs'>
