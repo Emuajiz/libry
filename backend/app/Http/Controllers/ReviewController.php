@@ -13,6 +13,12 @@ class ReviewController extends Controller
     //
     public function store(Request $request)
     {
+        $request->validate([
+            'buku' => 'required|uuid',
+            'tulisan' => 'required',
+            'rating' => 'required',
+        ]);
+
         $sudahPinjam = Peminjaman::where('buku_id', $request->buku)
         ->where('pengunjung_id', $request->user()->id)
         ->whereNotNull('tgl_balik')
@@ -36,7 +42,6 @@ class ReviewController extends Controller
         }
         return response()->json([
             'message' => 'bukunya harus dibalikin dulu ya',
-            Str::uuid()
         ], 403);
     }
 }
