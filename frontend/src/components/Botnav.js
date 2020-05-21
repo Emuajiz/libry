@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { BottomNavigation, BottomNavigationAction } from '@material-ui/core';
 
-import { Link, useHistory, BrowserRouter as Router } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 
 import { Icon } from '@iconify/react';
 import bxHomeSmile from '@iconify/icons-bx/bx-home-smile';
@@ -26,8 +26,9 @@ const useStyles = makeStyles({
 
 function Botnav() {
   const classes = useStyles();
-  const [value, setValue] = React.useState('');
   const history = useHistory();
+  const location = useLocation();
+  const [value, setValue] = React.useState(location.pathname.slice(1));
 
   const handleChange = (event, newValue) => {
     history.push(newValue);
@@ -35,7 +36,6 @@ function Botnav() {
   };
 
   return (
-    <Router>
       <BottomNavigation
         value={value}
         onChange={handleChange}
@@ -55,11 +55,22 @@ function Botnav() {
           component={Link}
           to='/koleksiku'
         />
-        <BottomNavigationAction label="Favorit" value="favorit" icon={<Icon icon={roundFavoriteBorder} style={{ color: secondary, fontSize: '28px' }} />} />
-        <BottomNavigationAction label="Profil" value="profil" icon={<Icon icon={bxUserCircle} style={{ color: secondary, fontSize: '28px' }} />} />
+        <BottomNavigationAction 
+          label="Favorit" 
+          value="favorit" 
+          icon={<Icon icon={roundFavoriteBorder} style={{ color: secondary, fontSize: '28px' }} />} 
+          component={Link}
+          to='/favorit'
+        />
+        <BottomNavigationAction 
+          label="Profil" 
+          value="profil" 
+          icon={<Icon icon={bxUserCircle} style={{ color: secondary, fontSize: '28px' }} />} 
+          component={Link}
+          to='/profil'
+        />
       </BottomNavigation>
-    </Router>
-  );
+  )
 }
 
 export default Botnav;

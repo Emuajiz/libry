@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Divider, Button, Box, GridList, CircularProgress } from '@material-ui/core';
@@ -7,7 +7,6 @@ import { Typography, Divider, Button, Box, GridList, CircularProgress } from '@m
 import { Icon } from '@iconify/react';
 import bxChevronRight from '@iconify/icons-bx/bx-chevron-right';
 
-import AppBar from './Appbar'
 import CategoriesTab from './CategoriesTab'
 import BookGrid from './BookGrid'
 
@@ -44,16 +43,26 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const urlCuy = 'http://6a43ab11.ngrok.io';
+const tkn = JSON.parse(localStorage.getItem('login'));
+
+var token;
+if (tkn) {
+    token = tkn.token;
+} else {
+    token = '';
+}
+const urlCuy = 'https://libry.thareeq.id';
 
 export default function Home() {
     const classes = useStyles();
     const [books, setBooks] = useState([]);
     const [populer, setPopuler] = useState([]);
     const [loading, setLoading] = React.useState(true);
+    const [nama, setNama] = useState('pengunjung');
 
     useEffect(() => {
         fetchDetailBooks();
+        if(token) fetchProfile();
     }, []);
 
     const fetchDetailBooks = async () => {
@@ -78,10 +87,28 @@ export default function Home() {
         setLoading(false);
     }
 
+    const fetchProfile = async () => {
+        const requestOptions = {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'content-type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+        };
+        const data = await fetch(
+            `${urlCuy}/api/user`, requestOptions
+        );
+        const profile = await data.json();
+        setNama(profile.nama.split(' ')[0]);
+    }
+
     return (
         <div className={classes.root}>
             <Box className={classes.spaceTopDiv}>
-                <Typography variant="h2" component='h1' style={{ fontSize: 24 }}>Selamat datang, Aldi</Typography>
+                <Typography variant="h2" component='h1' style={{ fontSize: 24 }}>
+                    Selamat datang, {nama}
+                </Typography>
             </Box>
             <Divider className={classes.spaceTop} />
             <Typography variant="h3" component="h2" className={classes.spaceTop2}>Telusur</Typography>

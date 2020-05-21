@@ -22,6 +22,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Review({rating, jmlUlasan}) {
+    var jmlR = parseFloat(rating);
+    jmlR = jmlR.toFixed(1);
     const classes = useStyles();
     return (
         <Grid container alignContent='center' style={{ width: '100%' }}>
@@ -37,7 +39,7 @@ export default function Review({rating, jmlUlasan}) {
                     </Grid>
                     <Grid container direction='row' className={classes.text}>
                         <Typography variant='h1' component='span' style={{ fontSize: 48 }}>
-                            {rating}
+                            {jmlR}
                         </Typography>
                         <Grid item style={{ display: 'flex', flexDirection: 'column', marginLeft: '1rem', justifyContent: 'flex-end' }}>
                             <RatingStar rating={rating} />

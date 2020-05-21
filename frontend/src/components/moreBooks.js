@@ -9,8 +9,9 @@ import bxArrowBack from '@iconify/icons-bx/bx-arrow-back';
 import bxChevronRight from '@iconify/icons-bx/bx-chevron-right';
 
 import { BookGridAlt } from './BookGrid';
-import BookList from './BookList';
+import {BookListAlt} from './BookList';
 import NotFound from './NotFound';
+import Loading from './LoadingScreen';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -44,7 +45,7 @@ if (tkn) {
 } else {
     token = '';
 }
-const urlCuy = 'http://6a43ab11.ngrok.io';
+const urlCuy = 'https://libry.thareeq.id';
 
 function ListName({nama, foto, buku}) {
     const classes = useStyles();
@@ -208,13 +209,14 @@ function ArsipBuku() {
     const history = useHistory();
     const [ada, setAda] = React.useState(false);
     const [books, setBooks] = React.useState([]);
+    const [loading, setLoading] = React.useState(true);
 
     React.useEffect(() => {
         window.scrollTo(0, 0);
         console.log(token);
         fetchDetailBooks();
         console.log(books);
-    }, [books]);
+    }, []);
 
 
     const fetchDetailBooks = async () => {
@@ -231,13 +233,14 @@ function ArsipBuku() {
         );
         var books = await data.json();
         books = Array.from(books);
-
-        console.log(books.length);
+        console.log(books);
         if (books.length) setAda(true);
         setBooks(books);
+        setLoading(false);
     }
+    
     return (
-        <Grid container direction='column' alignItems='flex-start' className={classes.root}>
+        <Grid container direction='column' alignItems='flex-start' className={classes.root} style={{ paddingBottom: '3.2rem' }}>
             <Grid container alignItems='center' className={classes.items} style={{ marginTop: '1.5rem' }}>
                 <IconButton onClick={() => history.goBack()}>
                     <Icon icon={bxArrowBack} style={{ color: '#cc5a71', fontSize: '29px' }} />
@@ -251,14 +254,16 @@ function ArsipBuku() {
                     </Typography>
                 </Grid>
             </Grid>
-            {ada ? (
-                <div>{books.map(item => (
-                    <BookList
+            
+            {loading ? <Loading /> : ada ? (
+                <div style={{width: '100%', height: '100%'}}>
+                {books.map(item => (
+                    <BookListAlt
                         id={item.id}
                         judul={item.judul}
                         penulis={item.penulis}
-                        kategori={item.kategori}
-                        cover={item.kategori}
+                        links={item.detail_buku}
+                        cover={item.cover_location}
                     />
                 ))}
                 </div>
@@ -267,6 +272,7 @@ function ArsipBuku() {
                         <NotFound message='Maaf, arsip peminjaman masih kosong' />
                     </Grid>
                 )}
+            
         </Grid>
     );
 }

@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const urlCuy = 'http://6a43ab11.ngrok.io';
+const urlCuy = 'https://libry.thareeq.id';
 
 export default function Register() {
     const classes = useStyles();
@@ -83,7 +83,7 @@ export default function Register() {
             </Grid>
             <form className={classes.root} noValidate onSubmit={handleSubmit(onSubmit)}>
                 <TextField
-                    id="outlined-basic"
+                    id="email"
                     label="E-mail"
                     name="email"
                     type="email"
@@ -99,7 +99,7 @@ export default function Register() {
                     // style={{ borderRadius: 8 }}
                     color='primary' />
                 <TextField
-                    id="outlined-basic"
+                    id="nama"
                     label="Nama Lengkap"
                     name="nama"
                     variant='filled'
@@ -114,7 +114,7 @@ export default function Register() {
                     color='primary'
                     style={{ borderRadius: 8 }} />
                 <TextField
-                    id="outlined-basic"
+                    id="password"
                     label="Password"
                     name="password"
                     type="password"
@@ -130,7 +130,7 @@ export default function Register() {
                     color='primary'
                     style={{ borderRadius: 8 }} />
                 <TextField
-                    id="outlined-basic"
+                    id="phone"
                     label="No Telepon"
                     name="phone"
                     variant='filled'
@@ -145,7 +145,7 @@ export default function Register() {
                     color='primary'
                     style={{ borderRadius: 8 }} />
                 <TextField
-                    id="outlined-basic"
+                    id="alamat"
                     label="Alamat"
                     name='alamat'
                     variant='filled'
